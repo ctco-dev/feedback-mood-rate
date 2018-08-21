@@ -33,9 +33,6 @@
             <button id="login-btn" type="button" class="w3-button w3-section w3-teal w3-ripple" onclick="login()">Log
                 in
             </button>
-            <button id="register-btn" type="button" class="w3-button w3-section w3-teal w3-ripple w3-hide"
-                    onclick="register()">Register
-            </button>
         </p>
 
     </form>
@@ -66,56 +63,6 @@
                 location.href = "/app/start.jsp";
             } else {
                 showError("Username or Password is incorrect!");
-            }
-        })
-    }
-
-    function register() {
-        hideError();
-        console.log("start registration");
-        var usernameTxt = document.getElementById("username-txt");
-        var password1Txt = document.getElementById("password1-txt");
-        var password2Txt = document.getElementById("password2-txt");
-        var pwd1 = password1Txt.value;
-        var pwd2 = password2Txt.value;
-        if (pwd1 !== pwd2) {
-            showError("Passwords doesn't match!");
-            return;
-        }
-        var dto = {
-            "username": usernameTxt.value,
-            "password": pwd1
-        };
-        console.log("sending registration data");
-        fetch("<c:url value='/api/auth/register'/>", {
-            "method": "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(dto)
-        }).then(function (response) {
-            if (response.status === 200) {
-                console.log("registration success");
-                location.href = "<c:url value='/app/start.jsp'/>";
-            } else if (response.status === 401) {
-                showError("Something is wrong!");
-            } else {
-                response.json().then(function(json) {
-                    switch(json.errorCode) {
-                        case "CONFLICT":
-                            showError("A user with the same username already exists!");
-                            break;
-                        case "BAD_USERNAME":
-                            showError("Username is invalid!");
-                            break;
-                        case "BAD_PASSWORD":
-                            showError("Password is invalid!");
-                            break;
-                        default:
-                            showError("Something is wrong!");
-                    }
-                })
             }
         })
     }
