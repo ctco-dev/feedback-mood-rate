@@ -9,7 +9,7 @@
 <body>
 
 <header class="w3-container w3-teal">
-    <h1>Login or Register</h1>
+    <h1>Login</h1>
 </header>
 
 <div class="w3-container w3-half w3-margin-top">
@@ -21,22 +21,12 @@
         </div>
 
         <p>
-            <input id="register-cb" class="w3-check" type="checkbox" onchange="switchRegistration()">
-            <label for="register-cb">Registration</label>
-        </p>
-
-        <p>
             <input id="username-txt" class="w3-input" type="text" style="width:90%" required>
             <label for="username-txt">Name</label>
         </p>
         <p>
             <input id="password1-txt" class="w3-input" type="password" style="width:90%" required>
             <label for="password1-txt">Password</label>
-        </p>
-
-        <p id="password2-grp" class="w3-hide">
-            <input id="password2-txt" class="w3-input" type="password" style="width:90%" required>
-            <label for="password2-txt">Repeat Password</label>
         </p>
 
         <p>
@@ -53,23 +43,6 @@
 </div>
 
 <script>
-    function switchRegistration() {
-        hideError();
-        var checkbox = document.getElementById("register-cb");
-        var pwd2 = document.getElementById("password2-grp");
-        var loginBtn = document.getElementById("login-btn");
-        var registerBtn = document.getElementById("register-btn");
-        if (checkbox.checked) {
-            pwd2.classList.remove("w3-hide");
-            loginBtn.classList.add("w3-hide");
-            registerBtn.classList.remove("w3-hide");
-        } else {
-            pwd2.classList.add("w3-hide");
-            loginBtn.classList.remove("w3-hide");
-            registerBtn.classList.add("w3-hide");
-        }
-    }
-
     function login() {
         hideError();
         console.log("start login");
@@ -106,7 +79,7 @@
         var pwd1 = password1Txt.value;
         var pwd2 = password2Txt.value;
         if (pwd1 !== pwd2) {
-            showError("Passwords doesn't match!")
+            showError("Passwords doesn't match!");
             return;
         }
         var dto = {
