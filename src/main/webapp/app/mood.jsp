@@ -13,17 +13,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
-
+        #Submit {
+            float: right;
+            width: 225px
+        }
+        #Go_back{
+        float: left;
+            width: 130px
+        }
     </style>
 </head>
 <body>
 <p id="date"></p>
-<form name="submit" id="submit" action="#" method="post">
+<form name="submit" id="submit1" action="#" method="post">
     <p>There will be event name</p>
     <ul>
         <li> Choose your mood!</li>
@@ -44,10 +50,10 @@
         <label for="comment">Comment:</label>
         <textarea class="form-control" rows="5" id="comment"></textarea>
     </div>
-    <div style="float: left; width: 130px" id="Go back" >
+    <div id="Go_back" >
         <button type="button" onclick="back()">Go back!</button>
     </div>
-    <div style="float: right; width: 225px" id="Submit" >
+    <div id="Submit" >
         <button type="button" onclick="submit()">Submit</button>
     </div>
 </form>
