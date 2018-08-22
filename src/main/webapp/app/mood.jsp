@@ -19,11 +19,14 @@
     <style>
         #Submit {
             float: right;
-            width: 225px
+            width: 225px;
         }
         #Go_back{
         float: left;
-            width: 130px
+            width: 130px;
+        }
+        i {
+            font-size:60px;
         }
     </style>
 </head>
@@ -34,15 +37,15 @@
     <ul>
         <li> Choose your mood!</li>
         <li>
-            <i class="em em-slightly_smiling_face" style="font-size:60px;"></i>
+            <i class="em em-slightly_smiling_face" ></i>
             <input type="radio" id="radio-button-one" name="first_item" value="1"  title="happy"/>
         </li>
         <li>
-            <i class="em em-neutral_face" style="font-size:60px;"></i>
+            <i class="em em-neutral_face"></i>
             <input type="radio" id="radio-button-two" name="first_item" value="2" title="neutral"/>
         </li>
         <li>
-            <i class="em em-white_frowning_face" style="font-size:60px;"></i>
+            <i class="em em-white_frowning_face"></i>
             <input type="radio" id="radio-button-three" name="first_item" value="3" title="unhappy"/>
         </li>
     </ul>
