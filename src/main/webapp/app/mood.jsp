@@ -29,7 +29,7 @@
 </head>
 <body>
 <p id="date"></p>
-<form name="mood_form" id="formId1" action="#" method="post">
+<form name="mood_form" id="formId" action="#" method="post">
     <p>There will be event name</p>
     <ul>
         <li> Choose your mood!</li>
