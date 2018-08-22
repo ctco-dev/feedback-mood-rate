@@ -51,7 +51,6 @@
         Pellentesque</p>
 </div>
 <%--END--%>
-
 <button type="button" onclick="back()">Go back</button>
 <script>
     function showTextFeedback() {
