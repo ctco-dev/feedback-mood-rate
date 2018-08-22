@@ -35,15 +35,15 @@
         <li> Choose your mood!</li>
         <li>
             <i class="em em-slightly_smiling_face" style="font-size:60px;"></i>
-            <input type="radio" id="radiobuttonone" name="first_item" value="1"  title="happy"/>
+            <input type="radio" id="radio-button-one" name="first_item" value="1"  title="happy"/>
         </li>
         <li>
             <i class="em em-neutral_face" style="font-size:60px;"></i>
-            <input type="radio" id="radiobuttontwo" name="first_item" value="2" title="neutral"/>
+            <input type="radio" id="radio-button-two" name="first_item" value="2" title="neutral"/>
         </li>
         <li>
             <i class="em em-white_frowning_face" style="font-size:60px;"></i>
-            <input type="radio" id="radiobuttonthree" name="first_item" value="3" title="unhappy"/>
+            <input type="radio" id="radio-button-three" name="first_item" value="3" title="unhappy"/>
         </li>
     </ul>
     <div class="form-group">
@@ -58,11 +58,11 @@
     </div>
 </form>
 <script>
-    n =  new Date();
-    y = n.getFullYear();
-    m = n.getMonth() + 1;
-    d = n.getDate();
-    document.getElementById("date").innerHTML = m + "/" + d + "/" + y;
+    todaysDate =  new Date();
+    year = todaysDate.getFullYear();
+    month = todaysDate.getMonth() + 1;
+    day = todaysDate.getDate();
+    document.getElementById("date").innerHTML = month + "/" + day + "/" + year;
 </script>
 </body>
 </html>
