@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.security.enterprise.SecurityContext;
 import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,8 @@ public class UserStore {
     private static final int MIN_PASSWORD_LENGTH = 5;
     @PersistenceContext
     private EntityManager em;
+    @Inject
+    private SecurityContext securityContext;
     @Inject
     private Pbkdf2PasswordHash hash;
 
@@ -64,4 +67,10 @@ public class UserStore {
         }
     }
 
+    public User getCurrentUser() {
+        String username = securityContext.getCallerPrincipal()
+                .getName();
+        return findUserByUsername(username)
+                .orElseThrow(IllegalStateException::new);
+    }
 }

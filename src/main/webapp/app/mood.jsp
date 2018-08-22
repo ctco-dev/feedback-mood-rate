@@ -5,7 +5,8 @@
   Time: 17:48
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +31,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="voteStatus()">
 <p id="date"></p>
 <form name="mood_form" id="formId" action="#" method="post">
     <p>There will be event name</p>
@@ -66,6 +67,21 @@
     month = todaysDate.getMonth() + 1;
     day = todaysDate.getDate();
     document.getElementById("date").innerHTML = month + "/" + day + "/" + year;
+
+    function voteStatus() {
+        console.log("checking status");
+        fetch("<c:url value='/api/vote/status'/>", {
+            "method": "GET",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(function (response) {
+            return response.json();
+        }).then(function (status) {
+            console.log(JSON.stringify(status));
+        });
+    }
 </script>
 </body>
 </html>
