@@ -96,7 +96,7 @@
         var mood;
         if (document.getElementById('radio-button-one').checked) {
             console.log("Mood - Happy");
-            feedback = {"mood": 1, "comment": document.getElementById("comment").value};
+            feedback = {"mood": "1", "comment": document.getElementById("comment").value};
             submitData();
         } else if (document.getElementById('radio-button-two').checked) {
             console.log("Mood - Neutral");

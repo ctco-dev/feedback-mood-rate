@@ -14,11 +14,11 @@ public class Vote {
     @ManyToOne
     private User user;
 
-    @Enumerated(EnumType.STRING)
-    private VoteStatus voteStatus;
+   // @Enumerated(EnumType.STRING)
+  //  private VoteStatus voteStatus;
 
-    @Enumerated(EnumType.STRING)
-    private EventType eventType;
+   // @Enumerated(EnumType.STRING)
+   // private EventType eventType;
 
     private String eventName;
 
