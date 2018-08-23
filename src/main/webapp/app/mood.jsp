@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +23,7 @@
             width: 225px;
         }
         #Go_back{
-        float: left;
+            float: left;
             width: 130px;
         }
         i {
@@ -86,6 +86,44 @@
     function back() {
         location.href = "/app/option.jsp";
     }
+
+    var feedback = {};
+
+    function submit() {
+        console.log("Collecting feedback data!");
+        var mood;
+
+        if (document.getElementById('radio-button-one').checked) {
+
+        } else if (document.getElementById('radio-button-two').checked) {
+
+        }else if (document.getElementById('radio-button-three').checked) {
+
+        }else {
+            alert("Please select your mood");
+        }
+
+
+
+
+
+
+
+        console.log("DONE");
+        console.log(JSON.stringify(feedback));
+        fetch("<c:url value='/api/vote/submit'/>", {
+            "method": "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(function (response) {
+            console.log("DONE");
+            checkStatus();
+        });
+    }
+
 </script>
 </body>
 </html>
