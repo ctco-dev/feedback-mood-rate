@@ -34,7 +34,7 @@
     </style>
 </head>
 <body onload="voteStatus()">
-<p id="date"></p>
+<h3 id="date"></h3>
 <form name="mood_form" id="formId" method="post">
     <p>There will be event name</p>
     <ul>
@@ -64,11 +64,25 @@
     </div>
 </form>
 <script>
-    todaysDate = new Date();
-    year = todaysDate.getFullYear();
-    month = todaysDate.getMonth() + 1;
-    day = todaysDate.getDate();
-    document.getElementById("date").innerHTML = month + "/" + day + "/" + year;
+//    todaysDate = new Date();
+//    year = todaysDate.getFullYear();
+//    month = todaysDate.getMonth() + 1;
+//    day = todaysDate.getDate();
+
+    function getDate(date) {
+        var monthNames = [
+            "January", "February", "March",
+            "April", "May", "June", "July",
+            "August", "September", "October",
+            "November", "December"
+        ];
+
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+
+        return day + ' ' + monthNames[monthIndex] + ' ' + year;
+    }
 
     var feedback = {};
 
@@ -84,6 +98,11 @@
             return response.json();
         }).then(function (status) {
             console.log(JSON.stringify(status));
+            if (status.dayStatus) {
+                document.getElementById("date").innerHTML = getDate(new Date());
+            } else if (status.eventStatus) {
+                document.getElementById("date").innerHTML = "Event name";
+            }
         });
     }
 
@@ -124,6 +143,8 @@
             body: JSON.stringify(feedback)
         }).then(function (response) {
             console.log("DONE");
+            alert("Thanks for vote!");
+            back();
         });
     }
 </script>
