@@ -33,7 +33,7 @@
 </head>
 <body onload="voteStatus()">
 <p id="date"></p>
-<form name="mood_form" id="formId" action="#" method="post">
+<form name="mood_form" id="formId" method="post">
     <p>There will be event name</p>
     <ul>
         <li> Choose your mood!</li>
@@ -58,7 +58,7 @@
         <button type="button" onclick="back()">Go back!</button>
     </div>
     <div id="Submit" >
-        <button type="button" onclick="submit()">Submit</button>
+        <button type="button" onclick="submitVote()">Submit</button>
     </div>
 </form>
 <script>
@@ -67,6 +67,8 @@
     month = todaysDate.getMonth() + 1;
     day = todaysDate.getDate();
     document.getElementById("date").innerHTML = month + "/" + day + "/" + year;
+
+    var feedback = {};
 
     function voteStatus() {
         console.log("checking status");
@@ -84,32 +86,26 @@
     }
 
     function back() {
-        location.href = "/app/option.jsp";
+        location.href = "<c:url value='/app/option.jsp'/>";
     }
 
-    var feedback = {};
-
-    function submit() {
-        console.log("Collecting feedback data!");
+    function submitVote() {
+        console.log("Collecting feedback data");
         var mood;
-
         if (document.getElementById('radio-button-one').checked) {
-
+            console.log("Mood - Happy");
+            feedback = {"mood" : 1, "comment" : document.getElementById("comment").value};
         } else if (document.getElementById('radio-button-two').checked) {
-
+            console.log("Mood - Neutral");
+            feedback = {"mood" : 2, "comment" : document.getElementById("comment").value};
         }else if (document.getElementById('radio-button-three').checked) {
-
+            console.log("Mood - Sad");
+            feedback = {"mood" : 3, "comment" : document.getElementById("comment").value};
         }else {
+            console.log("Error - mood not selected!");
             alert("Please select your mood");
         }
-
-
-
-
-
-
-
-        console.log("DONE");
+        console.log("Submitting data");
         console.log(JSON.stringify(feedback));
         fetch("<c:url value='/api/vote/submit'/>", {
             "method": "POST",
@@ -117,13 +113,11 @@
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(feedback)
         }).then(function (response) {
             console.log("DONE");
-            checkStatus();
         });
     }
-
 </script>
 </body>
 </html>
