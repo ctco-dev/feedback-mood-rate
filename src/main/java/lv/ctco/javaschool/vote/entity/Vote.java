@@ -60,11 +60,11 @@ public class Vote {
         this.eventType = eventType;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -84,11 +84,11 @@ public class Vote {
         this.comment = comment;
     }
 
-    public String getAddress() {
+    public Integer getMoodValue() {
         return moodValue;
     }
 
-    public void setAddress(String address) {
-        this.moodValue = address;
+    public void setMoodValue(Integer moodValue) {
+        this.moodValue = moodValue;
     }
 }
