@@ -73,4 +73,14 @@ public class UserStore {
         return findUserByUsername(username)
                 .orElseThrow(IllegalStateException::new);
     }
+
+    public Optional<Role> getRoleByUsername(String username) {
+        return em.createQuery(
+                "select u.role " +
+                        "from User u " +
+                        "where u.username = :username", Role.class)
+                .setParameter("username", username)
+                .getResultStream()
+                .findFirst();
+    }
 }

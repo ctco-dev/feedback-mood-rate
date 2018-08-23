@@ -3,10 +3,7 @@ package lv.ctco.javaschool.vote.boundary;
 import lv.ctco.javaschool.auth.control.UserStore;
 import lv.ctco.javaschool.auth.entity.domain.User;
 import lv.ctco.javaschool.vote.control.VoteStore;
-import lv.ctco.javaschool.vote.entity.EventType;
-import lv.ctco.javaschool.vote.entity.Vote;
-import lv.ctco.javaschool.vote.entity.VoteDto;
-import lv.ctco.javaschool.vote.entity.VoteStatus;
+import lv.ctco.javaschool.vote.entity.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -16,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import java.util.List;
 import java.util.Optional;
 
 @Path("/vote")
@@ -73,4 +71,15 @@ public class VoteApi {
             return dto;
         }).orElseThrow(IllegalStateException::new);
     }
+
+//    @GET
+//    @RolesAllowed({"ADMIN", "USER"})
+//    @Path("/status")
+//    public List<EventDtoList> getIncompleteEvents() {
+//        User currentUser = userStore.getCurrentUser();
+//        List<Event> eventList = voteStore.getIncompleteEventList(currentUser);
+//
+//
+//        return null;
+//    }
 }

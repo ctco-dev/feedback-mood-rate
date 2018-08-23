@@ -4,12 +4,23 @@
 <head>
     <title>Option</title>
 </head>
-<body>
-<button type="button" onclick="handlerEvent('DAY')">Day</button>
-<button type="button" onclick="handlerEvent('EVENT')">Event</button>
+<body onload="onloadHandler()">
+<h2>You mood in:</h2>
+<p>
+    <button type="button" onclick="handlerEvent('DAY')">Day</button>
+    <span id="date"></span></br></br>
+    <button type="button" onclick="handlerEvent('EVENT')">Event</button>
+    </br></br></br></br></br>
+</p>
+<p>
+    <button type="button" onclick="getUserRole()">getUserRole</button>
+    </br></br>
+</p>
+<p>
+    <button type="button" onclick="goStatistics()">Statistics</button>
+    </br></br>
+</p>
 <button type="button" onclick="logout()">Log out</button>
-<button type="button" onclick="goStatistics()">Statistics</button>
-
 <script>
     function handlerEvent(eventType) {
         console.log(JSON.stringify(eventType));
@@ -34,6 +45,49 @@
 
     function goStatistics() {
         location.href = "/app/statistics.jsp";
+    }
+
+    function onloadHandler() {
+        getTodayDate();
+        getUserRole();
+    }
+
+    function getTodayDate() {
+        todaysDate = new Date();
+        year = todaysDate.getFullYear();
+        month = todaysDate.getMonth() + 1;
+        day = todaysDate.getDate();
+        document.getElementById("date").innerHTML = day + "." + month + "." + year;
+    }
+
+    function getUserRole() {
+        console.log("role");
+        fetch("<c:url value='/api/user/role'/>", {
+            "method": "GET",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(function (response) {
+            return response.json();
+        }).then(function (status) {
+            console.log(JSON.stringify(status));
+        });
+    }
+
+    function getEvents() {
+        console.log("role");
+        fetch("<c:url value='/api/user/role'/>", {
+            "method": "GET",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(function (response) {
+            return response.json();
+        }).then(function (status) {
+            console.log(JSON.stringify(status));
+        });
     }
 </script>
 </body>
