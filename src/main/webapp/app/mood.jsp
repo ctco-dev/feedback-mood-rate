@@ -22,12 +22,14 @@
             float: right;
             width: 225px;
         }
-        #Go_back{
+
+        #Go_back {
             float: left;
             width: 130px;
         }
+
         i {
-            font-size:60px;
+            font-size: 60px;
         }
     </style>
 </head>
@@ -38,8 +40,8 @@
     <ul>
         <li> Choose your mood!</li>
         <li>
-            <i class="em em-slightly_smiling_face" ></i>
-            <input type="radio" id="radio-button-one" name="first_item" value="1"  title="happy"/>
+            <i class="em em-slightly_smiling_face"></i>
+            <input type="radio" id="radio-button-one" name="first_item" value="1" title="happy"/>
         </li>
         <li>
             <i class="em em-neutral_face"></i>
@@ -54,15 +56,15 @@
         <label for="comment">Comment:</label>
         <textarea class="form-control" rows="5" id="comment"></textarea>
     </div>
-    <div id="Go_back" >
+    <div id="Go_back">
         <button type="button" onclick="back()">Go back!</button>
     </div>
-    <div id="Submit" >
+    <div id="Submit">
         <button type="button" onclick="submitVote()">Submit</button>
     </div>
 </form>
 <script>
-    todaysDate =  new Date();
+    todaysDate = new Date();
     year = todaysDate.getFullYear();
     month = todaysDate.getMonth() + 1;
     day = todaysDate.getDate();
@@ -94,17 +96,23 @@
         var mood;
         if (document.getElementById('radio-button-one').checked) {
             console.log("Mood - Happy");
-            feedback = {"mood" : 1, "comment" : document.getElementById("comment").value};
+            feedback = {"mood": 1, "comment": document.getElementById("comment").value};
+            submitData();
         } else if (document.getElementById('radio-button-two').checked) {
             console.log("Mood - Neutral");
-            feedback = {"mood" : 2, "comment" : document.getElementById("comment").value};
-        }else if (document.getElementById('radio-button-three').checked) {
+            feedback = {"mood": 2, "comment": document.getElementById("comment").value};
+            submitData();
+        } else if (document.getElementById('radio-button-three').checked) {
             console.log("Mood - Sad");
-            feedback = {"mood" : 3, "comment" : document.getElementById("comment").value};
-        }else {
+            feedback = {"mood": 3, "comment": document.getElementById("comment").value};
+            submitData();
+        } else {
             console.log("Error - mood not selected!");
             alert("Please select your mood");
         }
+    }
+
+    function submitData() {
         console.log("Submitting data");
         console.log(JSON.stringify(feedback));
         fetch("<c:url value='/api/vote/submit'/>", {
