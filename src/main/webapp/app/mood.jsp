@@ -82,6 +82,10 @@
             console.log(JSON.stringify(status));
         });
     }
+
+    function back() {
+        location.href = "/app/option.jsp";
+    }
 </script>
 </body>
 </html>

@@ -8,6 +8,7 @@
 <button type="button" onclick="handlerEvent('DAY')">Day</button>
 <button type="button" onclick="handlerEvent('EVENT')">Event</button>
 <button type="button" onclick="logout()">Log out</button>
+<button type="button" onclick="goStatistics()">Statistics</button>
 
 <script>
     function handlerEvent(eventType) {
@@ -29,6 +30,10 @@
             .then(function (response) {
                 location.href = "/";
             });
+    }
+
+    function goStatistics() {
+        location.href = "/app/statistics.jsp";
     }
 </script>
 </body>
