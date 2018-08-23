@@ -4,7 +4,6 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <script src="/js/functions.js" type="javascript"></script>
     <title>Statistics</title>
     <style>
         #text-feedback {
@@ -60,6 +59,10 @@
         } else {
             document.getElementById("text-feedback").classList.add("w3-hide");
         }
+    }
+
+    function back() {
+        location.href = "/app/option.jsp";
     }
 </script>
 </body>
