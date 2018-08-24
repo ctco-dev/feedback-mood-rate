@@ -1,13 +1,13 @@
 package lv.ctco.javaschool.vote.control;
 
 import lv.ctco.javaschool.auth.entity.domain.User;
-import lv.ctco.javaschool.vote.entity.EventType;
 import lv.ctco.javaschool.vote.entity.Vote;
 import lv.ctco.javaschool.vote.entity.VoteStatus;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Stateless

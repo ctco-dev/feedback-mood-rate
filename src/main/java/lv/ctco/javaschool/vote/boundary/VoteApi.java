@@ -1,12 +1,10 @@
 package lv.ctco.javaschool.vote.boundary;
 
+import jdk.nashorn.internal.runtime.logging.Logger;
 import lv.ctco.javaschool.auth.control.UserStore;
 import lv.ctco.javaschool.auth.entity.domain.User;
 import lv.ctco.javaschool.vote.control.VoteStore;
-import lv.ctco.javaschool.vote.entity.EventType;
-import lv.ctco.javaschool.vote.entity.Vote;
-import lv.ctco.javaschool.vote.entity.VoteDto;
-import lv.ctco.javaschool.vote.entity.VoteStatus;
+import lv.ctco.javaschool.vote.entity.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -16,10 +14,12 @@ import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Path("/vote")
 @Stateless
+@Logger
 public class VoteApi {
     @PersistenceContext
     private EntityManager em;
@@ -73,4 +73,23 @@ public class VoteApi {
             return dto;
         }).orElseThrow(IllegalStateException::new);
     }
+
+    @POST
+    @RolesAllowed({"ADMIN", "USER"})
+    @Path("/submit")
+    public void submitVote(FeedbackDto feedback) {
+        User currentUser = userStore.getCurrentUser();
+        LocalDate today = LocalDate.now();
+
+        DailyVote newDailyVote = new DailyVote();
+        newDailyVote.setUser(currentUser);
+        newDailyVote.setMood(feedback.getMood());
+        newDailyVote.setComment(feedback.getComment());
+        newDailyVote.setDate(today.toString());
+
+        em.persist(newDailyVote);
+    }
 }
+
+
+
