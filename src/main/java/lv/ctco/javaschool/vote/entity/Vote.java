@@ -14,11 +14,10 @@ public class Vote {
     @ManyToOne
     private User user;
 
-   // @Enumerated(EnumType.STRING)
-  //  private VoteStatus voteStatus;
-
-   // @Enumerated(EnumType.STRING)
-   // private EventType eventType;
+  @Enumerated(EnumType.STRING)
+    private VoteStatus voteStatus;
+    @Enumerated(EnumType.STRING)
+    private EventType eventType;
 
     private String eventName;
 
@@ -51,7 +50,6 @@ public class Vote {
     public void setVoteStatus(VoteStatus voteStatus) {
         this.voteStatus = voteStatus;
     }
-
     public EventType getEventType() {
         return eventType;
     }
