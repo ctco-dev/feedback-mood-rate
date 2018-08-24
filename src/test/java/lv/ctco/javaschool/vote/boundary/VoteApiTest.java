@@ -12,7 +12,6 @@ import lv.ctco.javaschool.vote.entity.VoteStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -21,24 +20,29 @@ import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 class VoteApiTest {
     @Mock
-    EntityManager em;
+    private EntityManager em;
     @Mock
-    UserStore userStore;
+    private UserStore userStore;
+    @Mock
+    private VoteStore voteStore;
 
     @InjectMocks
-    VoteApi voteApi;
+    private VoteApi voteApi;
 
     private User user1;
 
-    @Mock
-    VoteStore voteStore;
-    
     private User user;
 
     @BeforeEach
@@ -47,14 +51,13 @@ class VoteApiTest {
 
         user1 = new User();
         user1.setUsername("user1");
-      
+
         user = new User();
         user.setUsername("user");
-
     }
 
     @Test
-    @DisplayName("Check data for user1,Mood happy = 1,without comments, Data is today")
+    @DisplayName("Check data for user1,Mood happy = 1,without comments, Date is today")
     void submitVote_Happy_without_Comment() {
         when(userStore.getCurrentUser())
                 .thenReturn(user1);
@@ -75,9 +78,10 @@ class VoteApiTest {
 
         verify(em, times(1)).persist(any(DailyVote.class));
     }
-@Test
-@DisplayName("Check data for user1 and Mood neutral = 2 and with comments")
-        void submitVote_Neutral_with_Comment() {
+
+    @Test
+    @DisplayName("Check data for user1 and Mood neutral = 2 and with comments")
+    void submitVote_Neutral_with_Comment() {
         when(userStore.getCurrentUser())
                 .thenReturn(user1);
         FeedbackDto feedbackDto = new FeedbackDto();
@@ -96,7 +100,8 @@ class VoteApiTest {
         voteApi.submitVote(feedbackDto);
 
         verify(em, times(1)).persist(any(DailyVote.class));
-        }
+    }
+
     @Test
     @DisplayName("Check data for user1 and Mood unhappy = 3 and with comments")
     void submitVote_Unhappy_with_Comment() {
@@ -119,7 +124,6 @@ class VoteApiTest {
 
         verify(em, times(1)).persist(any(DailyVote.class));
     }
-}
 
     @Test
     @DisplayName("Check vote status after select first event")
@@ -176,7 +180,7 @@ class VoteApiTest {
 
         VoteDto statusDto = voteApi.getStatus();
 
-        assertEquals(VoteStatus.INCOMPLETE ,statusDto.getStatus());
+        assertEquals(VoteStatus.INCOMPLETE, statusDto.getStatus());
         assertTrue(statusDto.isEventStatus());
         assertFalse(statusDto.isDayStatus());
     }
