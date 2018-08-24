@@ -4,10 +4,7 @@ import jdk.nashorn.internal.runtime.logging.Logger;
 import lv.ctco.javaschool.auth.control.UserStore;
 import lv.ctco.javaschool.auth.entity.domain.User;
 import lv.ctco.javaschool.vote.control.VoteStore;
-import lv.ctco.javaschool.vote.entity.EventType;
-import lv.ctco.javaschool.vote.entity.Vote;
-import lv.ctco.javaschool.vote.entity.VoteDto;
-import lv.ctco.javaschool.vote.entity.VoteStatus;
+import lv.ctco.javaschool.vote.entity.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -86,7 +83,7 @@ public class VoteApi {
     @POST
     @RolesAllowed({"ADMIN", "USER"})
     @Path("/submit")
-    public void submitVote(JsonObject field) {
+    public void submitVote(FeedbackDto feedback) {
         User currentUser = userStore.getCurrentUser();
         Optional<Vote> vote = voteStore.getStartedVoteFor(currentUser, VoteStatus.INCOMPLETE, LocalDate.now());
       //  vote.ifPresent((Vote v) -> {
