@@ -10,13 +10,13 @@
 <h2>You mood in:</h2>
 <p>
     <button type="button" onclick="handlerEvent('DAY')">Day</button>
-    <span id="date"></span></br></br>
+    <span id="date"></span><br/><br/>
     <button type="button" onclick="handlerEvent('EVENT')">Event</button>
-    </br></br></br></br></br>
+    <br/><br/><br/><br/><br/>
 </p>
 <p id="button-stat">
     <button type="button" onclick="goStatistics()">Statistics</button>
-    </br></br>
+    <br/><br/>
 </p>
 <button type="button" onclick="logout()">Log out</button>
 <script>
