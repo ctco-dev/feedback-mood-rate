@@ -34,8 +34,7 @@ public class VoteApi {
     public void startVote(EventType eventType) {
         User currentUser = userStore.getCurrentUser();
         Optional<Vote> vote = voteStore.getIncompleteVote(currentUser);
-
-        vote.ifPresent(v -> {
+                vote.ifPresent(v -> {
             if (v.getEventType() != eventType) {
                 v.setEventType(eventType);
             }
