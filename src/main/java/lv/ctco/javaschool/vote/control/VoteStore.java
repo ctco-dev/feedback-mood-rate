@@ -33,8 +33,8 @@ public class VoteStore {
         return em.createQuery(
                 "select e " +
                         "from Event e " +
-                        "where e.user = :username", Event.class)
-                .setParameter("username", user)
+                        "where :user member of e.user", Event.class)
+                .setParameter("user", user)
                 .getResultList();
     }
 }

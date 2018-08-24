@@ -2,7 +2,7 @@ package lv.ctco.javaschool.vote.entity;
 
 import lv.ctco.javaschool.auth.entity.domain.User;
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "events")
@@ -11,18 +11,20 @@ public class Event {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_user")
-    private User user;
+    @OneToMany
+    @JoinTable(name = "user_event",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> user;
 
     private String eventName;
-    private LocalDate date;
+    private String date;
 
-    public User getUser() {
+    public List<User> getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(List<User> user) {
         this.user = user;
     }
 
@@ -42,11 +44,11 @@ public class Event {
         this.eventName = eventName;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

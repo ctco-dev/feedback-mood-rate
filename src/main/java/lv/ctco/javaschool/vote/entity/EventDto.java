@@ -1,18 +1,19 @@
 package lv.ctco.javaschool.vote.entity;
 
 import lv.ctco.javaschool.auth.entity.domain.User;
-import java.time.LocalDate;
+
+import java.util.List;
 
 public class EventDto {
-    private User user;
+    private List<User> user;
     private String eventName;
-    private LocalDate date;
+    private String date;
 
-    public User getUser() {
+    public List<User> getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(List<User> user) {
         this.user = user;
     }
 
@@ -24,11 +25,11 @@ public class EventDto {
         this.eventName = eventName;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

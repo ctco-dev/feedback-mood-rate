@@ -83,7 +83,6 @@ public class VoteApi {
 
         eventList.forEach(ev -> {
             EventDto evDto = new EventDto();
-            evDto.setUser(ev.getUser());
             evDto.setEventName(ev.getEventName());
             evDto.setDate(ev.getDate());
             eventDtos.add(evDto);
