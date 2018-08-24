@@ -2,7 +2,12 @@ package lv.ctco.javaschool.vote.entity;
 
 import lv.ctco.javaschool.auth.entity.domain.User;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.EnumType;
 import java.time.LocalDate;
 
 @Entity
@@ -14,7 +19,7 @@ public class Vote {
     @ManyToOne
     private User user;
 
-  @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private VoteStatus voteStatus;
     @Enumerated(EnumType.STRING)
     private EventType eventType;
@@ -50,6 +55,7 @@ public class Vote {
     public void setVoteStatus(VoteStatus voteStatus) {
         this.voteStatus = voteStatus;
     }
+
     public EventType getEventType() {
         return eventType;
     }
