@@ -54,7 +54,7 @@ public class DailyVote {
         this.comment = comment;
     }
 
-    public String getDate() {
+    public  String getDate() {
         return date;
     }
 

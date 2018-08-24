@@ -9,18 +9,12 @@ import lv.ctco.javaschool.vote.entity.*;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.json.JsonObject;
-import javax.json.JsonString;
-import javax.json.JsonValue;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Path("/vote")
@@ -85,25 +79,18 @@ public class VoteApi {
     @Path("/submit")
     public void submitVote(FeedbackDto feedback) {
         User currentUser = userStore.getCurrentUser();
-        Optional<Vote> vote = voteStore.getStartedVoteFor(currentUser, VoteStatus.INCOMPLETE, LocalDate.now());
-      //  vote.ifPresent((Vote v) -> {
-
-            List<String> vote_attributes = new ArrayList<>();
-            for (Map.Entry<String, JsonValue> pair : field.entrySet()) {
-               //log.info(pair.getKey() + " - " + pair.getValue());
-                String addr = pair.getKey();
-                System.out.println(addr);
-                String value = ((JsonString) pair.getValue()).getString();
-                System.out.println(value);
-                // if ("SHIP".equals(value)) {
-                vote_attributes.add(addr);
-            }
-
-           // v.setVoteStatus(VoteStatus.COMPLETE);
-
-
-//        });
+       // Optional<Vote> vote = voteStore.getIncompleteVote(currentUser);
+        LocalDate today = LocalDate.now();
+        String todayString = today.toString();
+            DailyVote newDailyVote = new DailyVote();
+        newDailyVote.setUser(currentUser);
+        newDailyVote.setMood(feedback.getMood());
+        newDailyVote.setComment(feedback.getComment());
+        newDailyVote.setDate(todayString);
+            
+            em.persist(newDailyVote);
+        }
     }
-    
-}
+
+
 

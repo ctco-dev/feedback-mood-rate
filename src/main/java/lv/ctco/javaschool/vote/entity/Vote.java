@@ -82,7 +82,7 @@ public class Vote {
         this.comment = comment;
     }
 
-    public Integer getMoodValue() {
+    public Integer getMoodValue(FeedbackDto feedback) {
         return moodValue;
     }
 
