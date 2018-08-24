@@ -1,12 +1,14 @@
 package lv.ctco.javaschool.vote.control;
 
 import lv.ctco.javaschool.auth.entity.domain.User;
+import lv.ctco.javaschool.vote.entity.Event;
 import lv.ctco.javaschool.vote.entity.Vote;
 import lv.ctco.javaschool.vote.entity.VoteStatus;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 import java.util.Optional;
 
 @Stateless
@@ -23,5 +25,14 @@ public class VoteStore {
                 .setParameter("voteStatus", VoteStatus.INCOMPLETE)
                 .getResultStream()
                 .findFirst();
+    }
+
+    public List<Event> getIncompleteEventList(User user) {
+        return em.createQuery(
+                "select e " +
+                        "from Event e " +
+                        "where :user member of e.user", Event.class)
+                .setParameter("user", user)
+                .getResultList();
     }
 }

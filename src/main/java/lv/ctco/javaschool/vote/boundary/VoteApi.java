@@ -10,6 +10,9 @@ import lv.ctco.javaschool.vote.entity.FeedbackDto;
 import lv.ctco.javaschool.vote.entity.Vote;
 import lv.ctco.javaschool.vote.entity.VoteDto;
 import lv.ctco.javaschool.vote.entity.VoteStatus;
+import lv.ctco.javaschool.vote.entity.Event;
+import lv.ctco.javaschool.vote.entity.EventDto;
+import lv.ctco.javaschool.vote.entity.EventDtoList;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -19,7 +22,9 @@ import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Path("/vote")
@@ -39,7 +44,7 @@ public class VoteApi {
     public void startVote(EventType eventType) {
         User currentUser = userStore.getCurrentUser();
         Optional<Vote> vote = voteStore.getIncompleteVote(currentUser);
-                vote.ifPresent(v -> {
+        vote.ifPresent(v -> {
             if (v.getEventType() != eventType) {
                 v.setEventType(eventType);
             }
@@ -70,6 +75,25 @@ public class VoteApi {
         }).orElseThrow(IllegalStateException::new);
     }
 
+    @GET
+    @RolesAllowed({"ADMIN", "USER"})
+    @Path("/event")
+    public EventDtoList getIncompleteEvents() {
+        User currentUser = userStore.getCurrentUser();
+        List<Event> eventList = voteStore.getIncompleteEventList(currentUser);
+        List<EventDto> eventDtos = new ArrayList<>();
+
+        eventList.forEach(ev -> {
+            EventDto evDto = new EventDto();
+            evDto.setEventName(ev.getEventName());
+            evDto.setDate(ev.getDate());
+            eventDtos.add(evDto);
+        });
+        EventDtoList evList = new EventDtoList();
+        evList.setEventDtoList(eventDtos);
+        return evList;
+    }
+
     @POST
     @RolesAllowed({"ADMIN", "USER"})
     @Path("/submit")
@@ -82,10 +106,6 @@ public class VoteApi {
         newDailyVote.setMood(feedback.getMood());
         newDailyVote.setComment(feedback.getComment());
         newDailyVote.setDate(today.toString());
-
         em.persist(newDailyVote);
     }
 }
-
-
-
