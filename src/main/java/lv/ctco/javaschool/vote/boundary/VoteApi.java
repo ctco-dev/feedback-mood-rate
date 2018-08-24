@@ -4,7 +4,12 @@ import jdk.nashorn.internal.runtime.logging.Logger;
 import lv.ctco.javaschool.auth.control.UserStore;
 import lv.ctco.javaschool.auth.entity.domain.User;
 import lv.ctco.javaschool.vote.control.VoteStore;
-import lv.ctco.javaschool.vote.entity.*;
+import lv.ctco.javaschool.vote.entity.DailyVote;
+import lv.ctco.javaschool.vote.entity.EventType;
+import lv.ctco.javaschool.vote.entity.FeedbackDto;
+import lv.ctco.javaschool.vote.entity.Vote;
+import lv.ctco.javaschool.vote.entity.VoteDto;
+import lv.ctco.javaschool.vote.entity.VoteStatus;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
