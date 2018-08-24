@@ -36,4 +36,19 @@
         </auth-constraint>
     </security-constraint>
 
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>
+                Private Resource
+            </web-resource-name>
+            <url-pattern>/app/statistics.jsp</url-pattern>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>
+            </description>
+            <role-name>ADMIN</role-name>
+        </auth-constraint>
+    </security-constraint>
+
 </web-app>

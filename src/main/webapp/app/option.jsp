@@ -3,6 +3,8 @@
 <html>
 <head>
     <title>Option</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body onload="onloadHandler()">
 <h2>You mood in:</h2>
@@ -12,7 +14,7 @@
     <button type="button" onclick="handlerEvent('EVENT')">Event</button>
     </br></br></br></br></br>
 </p>
-<p>
+<p id="button-stat">
     <button type="button" onclick="goStatistics()">Statistics</button>
     </br></br>
 </p>
@@ -69,6 +71,11 @@
             return response.json();
         }).then(function (status) {
             console.log(JSON.stringify(status));
+            if (status.role == "USER") {
+                document.getElementById("button-stat").classList.add("w3-hide");
+            } else if (status.role == "ADMIN") {
+                document.getElementById("button-stat").classList.remove("w3-hide");
+            }
         });
     }
 
