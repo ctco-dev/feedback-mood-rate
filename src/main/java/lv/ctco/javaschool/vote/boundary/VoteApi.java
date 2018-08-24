@@ -60,16 +60,8 @@ public class VoteApi {
         return vote.map(v -> {
             VoteDto dto = new VoteDto();
             dto.setStatus(v.getVoteStatus());
-            if (v.getEventType() == EventType.DAY) {
-                dto.setDayStatus(true);
-            } else {
-                dto.setDayStatus(false);
-            }
-            if (v.getEventType() == EventType.EVENT) {
-                dto.setEventStatus(true);
-            } else {
-                dto.setEventStatus(false);
-            }
+            dto.setDayStatus(v.getEventType() == EventType.DAY);
+            dto.setEventStatus(v.getEventType() == EventType.EVENT);
             return dto;
         }).orElseThrow(IllegalStateException::new);
     }
