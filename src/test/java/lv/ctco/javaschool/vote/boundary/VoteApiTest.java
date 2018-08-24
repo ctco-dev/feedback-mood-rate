@@ -7,10 +7,9 @@ import lv.ctco.javaschool.vote.entity.FeedbackDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.MockitoAnnotations;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
@@ -18,7 +17,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+
 class VoteApiTest {
     @Mock
     EntityManager em;
@@ -31,6 +30,7 @@ class VoteApiTest {
 
     @BeforeEach
     void init() {
+        MockitoAnnotations.initMocks(this);
         user1 = new User();
         user1.setUsername("user1");
 
