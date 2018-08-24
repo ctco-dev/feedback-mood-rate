@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: evita.ritina
-  Date: 8/21/2018
-  Time: 17:48
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
@@ -64,10 +57,7 @@
     </div>
 </form>
 <script>
-//    todaysDate = new Date();
-//    year = todaysDate.getFullYear();
-//    month = todaysDate.getMonth() + 1;
-//    day = todaysDate.getDate();
+    var feedback = {};
 
     function getDate(date) {
         var monthNames = [
@@ -76,15 +66,11 @@
             "August", "September", "October",
             "November", "December"
         ];
-
         var day = date.getDate();
         var monthIndex = date.getMonth();
         var year = date.getFullYear();
-
         return day + ' ' + monthNames[monthIndex] + ' ' + year;
     }
-
-    var feedback = {};
 
     function voteStatus() {
         console.log("checking status");
@@ -106,24 +92,20 @@
         });
     }
 
-    function back() {
-        location.href = "<c:url value='/app/option.jsp'/>";
-    }
-
     function submitVote() {
         console.log("Collecting feedback data");
-        var mood;
+        var comment = document.getElementById("comment").value;
         if (document.getElementById('radio-button-one').checked) {
             console.log("Mood - Happy");
-            feedback = {"mood": 1, "comment": document.getElementById("comment").value};
+            feedback = {"mood": 1, "comment": comment};
             submitData();
         } else if (document.getElementById('radio-button-two').checked) {
             console.log("Mood - Neutral");
-            feedback = {"mood": 2, "comment": document.getElementById("comment").value};
+            feedback = {"mood": 2, "comment": comment};
             submitData();
         } else if (document.getElementById('radio-button-three').checked) {
             console.log("Mood - Sad");
-            feedback = {"mood": 3, "comment": document.getElementById("comment").value};
+            feedback = {"mood": 3, "comment": comment};
             submitData();
         } else {
             console.log("Error - mood not selected!");
@@ -148,6 +130,9 @@
         });
     }
 
+    function back() {
+        location.href = "<c:url value='/app/option.jsp'/>";
+    }
 </script>
 </body>
 </html>

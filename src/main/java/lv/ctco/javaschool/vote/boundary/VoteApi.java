@@ -80,12 +80,12 @@ public class VoteApi {
     public void submitVote(FeedbackDto feedback) {
         User currentUser = userStore.getCurrentUser();
         LocalDate today = LocalDate.now();
-        String todayString = today.toString();
+
         DailyVote newDailyVote = new DailyVote();
         newDailyVote.setUser(currentUser);
         newDailyVote.setMood(feedback.getMood());
         newDailyVote.setComment(feedback.getComment());
-        newDailyVote.setDate(todayString);
+        newDailyVote.setDate(today.toString());
 
         em.persist(newDailyVote);
     }

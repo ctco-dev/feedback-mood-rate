@@ -25,20 +25,4 @@ public class VoteStore {
                 .getResultStream()
                 .findFirst();
     }
-
-
-  //additional conditional should be added: Date = today AND Mood_Value is empty
-    public Optional<Vote> getStartedVoteFor(User user, VoteStatus status, LocalDate date) {
-        return em.createQuery(
-                "select v " +
-                        "from Vote v " +
-                        "where (v.user = :user and v.voteStatus = :voteStatus and v.date =:date)"    +
-                        "order by v.id desc", Vote.class)
-                .setParameter("user", user)
-                .setParameter("voteStatus", VoteStatus.INCOMPLETE)
-                .setParameter("date", date)
-                .setMaxResults(1)
-                .getResultStream()
-                .findFirst();
-    }
 }
