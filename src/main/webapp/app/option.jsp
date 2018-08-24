@@ -13,10 +13,6 @@
     </br></br></br></br></br>
 </p>
 <p>
-    <button type="button" onclick="getUserRole()">getUserRole</button>
-    </br></br>
-</p>
-<p>
     <button type="button" onclick="goStatistics()">Statistics</button>
     </br></br>
 </p>
@@ -50,6 +46,7 @@
     function onloadHandler() {
         getTodayDate();
         getUserRole();
+        getEvents();
     }
 
     function getTodayDate() {
@@ -76,8 +73,8 @@
     }
 
     function getEvents() {
-        console.log("role");
-        fetch("<c:url value='/api/user/role'/>", {
+        console.log("event");
+        fetch("<c:url value='/api/vote/event'/>", {
             "method": "GET",
             headers: {
                 'Accept': 'application/json',
@@ -85,8 +82,8 @@
             }
         }).then(function (response) {
             return response.json();
-        }).then(function (status) {
-            console.log(JSON.stringify(status));
+        }).then(function (event) {
+            console.log(JSON.stringify(event));
         });
     }
 </script>

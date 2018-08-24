@@ -33,7 +33,7 @@ public class VoteStore {
         return em.createQuery(
                 "select e " +
                         "from Event e " +
-                        "where e.user = :username and e.date <= " + LocalDateTime.now(), Event.class)
+                        "where e.user = :username", Event.class)
                 .setParameter("username", user)
                 .getResultList();
     }

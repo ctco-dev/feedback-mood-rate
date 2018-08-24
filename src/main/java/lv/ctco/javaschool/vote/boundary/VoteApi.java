@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,14 +73,23 @@ public class VoteApi {
         }).orElseThrow(IllegalStateException::new);
     }
 
-//    @GET
-//    @RolesAllowed({"ADMIN", "USER"})
-//    @Path("/status")
-//    public List<EventDtoList> getIncompleteEvents() {
-//        User currentUser = userStore.getCurrentUser();
-//        List<Event> eventList = voteStore.getIncompleteEventList(currentUser);
-//
-//
-//        return null;
-//    }
+    @GET
+    @RolesAllowed({"ADMIN", "USER"})
+    @Path("/event")
+    public EventDtoList getIncompleteEvents() {
+        User currentUser = userStore.getCurrentUser();
+        List<Event> eventList = voteStore.getIncompleteEventList(currentUser);
+        List<EventDto> eventDtos = new ArrayList<>();
+
+        eventList.forEach(ev -> {
+            EventDto evDto = new EventDto();
+            evDto.setUser(ev.getUser());
+            evDto.setEventName(ev.getEventName());
+            evDto.setDate(ev.getDate());
+            eventDtos.add(evDto);
+        });
+        EventDtoList evList = new EventDtoList();
+        evList.setEventDtoList(eventDtos);
+        return evList;
+    }
 }

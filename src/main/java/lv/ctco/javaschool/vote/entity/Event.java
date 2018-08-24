@@ -12,7 +12,7 @@ public class Event {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "username")
+    @JoinColumn(name = "id_user")
     private User user;
 
     private String eventName;
