@@ -106,6 +106,7 @@ public class VoteApi {
         newDailyVote.setMood(feedback.getMood());
         newDailyVote.setComment(feedback.getComment());
         newDailyVote.setDate(today.toString());
+        newDailyVote.setStatus(VoteStatus.COMPLETE);
         em.persist(newDailyVote);
     }
 }

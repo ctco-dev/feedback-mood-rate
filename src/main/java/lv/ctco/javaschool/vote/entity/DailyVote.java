@@ -2,10 +2,7 @@ package lv.ctco.javaschool.vote.entity;
 
 import lv.ctco.javaschool.auth.entity.domain.User;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class DailyVote {
@@ -21,6 +18,9 @@ public class DailyVote {
     private String comment;
 
     private String date;
+
+    @Enumerated(EnumType.STRING)
+    private VoteStatus status;
 
     public Long getId() {
         return id;
@@ -60,5 +60,13 @@ public class DailyVote {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public VoteStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(VoteStatus status) {
+        this.status = status;
     }
 }
