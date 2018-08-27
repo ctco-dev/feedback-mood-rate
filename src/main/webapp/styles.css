@@ -1,0 +1,26 @@
+body, h1 {
+    font-family: "Raleway", sans-serif
+}
+.home-page {
+    height: 100%;
+}
+.bgimg {
+    background-image: url('https://www.w3schools.com/w3images/forestbridge.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+#text-feedback {
+    width: 600px;
+}
+#Submit {
+    float: right;
+    width: 225px;
+}
+#Go_back {
+    float: left;
+    width: 130px;
+}
+i {
+    font-size: 60px;
+}
