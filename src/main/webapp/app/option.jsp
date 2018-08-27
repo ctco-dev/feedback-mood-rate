@@ -30,7 +30,11 @@
             },
             body: JSON.stringify(eventType)
         }).then(function (response) {
-            location.href = "/app/mood.jsp";
+            if(eventType == "DAY") {
+                location.href = "/app/dayMood.jsp";
+            } else if (eventType == "EVENT") {
+                location.href = "/app/eventMood.jsp";
+            }
         });
     }
 
