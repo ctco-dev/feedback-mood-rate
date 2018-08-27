@@ -35,4 +35,13 @@ public class VoteStore {
                 .setParameter("user", user)
                 .getResultList();
     }
+
+    public Event findEventById(int eventId) {
+        return em.createQuery("select e from Event e where e.id=:id",Event.class)
+                .setParameter("id",eventId)
+                .setMaxResults(1)
+                .getResultStream()
+                .findFirst()
+                .orElseThrow(IllegalStateException::new);
+    }
 }

@@ -2,13 +2,8 @@ package lv.ctco.javaschool.vote.boundary;
 
 import lv.ctco.javaschool.auth.control.UserStore;
 import lv.ctco.javaschool.auth.entity.domain.User;
-import lv.ctco.javaschool.vote.entity.DailyVote;
-import lv.ctco.javaschool.vote.entity.FeedbackDto;
+import lv.ctco.javaschool.vote.entity.*;
 import lv.ctco.javaschool.vote.control.VoteStore;
-import lv.ctco.javaschool.vote.entity.EventType;
-import lv.ctco.javaschool.vote.entity.Vote;
-import lv.ctco.javaschool.vote.entity.VoteDto;
-import lv.ctco.javaschool.vote.entity.VoteStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.times;
@@ -45,6 +41,8 @@ class VoteApiTest {
 
     private User user;
 
+    private Event event;
+
     @BeforeEach
     void init() {
         MockitoAnnotations.initMocks(this);
@@ -58,71 +56,94 @@ class VoteApiTest {
 
     @Test
     @DisplayName("Check data for user1,Mood happy = 1,without comments, Date is today")
-    void submitVote_Happy_without_Comment() {
+    void submitDailyVote_Happy_without_Comment() {
         when(userStore.getCurrentUser())
                 .thenReturn(user1);
-        FeedbackDto feedbackDto = new FeedbackDto();
-        feedbackDto.setMood(1);
-        feedbackDto.setComment("");
+        DailyFeedbackDto dailyFeedbackDto = new DailyFeedbackDto();
+        dailyFeedbackDto.setMood(1);
+        dailyFeedbackDto.setComment("");
         doAnswer(invocation -> {
             DailyVote dailyVote = invocation.getArgument(0);
             assertEquals(user1, dailyVote.getUser());
             assertEquals(LocalDate.now().toString(), dailyVote.getDate());
-            assertEquals(1, feedbackDto.getMood());
-            assertEquals("", feedbackDto.getComment());
+            assertEquals(1, dailyFeedbackDto.getMood());
+            assertEquals("", dailyFeedbackDto.getComment());
 
             return null;
         }).when(em).persist(any(DailyVote.class));
 
-        voteApi.submitVote(feedbackDto);
+        voteApi.submitDailyVote(dailyFeedbackDto);
 
         verify(em, times(1)).persist(any(DailyVote.class));
     }
 
     @Test
     @DisplayName("Check data for user1 and Mood neutral = 2 and with comments")
-    void submitVote_Neutral_with_Comment() {
+    void submitDailyVote_Neutral_with_Comment() {
         when(userStore.getCurrentUser())
                 .thenReturn(user1);
-        FeedbackDto feedbackDto = new FeedbackDto();
-        feedbackDto.setMood(2);
-        feedbackDto.setComment("Test Comment");
+        DailyFeedbackDto dailyFeedbackDto = new DailyFeedbackDto();
+        dailyFeedbackDto.setMood(2);
+        dailyFeedbackDto.setComment("Test Comment");
         doAnswer(invocation -> {
             DailyVote dailyVote = invocation.getArgument(0);
             assertEquals(user1, dailyVote.getUser());
             assertEquals(LocalDate.now().toString(), dailyVote.getDate());
-            assertEquals(2, feedbackDto.getMood());
-            assertEquals("Test Comment", feedbackDto.getComment());
+            assertEquals(2, dailyFeedbackDto.getMood());
+            assertEquals("Test Comment", dailyFeedbackDto.getComment());
 
             return null;
         }).when(em).persist(any(DailyVote.class));
 
-        voteApi.submitVote(feedbackDto);
+        voteApi.submitDailyVote(dailyFeedbackDto);
 
         verify(em, times(1)).persist(any(DailyVote.class));
     }
 
     @Test
     @DisplayName("Check data for user1 and Mood unhappy = 3 and with comments")
-    void submitVote_Unhappy_with_Comment() {
+    void submitDailyVote_Unhappy_with_Comment() {
         when(userStore.getCurrentUser())
                 .thenReturn(user1);
-        FeedbackDto feedbackDto = new FeedbackDto();
-        feedbackDto.setMood(3);
-        feedbackDto.setComment("Test Comment");
+        DailyFeedbackDto dailyFeedbackDto = new DailyFeedbackDto();
+        dailyFeedbackDto.setMood(3);
+        dailyFeedbackDto.setComment("Test Comment");
         doAnswer(invocation -> {
             DailyVote dailyVote = invocation.getArgument(0);
             assertEquals(user1, dailyVote.getUser());
             assertEquals(LocalDate.now().toString(), dailyVote.getDate());
-            assertEquals(3, feedbackDto.getMood());
-            assertEquals("Test Comment", feedbackDto.getComment());
+            assertEquals(3, dailyFeedbackDto.getMood());
+            assertEquals("Test Comment", dailyFeedbackDto.getComment());
 
             return null;
         }).when(em).persist(any(DailyVote.class));
 
-        voteApi.submitVote(feedbackDto);
+        voteApi.submitDailyVote(dailyFeedbackDto);
 
         verify(em, times(1)).persist(any(DailyVote.class));
+    }
+
+    @Test
+    void submitEventVote_Happy_without_comment() {
+        event = new Event();
+        event.setEventName("Event");
+        when(userStore.getCurrentUser())
+                .thenReturn(user1);
+        when(voteStore.findEventById(1))
+                .thenReturn(event);
+
+        doAnswer(invocation -> {
+            EventVote eventVote = invocation.getArgument(0);
+            assertEquals(user1, eventVote.getUser());
+            assertEquals(event, eventVote.getEvent());
+            assertEquals(1,eventVote.getMood());
+            assertEquals("",eventVote.getComment());
+            assertEquals(LocalDate.now().toString(), eventVote.getDate());
+            assertEquals(VoteStatus.COMPLETE,eventVote.getStatus());
+            return null;
+        }).when(em).persist(any(EventVote.class));
+
+        verify(em,times(1)).persist(any(EventVote.class));
     }
 
     @Test

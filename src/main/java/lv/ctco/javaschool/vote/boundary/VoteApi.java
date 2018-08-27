@@ -4,15 +4,7 @@ import jdk.nashorn.internal.runtime.logging.Logger;
 import lv.ctco.javaschool.auth.control.UserStore;
 import lv.ctco.javaschool.auth.entity.domain.User;
 import lv.ctco.javaschool.vote.control.VoteStore;
-import lv.ctco.javaschool.vote.entity.DailyVote;
-import lv.ctco.javaschool.vote.entity.EventType;
-import lv.ctco.javaschool.vote.entity.FeedbackDto;
-import lv.ctco.javaschool.vote.entity.Vote;
-import lv.ctco.javaschool.vote.entity.VoteDto;
-import lv.ctco.javaschool.vote.entity.VoteStatus;
-import lv.ctco.javaschool.vote.entity.Event;
-import lv.ctco.javaschool.vote.entity.EventDto;
-import lv.ctco.javaschool.vote.entity.EventDtoList;
+import lv.ctco.javaschool.vote.entity.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -96,8 +88,8 @@ public class VoteApi {
 
     @POST
     @RolesAllowed({"ADMIN", "USER"})
-    @Path("/submit")
-    public void submitVote(FeedbackDto feedback) {
+    @Path("/submitDailyVote")
+    public void submitDailyVote(DailyFeedbackDto feedback) {
         User currentUser = userStore.getCurrentUser();
         LocalDate today = LocalDate.now();
 
@@ -108,4 +100,23 @@ public class VoteApi {
         newDailyVote.setDate(today.toString());
         em.persist(newDailyVote);
     }
+
+    @POST
+    @RolesAllowed({"ADMIN", "USER"})
+    @Path("/submitEventVote")
+    public void submitEventVote(EventFeedbackDto feedback) {
+        User currentUser = userStore.getCurrentUser();
+        Event selectedEvent = voteStore.findEventById(feedback.getEventId());
+        LocalDate today = LocalDate.now();
+
+        EventVote eventVote = new EventVote();
+        eventVote.setUser(currentUser);
+        eventVote.setEvent(selectedEvent);
+        eventVote.setMood(feedback.getMood());
+        eventVote.setComment(feedback.getComment());
+        eventVote.setDate(today.toString());
+        eventVote.setStatus(VoteStatus.COMPLETE);
+        em.persist(eventVote);
+    }
+
 }
