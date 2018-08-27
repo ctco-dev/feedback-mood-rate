@@ -132,6 +132,11 @@ class VoteApiTest {
         when(voteStore.findEventById(1))
                 .thenReturn(event);
 
+        EventFeedbackDto eventFeedbackDto = new EventFeedbackDto();
+        eventFeedbackDto.setEventId(1);
+        eventFeedbackDto.setMood(1);
+        eventFeedbackDto.setComment("");
+
         doAnswer(invocation -> {
             EventVote eventVote = invocation.getArgument(0);
             assertEquals(user1, eventVote.getUser());
@@ -142,6 +147,8 @@ class VoteApiTest {
             assertEquals(VoteStatus.COMPLETE,eventVote.getStatus());
             return null;
         }).when(em).persist(any(EventVote.class));
+
+        voteApi.submitEventVote(eventFeedbackDto);
 
         verify(em,times(1)).persist(any(EventVote.class));
     }
