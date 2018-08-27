@@ -19,6 +19,25 @@ public class Event {
 
     private String eventName;
     private String date;
+    private String deadlineDate;
+    @Enumerated(EnumType.STRING)
+    private VoteStatus status;
+
+    public VoteStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(VoteStatus status) {
+        this.status = status;
+    }
+
+    public String getDeadlineDate() {
+        return deadlineDate;
+    }
+
+    public void setDeadlineDate(String deadlineDate) {
+        this.deadlineDate = deadlineDate;
+    }
 
     public List<User> getUser() {
         return user;
