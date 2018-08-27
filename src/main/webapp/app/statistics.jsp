@@ -4,12 +4,9 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+    <script src="../js/statistics.js"></script>
     <title>Statistics</title>
-    <style>
-        #text-feedback {
-            width: 600px;
-        }
-    </style>
 </head>
 <body onload="showTextFeedback()">
 <%--Start--%>
@@ -51,19 +48,5 @@
 </div>
 <%--END--%>
 <button type="button" onclick="back()">Go back</button>
-<script>
-    function showTextFeedback() {
-        var checkbox = document.getElementById("show-text-feedback");
-        if (checkbox.checked) {
-            document.getElementById("text-feedback").classList.remove("w3-hide");
-        } else {
-            document.getElementById("text-feedback").classList.add("w3-hide");
-        }
-    }
-
-    function back() {
-        location.href = "/app/option.jsp";
-    }
-</script>
 </body>
 </html>
