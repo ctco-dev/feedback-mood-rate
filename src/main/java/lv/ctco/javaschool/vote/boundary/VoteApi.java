@@ -13,6 +13,7 @@ import lv.ctco.javaschool.vote.entity.VoteStatus;
 import lv.ctco.javaschool.vote.entity.Event;
 import lv.ctco.javaschool.vote.entity.EventDto;
 import lv.ctco.javaschool.vote.entity.EventDtoList;
+import lv.ctco.javaschool.vote.entity.MoodStatus;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -103,7 +104,7 @@ public class VoteApi {
 
         DailyVote newDailyVote = new DailyVote();
         newDailyVote.setUser(currentUser);
-        newDailyVote.setMood(feedback.getMood());
+        newDailyVote.setMood(MoodStatus.HAPPY);
         newDailyVote.setComment(feedback.getComment());
         newDailyVote.setDate(today.toString());
         em.persist(newDailyVote);
