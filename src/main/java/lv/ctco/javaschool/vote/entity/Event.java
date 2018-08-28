@@ -2,6 +2,7 @@ package lv.ctco.javaschool.vote.entity;
 
 import lv.ctco.javaschool.auth.entity.domain.User;
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -11,41 +12,9 @@ public class Event {
     @GeneratedValue
     private Long id;
 
-    @OneToMany
-    @JoinTable(name = "user_event",
-            joinColumns = @JoinColumn(name = "event_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> user;
-
     private String eventName;
     private String date;
-    private String deadlineDate;
-    @Enumerated(EnumType.STRING)
-    private VoteStatus status;
-
-    public VoteStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(VoteStatus status) {
-        this.status = status;
-    }
-
-    public String getDeadlineDate() {
-        return deadlineDate;
-    }
-
-    public void setDeadlineDate(String deadlineDate) {
-        this.deadlineDate = deadlineDate;
-    }
-
-    public List<User> getUser() {
-        return user;
-    }
-
-    public void setUser(List<User> user) {
-        this.user = user;
-    }
+    private String voteDeadlineDate;
 
     public Long getId() {
         return id;
@@ -69,5 +38,13 @@ public class Event {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getVoteDeadlineDate() {
+        return voteDeadlineDate;
+    }
+
+    public void setVoteDeadlineDate(String voteDeadlineDate) {
+        this.voteDeadlineDate = voteDeadlineDate;
     }
 }

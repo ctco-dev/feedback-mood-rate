@@ -1,14 +1,14 @@
 package lv.ctco.javaschool.vote.entity;
 
 public class DailyFeedbackDto {
-    private int mood;
+    private MoodStatus mood;
     private String comment;
 
-    public int getMood() {
+    public MoodStatus getMood() {
         return mood;
     }
 
-    public void setMood(int mood) {
+    public void setMood(MoodStatus mood) {
         this.mood = mood;
     }
 

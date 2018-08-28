@@ -2,10 +2,8 @@ package lv.ctco.javaschool.vote.entity;
 
 import lv.ctco.javaschool.auth.entity.domain.User;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 public class DailyVote {
@@ -14,13 +12,15 @@ public class DailyVote {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
-    private int mood;
+    private String date;
+
+    @Enumerated(EnumType.STRING)
+    private MoodStatus mood;
 
     private String comment;
-
-    private String date;
 
     public Long getId() {
         return id;
@@ -38,11 +38,19 @@ public class DailyVote {
         this.user = user;
     }
 
-    public int getMood() {
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public MoodStatus getMood() {
         return mood;
     }
 
-    public void setMood(int mood) {
+    public void setMood(MoodStatus mood) {
         this.mood = mood;
     }
 
@@ -52,13 +60,5 @@ public class DailyVote {
 
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    public  String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 }
