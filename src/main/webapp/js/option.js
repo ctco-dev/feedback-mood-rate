@@ -18,23 +18,21 @@ function goStatistics() {
 }
 
 function onloadHandler() {
-    getTodayDate();
+    document.getElementById("date").innerHTML = getDate(new Date());
     getUserRole();
 }
 
-function getTodayDate() {
-    var todayDay = new Date();
+function getDate(date) {
     var monthNames = [
         "January", "February", "March",
         "April", "May", "June", "July",
         "August", "September", "October",
         "November", "December"
     ];
-    var day = todayDay.getDate();
-    var monthIndex = todayDay.getMonth();
-    var year = todayDay.getFullYear();
-
-    document.getElementById("date").innerHTML = day + ' ' + monthNames[monthIndex] + ' ' + year;
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+    return day + ' ' + monthNames[monthIndex] + ' ' + year;
 }
 
 function getUserRole() {
