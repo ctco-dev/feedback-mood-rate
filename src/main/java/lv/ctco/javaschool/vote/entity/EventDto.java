@@ -4,19 +4,19 @@ import lv.ctco.javaschool.auth.entity.domain.User;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.time.LocalDate;
 import java.util.List;
 
 public class EventDto {
-
     private String eventName;
     private String date;
-    private String deadlineDate;
+    private LocalDate deadlineDate;
 
-    public String getDeadlineDate() {
+    public LocalDate getDeadlineDate() {
         return deadlineDate;
     }
 
-    public void setDeadlineDate(String deadlineDate) {
+    public void setDeadlineDate(LocalDate deadlineDate) {
         this.deadlineDate = deadlineDate;
     }
 

@@ -13,12 +13,15 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../js/mood.js"></script>
 </head>
-<body onload="voteStatus()">
+<body onload="eventStatus()">
 <h3 id="date"></h3>
 <form name="mood_form" id="formId" method="post">
     <p>There will be event name</p>
+    <select name="datas" id="datas"></select>
     <ul>
-        <li> Choose your mood!</li>
+        <h3>
+            Choose your mood!
+        </h3>
         <li>
             <i class="em em-slightly_smiling_face"></i>
             <input type="radio" id="radio-button-one" name="first_item" value="1" title="happy"/>

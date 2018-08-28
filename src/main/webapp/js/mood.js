@@ -1,4 +1,6 @@
 var feedback = {};
+var eventName = [];
+var html = "";
 
 function getDate(date) {
     var monthNames = [
@@ -74,3 +76,30 @@ function submitData() {
 function back() {
     location.href = '../app/option.jsp';
 }
+
+function getEvents() {
+    console.log("event");
+    fetch('/api/vote/eventname', {
+        "method": "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).then(function (response) {
+        return response.json();
+    }).then(function (event) {
+        console.log(JSON.stringify(event));
+        for (i = 0; i < Object.keys(event).length; i++) {
+            eventName[i] = event[Object.keys(event)[i]].eventName;
+            html += "<option value=" + i  + ">" +eventName[i] + "</option>"
+        }
+        document.getElementById("datas").innerHTML = html;
+    });
+}
+
+function eventStatus() {
+    voteStatus();
+    getEvents();
+}
+
+

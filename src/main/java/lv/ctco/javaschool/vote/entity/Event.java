@@ -14,7 +14,7 @@ public class Event {
 
     private String eventName;
     private String date;
-    private String voteDeadlineDate;
+    private LocalDate voteDeadlineDate;
 
     public Long getId() {
         return id;
@@ -40,11 +40,11 @@ public class Event {
         this.date = date;
     }
 
-    public String getVoteDeadlineDate() {
+    public LocalDate getVoteDeadlineDate() {
         return voteDeadlineDate;
     }
 
-    public void setVoteDeadlineDate(String voteDeadlineDate) {
+    public void setVoteDeadlineDate(LocalDate voteDeadlineDate) {
         this.voteDeadlineDate = voteDeadlineDate;
     }
 }

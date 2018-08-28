@@ -4,16 +4,7 @@ import jdk.nashorn.internal.runtime.logging.Logger;
 import lv.ctco.javaschool.auth.control.UserStore;
 import lv.ctco.javaschool.auth.entity.domain.User;
 import lv.ctco.javaschool.vote.control.VoteStore;
-import lv.ctco.javaschool.vote.entity.DailyVote;
-import lv.ctco.javaschool.vote.entity.EventType;
-import lv.ctco.javaschool.vote.entity.FeedbackDto;
-import lv.ctco.javaschool.vote.entity.Vote;
-import lv.ctco.javaschool.vote.entity.VoteDto;
-import lv.ctco.javaschool.vote.entity.VoteStatus;
-import lv.ctco.javaschool.vote.entity.Event;
-import lv.ctco.javaschool.vote.entity.EventDto;
-import lv.ctco.javaschool.vote.entity.EventDtoList;
-import lv.ctco.javaschool.vote.entity.MoodStatus;
+import lv.ctco.javaschool.vote.entity.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -23,8 +14,11 @@ import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -76,23 +70,58 @@ public class VoteApi {
         }).orElseThrow(IllegalStateException::new);
     }
 
+//    @GET
+//    @RolesAllowed({"ADMIN", "USER"})
+//    @Path("/event")
+//    public EventDtoList getIncompleteEvents() {
+//        User currentUser = userStore.getCurrentUser();
+//        List<Event> eventList = voteStore.getEventVoteList(currentUser);
+//        List<EventDto> eventDtos = new ArrayList<>();
+//
+//        eventList.forEach(ev -> {
+//            EventDto evDto = new EventDto();
+//            evDto.setEventName(ev.getEventName());
+//            evDto.setDeadlineDate(ev.getVoteDeadlineDate());
+//            eventDtos.add(evDto);
+//        });
+//        EventDtoList evList = new EventDtoList();
+//        evList.setEventDtoList(eventDtos);
+//        return evList;
+//    }
+
     @GET
     @RolesAllowed({"ADMIN", "USER"})
     @Path("/event")
-    public EventDtoList getIncompleteEvents() {
+    public EventVoteDtoList getIncompleteEvents() {
         User currentUser = userStore.getCurrentUser();
-        List<Event> eventList = voteStore.getIncompleteEventList(currentUser);
-        List<EventDto> eventDtos = new ArrayList<>();
+        List<EventVote> eventVoteList = voteStore.getEventVoteByUserId(currentUser);
+        List<EventVoteDto> eventVoteDtos = new ArrayList<>();
 
-        eventList.forEach(ev -> {
-            EventDto evDto = new EventDto();
-            evDto.setEventName(ev.getEventName());
-            evDto.setDate(ev.getDate());
-            eventDtos.add(evDto);
+        eventVoteList.forEach(ev -> {
+            EventVoteDto evDto = new EventVoteDto();
+            evDto.setEvent(ev.getEvent());
+            ev.getEvent().getEventName();
+            eventVoteDtos.add(evDto);
         });
-        EventDtoList evList = new EventDtoList();
-        evList.setEventDtoList(eventDtos);
+        EventVoteDtoList evList = new EventVoteDtoList();
+        evList.setEventVoteDtoList(eventVoteDtos);
         return evList;
+    }
+
+    @GET
+    @RolesAllowed({"ADMIN", "USER"})
+    @Path("/eventname")
+    public List<EventDto> getEvents() {
+        User currentUser = userStore.getCurrentUser();
+        List<EventVote> eventVoteList = voteStore.getEventVoteByUserId(currentUser);
+        List<EventDto> events = new ArrayList<>();
+
+        eventVoteList.forEach(ev -> {
+            EventDto e = new EventDto();
+            e.setEventName(ev.getEvent().getEventName());
+            events.add(e);
+        });
+        return events;
     }
 
     @POST

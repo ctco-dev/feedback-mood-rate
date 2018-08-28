@@ -2,37 +2,17 @@ package lv.ctco.javaschool.vote.entity;
 
 import lv.ctco.javaschool.auth.entity.domain.User;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
-@Entity
-@Table(name = "event_vote")
-public class EventVote {
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "event_id")
+public class EventVoteDto {
     private Event event;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
     private User user;
 
     @Enumerated(EnumType.STRING)
     private MoodStatus mood;
 
     private String comment;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Event getEvent() {
         return event;
