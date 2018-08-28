@@ -1,19 +1,9 @@
 function handlerEvent(eventType) {
-    console.log(JSON.stringify(eventType));
-    fetch('/api/vote/start', {
-        "method": "POST",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(eventType)
-    }).then(function (response) {
-        if(eventType == "DAY") {
-            location.href = "../app/dayMood.jsp";
-        } else if (eventType == "EVENT") {
-            location.href = "../app/eventMood.jsp";
-        }
-    });
+    if (eventType === "DAY") {
+        location.href = "../app/dayMood.jsp";
+    } else if (eventType === "EVENT") {
+        location.href = "../app/eventMood.jsp";
+    }
 }
 
 function logout() {
@@ -30,15 +20,21 @@ function goStatistics() {
 function onloadHandler() {
     getTodayDate();
     getUserRole();
-    getEvents();
 }
 
 function getTodayDate() {
-    todaysDate = new Date();
-    year = todaysDate.getFullYear();
-    month = todaysDate.getMonth() + 1;
-    day = todaysDate.getDate();
-    document.getElementById("date").innerHTML = day + "." + month + "." + year;
+    var todayDay = new Date();
+    var monthNames = [
+        "January", "February", "March",
+        "April", "May", "June", "July",
+        "August", "September", "October",
+        "November", "December"
+    ];
+    var day = todayDay.getDate();
+    var monthIndex = todayDay.getMonth();
+    var year = todayDay.getFullYear();
+
+    document.getElementById("date").innerHTML = day + ' ' + monthNames[monthIndex] + ' ' + year;
 }
 
 function getUserRole() {
@@ -53,25 +49,10 @@ function getUserRole() {
         return response.json();
     }).then(function (status) {
         console.log(JSON.stringify(status));
-        if (status.role == "USER") {
+        if (status.role === "USER") {
             document.getElementById("button-stat").classList.add("w3-hide");
-        } else if (status.role == "ADMIN") {
+        } else if (status.role === "ADMIN") {
             document.getElementById("button-stat").classList.remove("w3-hide");
         }
     });
-}
-
-function getEvents() {
-    // console.log("event");
-    // fetch('/api/vote/event', {
-    //     "method": "GET",
-    //     headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json'
-    //     }
-    // }).then(function (response) {
-    //     return response.json();
-    // }).then(function (event) {
-    //     console.log(JSON.stringify(event));
-    // });
 }

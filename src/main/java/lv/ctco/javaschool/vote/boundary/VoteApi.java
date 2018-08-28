@@ -17,7 +17,6 @@ import javax.ws.rs.Path;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Path("/vote")
 @Stateless

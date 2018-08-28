@@ -30,8 +30,6 @@ class VoteApiTest {
     private EntityManager em;
     @Mock
     private UserStore userStore;
-    @Mock
-    private VoteStore voteStore;
 
     @InjectMocks
     private VoteApi voteApi;
@@ -52,7 +50,30 @@ class VoteApiTest {
     }
 
     @Test
-    @DisplayName("Check data for user1,Mood happy = 1,without comments, Date is today")
+    @DisplayName("submitDailyVoteTest: Check data for user1,MoodStatus.EMPTY,without comments, Date is today")
+    void submitDailyVote_EMPTY_without_Comment() {
+        when(userStore.getCurrentUser())
+                .thenReturn(user1);
+        DailyVoteDto dailyVoteDto = new DailyVoteDto();
+        dailyVoteDto.setMood(MoodStatus.EMPTY);
+        dailyVoteDto.setComment("");
+        doAnswer(invocation -> {
+            DailyVote dailyVote = invocation.getArgument(0);
+            assertEquals(user1, dailyVote.getUser());
+            assertEquals(LocalDate.now(), dailyVote.getDate());
+            assertEquals(MoodStatus.EMPTY, dailyVoteDto.getMood());
+            assertEquals("", dailyVoteDto.getComment());
+
+            return null;
+        }).when(em).persist(any(DailyVote.class));
+
+        voteApi.submitDailyVote(dailyVoteDto);
+
+        verify(em, times(1)).persist(any(DailyVote.class));
+    }
+
+    @Test
+    @DisplayName("submitDailyVoteTest: Check data for user1,MoodStatus.HAPPY,without comments, Date is today")
     void submitDailyVote_Happy_without_Comment() {
         when(userStore.getCurrentUser())
                 .thenReturn(user1);
@@ -75,7 +96,7 @@ class VoteApiTest {
     }
 
     @Test
-    @DisplayName("Check data for user1 and Mood neutral = 2 and with comments")
+    @DisplayName("submitDailyVoteTest: Check data for user1 and MoodStatus.NEUTRAL and with comments")
     void submitDailyVote_Neutral_with_Comment() {
         when(userStore.getCurrentUser())
                 .thenReturn(user1);
@@ -98,7 +119,7 @@ class VoteApiTest {
     }
 
     @Test
-    @DisplayName("Check data for user1 and Mood unhappy = 3 and with comments")
+    @DisplayName("submitDailyVoteTest: Check data for user1 and MoodStatus.SAD and with comments")
     void submitDailyVote_Unhappy_with_Comment() {
         when(userStore.getCurrentUser())
                 .thenReturn(user1);
