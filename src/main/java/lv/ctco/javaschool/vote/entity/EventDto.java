@@ -7,7 +7,6 @@ import javax.persistence.Enumerated;
 import java.util.List;
 
 public class EventDto {
-
     private String eventName;
     private String date;
     private String deadlineDate;

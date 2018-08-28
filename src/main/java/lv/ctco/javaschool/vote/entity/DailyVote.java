@@ -15,7 +15,7 @@ public class DailyVote {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private String date;
+    private LocalDate date;
 
     @Enumerated(EnumType.STRING)
     private MoodStatus mood;
@@ -38,11 +38,11 @@ public class DailyVote {
         this.user = user;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

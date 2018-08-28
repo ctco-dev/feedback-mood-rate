@@ -30,43 +30,6 @@ public class VoteApi {
     @Inject
     private VoteStore voteStore;
 
-    @POST
-    @RolesAllowed({"ADMIN", "USER"})
-    @Path("/start")
-    public void startVote(EventType eventType) {
-        User currentUser = userStore.getCurrentUser();
-        Optional<Vote> vote = voteStore.getIncompleteVote(currentUser);
-        vote.ifPresent(v -> {
-            if (v.getEventType() != eventType) {
-                v.setEventType(eventType);
-            }
-        });
-
-        if (!vote.isPresent()) {
-            Vote newVote = new Vote();
-            newVote.setUser(currentUser);
-            newVote.setVoteStatus(VoteStatus.INCOMPLETE);
-            newVote.setEventType(eventType);
-            em.persist(newVote);
-        }
-    }
-
-    @GET
-    @RolesAllowed({"ADMIN", "USER"})
-    @Path("/status")
-    public VoteDto getStatus() {
-        User currentUser = userStore.getCurrentUser();
-        Optional<Vote> vote = voteStore.getIncompleteVote(currentUser);
-
-        return vote.map(v -> {
-            VoteDto dto = new VoteDto();
-            dto.setStatus(v.getVoteStatus());
-            dto.setDayStatus(v.getEventType() == EventType.DAY);
-            dto.setEventStatus(v.getEventType() == EventType.EVENT);
-            return dto;
-        }).orElseThrow(IllegalStateException::new);
-    }
-
     @GET
     @RolesAllowed({"ADMIN", "USER"})
     @Path("/event")
@@ -89,34 +52,15 @@ public class VoteApi {
     @POST
     @RolesAllowed({"ADMIN", "USER"})
     @Path("/submitDailyVote")
-    public void submitDailyVote(DailyFeedbackDto feedback) {
+    public void submitDailyVote(DailyVoteDto feedback) {
         User currentUser = userStore.getCurrentUser();
         LocalDate today = LocalDate.now();
 
-        DailyVote newDailyVote = new DailyVote();
-        newDailyVote.setUser(currentUser);
-        newDailyVote.setMood(feedback.getMood());
-        newDailyVote.setComment(feedback.getComment());
-        newDailyVote.setDate(today.toString());
-        em.persist(newDailyVote);
+        DailyVote dailyVote = new DailyVote();
+        dailyVote.setUser(currentUser);
+        dailyVote.setMood(feedback.getMood());
+        dailyVote.setComment(feedback.getComment());
+        dailyVote.setDate(today);
+        em.persist(dailyVote);
     }
-
-    @POST
-    @RolesAllowed({"ADMIN", "USER"})
-    @Path("/submitEventVote")
-    public void submitEventVote(EventFeedbackDto feedback) {
-        User currentUser = userStore.getCurrentUser();
-        Event selectedEvent = voteStore.findEventById(feedback.getEventId());
-        LocalDate today = LocalDate.now();
-
-        EventVote eventVote = new EventVote();
-        eventVote.setUser(currentUser);
-        eventVote.setEvent(selectedEvent);
-        eventVote.setMood(feedback.getMood());
-        eventVote.setComment(feedback.getComment());
-        eventVote.setDate(today.toString());
-        eventVote.setStatus(VoteStatus.COMPLETE);
-        em.persist(eventVote);
-    }
-
 }

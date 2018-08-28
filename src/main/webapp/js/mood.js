@@ -13,51 +13,35 @@ function getDate(date) {
     return day + ' ' + monthNames[monthIndex] + ' ' + year;
 }
 
-function voteStatus() {
-    console.log("checking status");
-    fetch('/api/vote/status', {
-        "method": "GET",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    }).then(function (response) {
-        return response.json();
-    }).then(function (status) {
-        console.log(JSON.stringify(status));
-        if (status.dayStatus) {
-            document.getElementById("date").innerHTML = getDate(new Date());
-        } else if (status.eventStatus) {
-            document.getElementById("date").innerHTML = "Event name";
-        }
-    });
+function displayDate() {
+    document.getElementById("date").innerHTML = getDate(new Date());
 }
 
-function submitVote() {
+function submitDailyVote() {
     console.log("Collecting feedback data");
     var comment = document.getElementById("comment").value;
     if (document.getElementById('radio-button-one').checked) {
         console.log("Mood - Happy");
-        feedback = {"mood": 1, "comment": comment};
-        submitData();
+        feedback = {"mood": "HAPPY", "comment": comment};
+        submitDailyData();
     } else if (document.getElementById('radio-button-two').checked) {
         console.log("Mood - Neutral");
-        feedback = {"mood": 2, "comment": comment};
-        submitData();
+        feedback = {"mood": "NEUTRAL", "comment": comment};
+        submitDailyData();
     } else if (document.getElementById('radio-button-three').checked) {
         console.log("Mood - Sad");
-        feedback = {"mood": 3, "comment": comment};
-        submitData();
+        feedback = {"mood": "SAD", "comment": comment};
+        submitDailyData();
     } else {
         console.log("Error - mood not selected!");
         alert("Please select your mood");
     }
 }
 
-function submitData() {
+function submitDailyData() {
     console.log("Submitting data");
     console.log(JSON.stringify(feedback));
-    fetch('/api/vote/submit', {
+    fetch('/api/vote/submit-daily-vote', {
         "method": "POST",
         headers: {
             'Accept': 'application/json',

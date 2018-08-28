@@ -1,6 +1,6 @@
 package lv.ctco.javaschool.vote.entity;
 
-public class DailyFeedbackDto {
+public class DailyVoteDto {
     private MoodStatus mood;
     private String comment;
 

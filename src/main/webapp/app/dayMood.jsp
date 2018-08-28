@@ -13,7 +13,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../js/mood.js"></script>
 </head>
-<body onload="voteStatus()">
+<body onload="displayDate()">
 <h3 id="date"></h3>
 <form name="mood_form" id="formId" method="post">
     <p>There will be event name</p>
@@ -40,7 +40,7 @@
         <button type="button" onclick="back()">Go back!</button>
     </div>
     <div id="Submit">
-        <button type="button" onclick="submitVote()">Submit</button>
+        <button type="button" onclick="submitDailyVote()">Submit</button>
     </div>
 </form>
 </body>
