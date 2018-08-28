@@ -62,16 +62,16 @@ function getUserRole() {
 }
 
 function getEvents() {
-    console.log("event");
-    fetch('/api/vote/event', {
-        "method": "GET",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    }).then(function (response) {
-        return response.json();
-    }).then(function (event) {
-        console.log(JSON.stringify(event));
-    });
+    // console.log("event");
+    // fetch('/api/vote/event', {
+    //     "method": "GET",
+    //     headers: {
+    //         'Accept': 'application/json',
+    //         'Content-Type': 'application/json'
+    //     }
+    // }).then(function (response) {
+    //     return response.json();
+    // }).then(function (event) {
+    //     console.log(JSON.stringify(event));
+    // });
 }
