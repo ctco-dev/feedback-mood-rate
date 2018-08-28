@@ -14,9 +14,8 @@ import org.mockito.MockitoAnnotations;
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
@@ -57,10 +56,10 @@ class VoteApiTest {
         dailyVoteDto.setComment("");
         doAnswer(invocation -> {
             DailyVote dailyVote = invocation.getArgument(0);
-            assertEquals(user1, dailyVote.getUser());
-            assertEquals(LocalDate.now(), dailyVote.getDate());
-            assertEquals(MoodStatus.EMPTY, dailyVoteDto.getMood());
-            assertEquals("", dailyVoteDto.getComment());
+            assertThat(dailyVote.getUser(),equalTo(user1));
+            assertThat(dailyVote.getDate(),equalTo(LocalDate.now()));
+            assertThat(dailyVoteDto.getMood(),equalTo(MoodStatus.EMPTY));
+            assertThat(dailyVoteDto.getComment(),equalTo(""));
 
             return null;
         }).when(em).persist(any(DailyVote.class));
@@ -80,10 +79,11 @@ class VoteApiTest {
         dailyVoteDto.setComment("");
         doAnswer(invocation -> {
             DailyVote dailyVote = invocation.getArgument(0);
-            assertEquals(user1, dailyVote.getUser());
-            assertEquals(LocalDate.now(), dailyVote.getDate());
-            assertEquals(MoodStatus.HAPPY, dailyVoteDto.getMood());
-            assertEquals("", dailyVoteDto.getComment());
+
+            assertThat(dailyVote.getUser(),equalTo(user1));
+            assertThat(dailyVote.getDate(),equalTo(LocalDate.now()));
+            assertThat(dailyVoteDto.getMood(),equalTo(MoodStatus.HAPPY));
+            assertThat(dailyVoteDto.getComment(),equalTo(""));
 
             return null;
         }).when(em).persist(any(DailyVote.class));
@@ -103,10 +103,11 @@ class VoteApiTest {
         dailyVoteDto.setComment("Test Comment");
         doAnswer(invocation -> {
             DailyVote dailyVote = invocation.getArgument(0);
-            assertEquals(user1, dailyVote.getUser());
-            assertEquals(LocalDate.now(), dailyVote.getDate());
-            assertEquals(MoodStatus.NEUTRAL, dailyVoteDto.getMood());
-            assertEquals("Test Comment", dailyVoteDto.getComment());
+
+            assertThat(dailyVote.getUser(),equalTo(user1));
+            assertThat(dailyVote.getDate(),equalTo(LocalDate.now()));
+            assertThat(dailyVoteDto.getMood(),equalTo(MoodStatus.NEUTRAL));
+            assertThat(dailyVoteDto.getComment(),equalTo("Test Comment"));
 
             return null;
         }).when(em).persist(any(DailyVote.class));
@@ -126,10 +127,11 @@ class VoteApiTest {
         dailyVoteDto.setComment("Test Comment");
         doAnswer(invocation -> {
             DailyVote dailyVote = invocation.getArgument(0);
-            assertEquals(user1, dailyVote.getUser());
-            assertEquals(LocalDate.now(), dailyVote.getDate());
-            assertEquals(MoodStatus.SAD, dailyVoteDto.getMood());
-            assertEquals("Test Comment", dailyVoteDto.getComment());
+
+            assertThat(dailyVote.getUser(),equalTo(user1));
+            assertThat(dailyVote.getDate(),equalTo(LocalDate.now()));
+            assertThat(dailyVoteDto.getMood(),equalTo(MoodStatus.SAD));
+            assertThat(dailyVoteDto.getComment(),equalTo("Test Comment"));
 
             return null;
         }).when(em).persist(any(DailyVote.class));

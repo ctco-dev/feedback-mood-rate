@@ -1,47 +1,33 @@
-var feedback = {};
-
-function getDate(date) {
-    var monthNames = [
-        "January", "February", "March",
-        "April", "May", "June", "July",
-        "August", "September", "October",
-        "November", "December"
-    ];
-    var day = date.getDate();
-    var monthIndex = date.getMonth();
-    var year = date.getFullYear();
-    return day + ' ' + monthNames[monthIndex] + ' ' + year;
-}
-
 function displayDate() {
     document.getElementById("date").innerHTML = getDate(new Date());
 }
 
 function submitDailyVote() {
+    var feedback = {};
     console.log("Collecting feedback data");
     var comment = document.getElementById("comment").value;
-    if (document.getElementById('radio-button-one').checked) {
+    if (document.getElementById('radio-button-mood-happy').checked) {
         console.log("Mood - Happy");
         feedback = {"mood": "HAPPY", "comment": comment};
-        submitDailyData();
-    } else if (document.getElementById('radio-button-two').checked) {
+        submitDailyData(feedback);
+    } else if (document.getElementById('radio-button-mood-neutral').checked) {
         console.log("Mood - Neutral");
         feedback = {"mood": "NEUTRAL", "comment": comment};
-        submitDailyData();
-    } else if (document.getElementById('radio-button-three').checked) {
+        submitDailyData(feedback);
+    } else if (document.getElementById('radio-button-mood-sad').checked) {
         console.log("Mood - Sad");
         feedback = {"mood": "SAD", "comment": comment};
-        submitDailyData();
+        submitDailyData(feedback);
     } else {
         console.log("Error - mood not selected!");
         alert("Please select your mood");
     }
 }
 
-function submitDailyData() {
+function submitDailyData(feedback) {
     console.log("Submitting data");
     console.log(JSON.stringify(feedback));
-    fetch('/api/vote/submit-daily-vote', {
+    fetch('/api/vote/submitDailyVote', {
         "method": "POST",
         headers: {
             'Accept': 'application/json',

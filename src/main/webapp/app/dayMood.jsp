@@ -12,6 +12,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../js/mood.js"></script>
+    <script src="../js/date.js"></script>
 </head>
 <body onload="displayDate()">
 <h3 id="date"></h3>
@@ -21,15 +22,15 @@
         <li> Choose your mood!</li>
         <li>
             <i class="em em-slightly_smiling_face"></i>
-            <input type="radio" id="radio-button-one" name="first_item" value="1" title="happy"/>
+            <input type="radio" id="radio-button-mood-happy" name="first_item" value="happy" title="happy"/>
         </li>
         <li>
             <i class="em em-neutral_face"></i>
-            <input type="radio" id="radio-button-two" name="first_item" value="2" title="neutral"/>
+            <input type="radio" id="radio-button-mood-neutral" name="first_item" value="neutral" title="neutral"/>
         </li>
         <li>
             <i class="em em-white_frowning_face"></i>
-            <input type="radio" id="radio-button-three" name="first_item" value="3" title="unhappy"/>
+            <input type="radio" id="radio-button-mood-sad" name="first_item" value="sad" title="unhappy"/>
         </li>
     </ul>
     <div class="form-group">

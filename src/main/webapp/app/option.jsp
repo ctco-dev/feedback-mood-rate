@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" type="text/css" href="../styles.css">
     <script src="../js/option.js"></script>
+    <script src="../js/date.js"></script>
 </head>
 <body onload="onloadHandler()">
 <h2>You mood in:</h2>
