@@ -1,4 +1,4 @@
-package lv.ctco.javaschool.vote.entity;
+package lv.ctco.javaschool.vote.entity.dto;
 
 import java.util.List;
 

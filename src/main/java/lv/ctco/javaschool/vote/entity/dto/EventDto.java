@@ -1,4 +1,4 @@
-package lv.ctco.javaschool.vote.entity;
+package lv.ctco.javaschool.vote.entity.dto;
 
 import lv.ctco.javaschool.auth.entity.domain.User;
 

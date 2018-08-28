@@ -1,4 +1,6 @@
-package lv.ctco.javaschool.vote.entity;
+package lv.ctco.javaschool.vote.entity.dto;
+
+import lv.ctco.javaschool.vote.entity.MoodStatus;
 
 public class DailyVoteDto {
     private MoodStatus mood;

@@ -5,6 +5,9 @@ import lv.ctco.javaschool.auth.control.UserStore;
 import lv.ctco.javaschool.auth.entity.domain.User;
 import lv.ctco.javaschool.vote.control.VoteStore;
 import lv.ctco.javaschool.vote.entity.*;
+import lv.ctco.javaschool.vote.entity.dto.DailyVoteDto;
+import lv.ctco.javaschool.vote.entity.dto.EventDto;
+import lv.ctco.javaschool.vote.entity.dto.EventDtoList;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
