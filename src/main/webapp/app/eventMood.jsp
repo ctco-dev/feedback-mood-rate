@@ -14,7 +14,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../js/mood.js"></script>
 </head>
-<body onload="eventStatus()">
+<body onload="getEvents()">
 <h3>Choose your mood!</h3>
 <form name="mood_form" id="formId" method="post">
     <div>

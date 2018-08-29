@@ -5,13 +5,7 @@ import lv.ctco.javaschool.auth.control.UserStore;
 import lv.ctco.javaschool.auth.entity.domain.User;
 import lv.ctco.javaschool.vote.control.VoteStore;
 import lv.ctco.javaschool.vote.entity.DailyVote;
-import lv.ctco.javaschool.vote.entity.EventDto;
-import lv.ctco.javaschool.vote.entity.EventType;
 import lv.ctco.javaschool.vote.entity.EventVote;
-import lv.ctco.javaschool.vote.entity.FeedbackDto;
-import lv.ctco.javaschool.vote.entity.Vote;
-import lv.ctco.javaschool.vote.entity.VoteDto;
-import lv.ctco.javaschool.vote.entity.VoteStatus;
 import lv.ctco.javaschool.vote.entity.dto.DailyVoteDto;
 import lv.ctco.javaschool.vote.entity.dto.EventDto;
 
@@ -23,10 +17,9 @@ import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Path("/vote")
 @Stateless

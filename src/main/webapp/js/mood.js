@@ -15,22 +15,6 @@ function getDate(date) {
     return day + ' ' + monthNames[monthIndex] + ' ' + year;
 }
 
-function voteStatus() {
-    console.log("checking status");
-    fetch('/api/vote/status', {
-        "method": "GET",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    }).then(function (response) {
-        return response.json();
-    }).then(function (status) {
-        console.log(JSON.stringify(status));
-        if (status.dayStatus) {
-            document.getElementById("date").innerHTML = getDate(new Date());
-        }
-    });
 function displayDate() {
     document.getElementById("date").innerHTML = getDate(new Date());
 }
@@ -109,9 +93,4 @@ function getEvents() {
             document.getElementById("submit-btn").classList.add("w3-disabled");
         }
     });
-}
-
-function eventStatus() {
-    voteStatus();
-    getEvents();
 }

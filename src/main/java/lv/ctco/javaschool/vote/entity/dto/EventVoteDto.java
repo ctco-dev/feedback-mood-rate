@@ -1,6 +1,9 @@
-package lv.ctco.javaschool.vote.entity;
+package lv.ctco.javaschool.vote.entity.dto;
 
 import lv.ctco.javaschool.auth.entity.domain.User;
+import lv.ctco.javaschool.vote.entity.Event;
+import lv.ctco.javaschool.vote.entity.MoodStatus;
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
