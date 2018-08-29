@@ -1,35 +1,33 @@
 package lv.ctco.javaschool.vote.entity.dto;
 
-import lv.ctco.javaschool.auth.entity.domain.User;
-import lv.ctco.javaschool.vote.entity.Event;
 import lv.ctco.javaschool.vote.entity.MoodStatus;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 public class EventVoteDto {
-    private Event event;
-    private User user;
+    private String username;
+    private String eventName;
 
     @Enumerated(EnumType.STRING)
     private MoodStatus mood;
 
     private String comment;
 
-    public Event getEvent() {
-        return event;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public User getUser() {
-        return user;
+    public String getEventName() {
+        return eventName;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
     public MoodStatus getMood() {

@@ -8,6 +8,7 @@ import lv.ctco.javaschool.vote.entity.DailyVote;
 import lv.ctco.javaschool.vote.entity.EventVote;
 import lv.ctco.javaschool.vote.entity.dto.DailyVoteDto;
 import lv.ctco.javaschool.vote.entity.dto.EventDto;
+import lv.ctco.javaschool.vote.entity.dto.EventVoteDto;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -43,15 +44,32 @@ public class VoteApi {
         eventVoteList.forEach(ev -> {
             EventDto e = new EventDto();
             e.setEventName(ev.getEvent().getEventName());
-            LocalDate todayDate = LocalDate.now();
-            LocalDate eventDate = ev.getEvent().getDate();
-            LocalDate voteDeadlineDate = ev.getEvent().getVoteDeadlineDate();
-            if ((todayDate.isBefore(voteDeadlineDate) || todayDate.isEqual(voteDeadlineDate))
-                    && (todayDate.isAfter(eventDate) || todayDate.isEqual(eventDate))) {
+            if (checkTodayDate(ev)) {
                 events.add(e);
             }
         });
         return events;
+    }
+
+    @GET
+    @RolesAllowed({"ADMIN", "USER"})
+    @Path("/eventvote")
+    public List<EventVoteDto> getEventVoteList() {
+        User currentUser = userStore.getCurrentUser();
+        List<EventVote> eventVoteList = voteStore.getEventVoteByUserId(currentUser);
+        List<EventVoteDto> eventVoteDtos = new ArrayList<>();
+
+        eventVoteList.forEach(ev -> {
+            EventVoteDto e = new EventVoteDto();
+            e.setUsername(ev.getUser().getUsername());
+            e.setEventName(ev.getEvent().getEventName());
+            e.setMood(ev.getMood());
+            e.setComment(ev.getComment());
+            if (checkTodayDate(ev)) {
+                eventVoteDtos.add(e);
+            }
+        });
+        return eventVoteDtos;
     }
 
     @POST
@@ -67,5 +85,13 @@ public class VoteApi {
         dailyVote.setComment(feedback.getComment());
         dailyVote.setDate(today);
         em.persist(dailyVote);
+    }
+
+    public boolean checkTodayDate(EventVote ev) {
+        LocalDate todayDate = LocalDate.now();
+        LocalDate eventDate = ev.getEvent().getDate();
+        LocalDate voteDeadlineDate = ev.getEvent().getVoteDeadlineDate();
+        return (todayDate.isBefore(voteDeadlineDate) || todayDate.isEqual(voteDeadlineDate))
+                && (todayDate.isAfter(eventDate) || todayDate.isEqual(eventDate));
     }
 }

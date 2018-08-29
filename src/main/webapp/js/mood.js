@@ -94,3 +94,23 @@ function getEvents() {
         }
     });
 }
+
+function getEventVotes() {
+    console.log("eventVote");
+    fetch('/api/vote/eventvote', {
+        "method": "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).then(function (response) {
+        return response.json();
+    }).then(function (eventVote) {
+        console.log(JSON.stringify(eventVote));
+    });
+}
+
+function getStatus() {
+    getEvents();
+    getEventVotes();
+}
