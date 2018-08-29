@@ -1,9 +1,10 @@
 package lv.ctco.javaschool.vote.entity;
 
-import lv.ctco.javaschool.auth.entity.domain.User;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "events")
@@ -13,7 +14,7 @@ public class Event {
     private Long id;
 
     private String eventName;
-    private String date;
+    private LocalDate date;
     private LocalDate voteDeadlineDate;
 
     public Long getId() {
@@ -32,11 +33,11 @@ public class Event {
         this.eventName = eventName;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

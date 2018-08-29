@@ -29,8 +29,6 @@ function voteStatus() {
         console.log(JSON.stringify(status));
         if (status.dayStatus) {
             document.getElementById("date").innerHTML = getDate(new Date());
-        } else if (status.eventStatus) {
-            document.getElementById("date").innerHTML = "Event name";
         }
     });
 }
@@ -79,7 +77,7 @@ function back() {
 
 function getEvents() {
     console.log("event");
-    fetch('/api/vote/eventname', {
+    fetch('/api/vote/event', {
         "method": "GET",
         headers: {
             'Accept': 'application/json',
@@ -89,11 +87,21 @@ function getEvents() {
         return response.json();
     }).then(function (event) {
         console.log(JSON.stringify(event));
-        for (i = 0; i < Object.keys(event).length; i++) {
-            eventName[i] = event[Object.keys(event)[i]].eventName;
-            html += "<option value=" + i  + ">" +eventName[i] + "</option>"
+        if (Object.keys(event).length > 0) {
+            for (i = 0; i < Object.keys(event).length; i++) {
+                eventName[i] = event[Object.keys(event)[i]].eventName;
+                html += "<option value=" + i  + ">" +eventName[i] + "</option>"
+            }
+            document.getElementById("data0").classList.add("w3-hide");
+            document.getElementById("datas").classList.remove("w3-hide");
+            document.getElementById("datas").innerHTML = html;
+        } else {
+            document.getElementById("data0").classList.remove("w3-hide");
+            document.getElementById("datas").classList.add("w3-hide");
+            document.getElementById("data0").innerHTML = "No events for vote";
+            document.getElementById("submit-btn").disabled = true;
+            document.getElementById("submit-btn").classList.add("w3-disabled");
         }
-        document.getElementById("datas").innerHTML = html;
     });
 }
 
