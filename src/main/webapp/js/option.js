@@ -22,18 +22,6 @@ function checkDayStatus() {
     });
 }
 
-function dayMood() {
-    fetch('/api/vote/start', {
-        "method": "POST",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    }).then(function (response) {
-        location.href = "../app/dayMood.jsp";
-    });
-}
-
 function handlerEvent(eventType) {
     if (eventType === "DAY") {
         location.href = "../app/dayMood.jsp";
@@ -54,6 +42,7 @@ function goStatistics() {
 }
 
 function onloadHandler() {
+    checkDayStatus();
     document.getElementById("date").innerHTML = getDate(new Date());
     getUserRole();
 }

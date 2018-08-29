@@ -2,6 +2,7 @@ package lv.ctco.javaschool.vote.boundary;
 
 import lv.ctco.javaschool.auth.control.UserStore;
 import lv.ctco.javaschool.auth.entity.domain.User;
+import lv.ctco.javaschool.vote.control.VoteStore;
 import lv.ctco.javaschool.vote.entity.*;
 import lv.ctco.javaschool.vote.entity.dto.DailyVoteDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -29,6 +31,8 @@ class VoteApiTest {
     private EntityManager em;
     @Mock
     private UserStore userStore;
+    @Mock
+    private VoteStore voteStore;
 
     @InjectMocks
     private VoteApi voteApi;
