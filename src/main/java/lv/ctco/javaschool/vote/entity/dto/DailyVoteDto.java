@@ -1,14 +1,16 @@
-package lv.ctco.javaschool.vote.entity;
+package lv.ctco.javaschool.vote.entity.dto;
 
-public class FeedbackDto {
-    private int mood;
+import lv.ctco.javaschool.vote.entity.MoodStatus;
+
+public class DailyVoteDto {
+    private MoodStatus mood;
     private String comment;
 
-    public int getMood() {
+    public MoodStatus getMood() {
         return mood;
     }
 
-    public void setMood(int mood) {
+    public void setMood(MoodStatus mood) {
         this.mood = mood;
     }
 
