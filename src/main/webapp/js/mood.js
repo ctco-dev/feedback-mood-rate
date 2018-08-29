@@ -31,33 +31,39 @@ function voteStatus() {
             document.getElementById("date").innerHTML = getDate(new Date());
         }
     });
+function displayDate() {
+    document.getElementById("date").innerHTML = getDate(new Date());
 }
 
-function submitVote() {
+function submitDailyVote() {
     console.log("Collecting feedback data");
     var comment = document.getElementById("comment").value;
-    if (document.getElementById('radio-button-one').checked) {
+    if (document.getElementById('radio-button-mood-happy').checked) {
         console.log("Mood - Happy");
-        feedback = {"mood": 1, "comment": comment};
-        submitData();
-    } else if (document.getElementById('radio-button-two').checked) {
+        feedback = {"mood": "HAPPY", "comment": comment};
+        submitDailyData(feedback);
+    } else if (document.getElementById('radio-button-mood-neutral').checked) {
         console.log("Mood - Neutral");
-        feedback = {"mood": 2, "comment": comment};
-        submitData();
-    } else if (document.getElementById('radio-button-three').checked) {
+        feedback = {"mood": "NEUTRAL", "comment": comment};
+        submitDailyData(feedback);
+    } else if (document.getElementById('radio-button-mood-sad').checked) {
         console.log("Mood - Sad");
-        feedback = {"mood": 3, "comment": comment};
-        submitData();
+        feedback = {"mood": "SAD", "comment": comment};
+        submitDailyData(feedback);
     } else {
         console.log("Error - mood not selected!");
         alert("Please select your mood");
     }
 }
 
-function submitData() {
+function submitEventVote() {
+
+}
+
+function submitDailyData(feedback) {
     console.log("Submitting data");
     console.log(JSON.stringify(feedback));
-    fetch('/api/vote/submit', {
+    fetch('/api/vote/submitDailyVote', {
         "method": "POST",
         headers: {
             'Accept': 'application/json',
@@ -109,5 +115,3 @@ function eventStatus() {
     voteStatus();
     getEvents();
 }
-
-

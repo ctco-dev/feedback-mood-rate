@@ -1,19 +1,9 @@
 function handlerEvent(eventType) {
-    console.log(JSON.stringify(eventType));
-    fetch('/api/vote/start', {
-        "method": "POST",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(eventType)
-    }).then(function (response) {
-        if(eventType === "DAY") {
-            location.href = "../app/dayMood.jsp";
-        } else if (eventType === "EVENT") {
-            location.href = "../app/eventMood.jsp";
-        }
-    });
+    if (eventType === "DAY") {
+        location.href = "../app/dayMood.jsp";
+    } else if (eventType === "EVENT") {
+        location.href = "../app/eventMood.jsp";
+    }
 }
 
 function logout() {
@@ -28,16 +18,8 @@ function goStatistics() {
 }
 
 function onloadHandler() {
-    getTodayDate();
+    document.getElementById("date").innerHTML = getDate(new Date());
     getUserRole();
-}
-
-function getTodayDate() {
-    todaysDate = new Date();
-    year = todaysDate.getFullYear();
-    month = todaysDate.getMonth() + 1;
-    day = todaysDate.getDate();
-    document.getElementById("date").innerHTML = day + "." + month + "." + year;
 }
 
 function getUserRole() {

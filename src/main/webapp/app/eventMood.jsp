@@ -25,15 +25,15 @@
     <ul>
         <li>
             <i class="em em-slightly_smiling_face"></i>
-            <input type="radio" id="radio-button-one" name="first_item" value="1" title="happy"/>
+            <input type="radio" id="radio-button-mood-happy" name="first_item" value="happy" title="happy"/>
         </li>
         <li>
             <i class="em em-neutral_face"></i>
-            <input type="radio" id="radio-button-two" name="first_item" value="2" title="neutral"/>
+            <input type="radio" id="radio-button-mood-neutral" name="first_item" value="neutral" title="neutral"/>
         </li>
         <li>
             <i class="em em-white_frowning_face"></i>
-            <input type="radio" id="radio-button-three" name="first_item" value="3" title="unhappy"/>
+            <input type="radio" id="radio-button-mood-sad" name="first_item" value="sad" title="unhappy"/>
         </li>
     </ul>
     <div class="form-group">
@@ -44,7 +44,7 @@
         <button type="button" class="w3-btn w3-teal w3-ripple" onclick="back()">Go back!</button>
     </div>
     <div id="Submit">
-        <button type="button" id="submit-btn" class="w3-btn w3-teal w3-ripple" onclick="submitVote()">Submit</button>
+        <button type="button" id="submit-btn" class="w3-btn w3-teal w3-ripple" onclick="submitEventVote()">Submit</button>
     </div>
 </form>
 </body>

@@ -9,10 +9,11 @@ import lv.ctco.javaschool.vote.entity.EventDto;
 import lv.ctco.javaschool.vote.entity.EventType;
 import lv.ctco.javaschool.vote.entity.EventVote;
 import lv.ctco.javaschool.vote.entity.FeedbackDto;
-import lv.ctco.javaschool.vote.entity.MoodStatus;
 import lv.ctco.javaschool.vote.entity.Vote;
 import lv.ctco.javaschool.vote.entity.VoteDto;
 import lv.ctco.javaschool.vote.entity.VoteStatus;
+import lv.ctco.javaschool.vote.entity.dto.DailyVoteDto;
+import lv.ctco.javaschool.vote.entity.dto.EventDto;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -38,43 +39,6 @@ public class VoteApi {
     @Inject
     private VoteStore voteStore;
 
-    @POST
-    @RolesAllowed({"ADMIN", "USER"})
-    @Path("/start")
-    public void startVote(EventType eventType) {
-        User currentUser = userStore.getCurrentUser();
-        Optional<Vote> vote = voteStore.getIncompleteVote(currentUser);
-        vote.ifPresent(v -> {
-            if (v.getEventType() != eventType) {
-                v.setEventType(eventType);
-            }
-        });
-
-        if (!vote.isPresent()) {
-            Vote newVote = new Vote();
-            newVote.setUser(currentUser);
-            newVote.setVoteStatus(VoteStatus.INCOMPLETE);
-            newVote.setEventType(eventType);
-            em.persist(newVote);
-        }
-    }
-
-    @GET
-    @RolesAllowed({"ADMIN", "USER"})
-    @Path("/status")
-    public VoteDto getStatus() {
-        User currentUser = userStore.getCurrentUser();
-        Optional<Vote> vote = voteStore.getIncompleteVote(currentUser);
-
-        return vote.map(v -> {
-            VoteDto dto = new VoteDto();
-            dto.setStatus(v.getVoteStatus());
-            dto.setDayStatus(v.getEventType() == EventType.DAY);
-            dto.setEventStatus(v.getEventType() == EventType.EVENT);
-            return dto;
-        }).orElseThrow(IllegalStateException::new);
-    }
-
     @GET
     @RolesAllowed({"ADMIN", "USER"})
     @Path("/event")
@@ -99,16 +63,16 @@ public class VoteApi {
 
     @POST
     @RolesAllowed({"ADMIN", "USER"})
-    @Path("/submit")
-    public void submitVote(FeedbackDto feedback) {
+    @Path("/submitDailyVote")
+    public void submitDailyVote(DailyVoteDto feedback) {
         User currentUser = userStore.getCurrentUser();
         LocalDate today = LocalDate.now();
 
-        DailyVote newDailyVote = new DailyVote();
-        newDailyVote.setUser(currentUser);
-        newDailyVote.setMood(MoodStatus.HAPPY);
-        newDailyVote.setComment(feedback.getComment());
-        newDailyVote.setDate(today.toString());
-        em.persist(newDailyVote);
+        DailyVote dailyVote = new DailyVote();
+        dailyVote.setUser(currentUser);
+        dailyVote.setMood(feedback.getMood());
+        dailyVote.setComment(feedback.getComment());
+        dailyVote.setDate(today);
+        em.persist(dailyVote);
     }
 }
