@@ -24,6 +24,10 @@ function submitDailyVote() {
     }
 }
 
+function submitEventVote() {
+
+}
+
 function submitDailyData(feedback) {
     console.log("Submitting data");
     console.log(JSON.stringify(feedback));

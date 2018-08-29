@@ -40,7 +40,7 @@
         <button type="button" onclick="back()">Go back!</button>
     </div>
     <div id="Submit">
-        <button type="button" onclick="submitDailyVote()">Submit</button>
+        <button type="button" onclick="submitEventVote()">Submit</button>
     </div>
 </form>
 </body>
