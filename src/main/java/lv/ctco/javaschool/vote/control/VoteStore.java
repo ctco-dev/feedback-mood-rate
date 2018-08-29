@@ -1,13 +1,12 @@
 package lv.ctco.javaschool.vote.control;
 
 import lv.ctco.javaschool.auth.entity.domain.User;
-import lv.ctco.javaschool.vote.entity.Event;
-import lv.ctco.javaschool.vote.entity.Vote;
-import lv.ctco.javaschool.vote.entity.VoteStatus;
+import lv.ctco.javaschool.vote.entity.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +14,16 @@ import java.util.Optional;
 public class VoteStore {
     @PersistenceContext
     private EntityManager em;
+
+    public Optional<DailyVote> getCurrentVoteDate(User user, LocalDate date){
+        return em.createQuery("select  d " +
+                "from DailyVote d " +
+                "where d.user = :user and d.date = :date", DailyVote.class)
+                .setParameter("user", user)
+                .setParameter("date", date)
+                .getResultStream()
+                .findFirst();
+    }
 
     public Optional<Vote> getIncompleteVote(User user) {
         return em.createQuery(

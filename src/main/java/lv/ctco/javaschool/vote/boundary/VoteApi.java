@@ -62,6 +62,18 @@ public class VoteApi {
 
     @GET
     @RolesAllowed({"ADMIN", "USER"})
+    @Path("/checkDay")
+    public boolean getDay() {
+        User currentUser = userStore.getCurrentUser();
+        Optional<DailyVote> day = voteStore.getCurrentVoteDate(currentUser, LocalDate.now());
+        if(day.isPresent()) {
+            return true;
+        }
+        return false;
+    }
+
+    @GET
+    @RolesAllowed({"ADMIN", "USER"})
     @Path("/status")
     public VoteDto getStatus() {
         User currentUser = userStore.getCurrentUser();
@@ -106,8 +118,6 @@ public class VoteApi {
         newDailyVote.setUser(currentUser);
         newDailyVote.setMood(MoodStatus.HAPPY);
         newDailyVote.setComment(feedback.getComment());
-        newDailyVote.setDate(today.toString());
-        newDailyVote.setStatus(VoteStatus.COMPLETE);
         em.persist(newDailyVote);
     }
 }

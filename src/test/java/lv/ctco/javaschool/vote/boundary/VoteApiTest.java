@@ -2,10 +2,10 @@ package lv.ctco.javaschool.vote.boundary;
 
 import lv.ctco.javaschool.auth.control.UserStore;
 import lv.ctco.javaschool.auth.entity.domain.User;
-import lv.ctco.javaschool.vote.entity.DailyVote;
-import lv.ctco.javaschool.vote.entity.FeedbackDto;
 import lv.ctco.javaschool.vote.control.VoteStore;
+import lv.ctco.javaschool.vote.entity.DailyVote;
 import lv.ctco.javaschool.vote.entity.EventType;
+import lv.ctco.javaschool.vote.entity.FeedbackDto;
 import lv.ctco.javaschool.vote.entity.Vote;
 import lv.ctco.javaschool.vote.entity.VoteDto;
 import lv.ctco.javaschool.vote.entity.VoteStatus;
@@ -29,6 +29,8 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
 
 class VoteApiTest {
     @Mock
@@ -201,5 +203,19 @@ class VoteApiTest {
                 .thenReturn(Optional.empty());
 
         assertThrows(IllegalStateException.class, () -> voteApi.getStatus());
+    }
+
+    @Test
+    @DisplayName("Check if object is already in DB")
+    public void checkDate() {
+        DailyVote day = new DailyVote();
+        day.setUser(user);
+        day.setDate(LocalDate.now());
+
+        when(userStore.getCurrentUser()).thenReturn(user);
+        when(voteStore.getCurrentVoteDate(user, LocalDate.now())).thenReturn(Optional.of(day));
+        boolean actual = voteApi.getDay();
+
+        assertThat(actual, equalTo(true));
     }
 }

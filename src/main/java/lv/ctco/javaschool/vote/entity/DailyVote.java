@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "day_vote")
 public class DailyVote {
     @Id
     @GeneratedValue
@@ -15,7 +16,7 @@ public class DailyVote {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private String date;
+    private LocalDate date;
 
     @Enumerated(EnumType.STRING)
     private MoodStatus mood;
@@ -38,14 +39,6 @@ public class DailyVote {
         this.user = user;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public MoodStatus getMood() {
         return mood;
     }
@@ -60,5 +53,13 @@ public class DailyVote {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }
