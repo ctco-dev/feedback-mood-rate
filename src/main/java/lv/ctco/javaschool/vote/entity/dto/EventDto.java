@@ -1,4 +1,4 @@
-package lv.ctco.javaschool.vote.entity;
+package lv.ctco.javaschool.vote.entity.dto;
 
 import lv.ctco.javaschool.auth.entity.domain.User;
 
@@ -7,7 +7,6 @@ import javax.persistence.Enumerated;
 import java.util.List;
 
 public class EventDto {
-
     private String eventName;
     private String date;
     private String deadlineDate;
