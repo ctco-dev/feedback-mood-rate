@@ -20,6 +20,7 @@ import javax.ws.rs.Path;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Path("/vote")
 @Stateless
@@ -49,6 +50,15 @@ public class VoteApi {
         EventDtoList evList = new EventDtoList();
         evList.setEventDtoList(eventDtos);
         return evList;
+    }
+
+    @GET
+    @RolesAllowed({"ADMIN", "USER"})
+    @Path("/checkDay")
+    public boolean checkDay() {
+        User currentUser = userStore.getCurrentUser();
+        Optional<DailyVote> day = voteStore.getCurrentVoteDate(currentUser, LocalDate.now());
+        return day.isPresent();
     }
 
     @POST

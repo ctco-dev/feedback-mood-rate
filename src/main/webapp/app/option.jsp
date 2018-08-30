@@ -12,8 +12,8 @@
 <body onload="onloadHandler()">
 <h2>You mood in:</h2>
 <p>
-    <button type="button" onclick="handlerEvent('DAY')">Day</button>
-    <span id="date"></span><br/><br/>
+    <button id="buttonDay" onclick="handlerEvent('DAY')">Day</button>
+    <span id="voteDone">Come back tomorrow!</span><span id="date"></span><br/><br/>
     <button type="button" onclick="handlerEvent('EVENT')">Event</button>
     <br/><br/><br/><br/><br/>
 </p>
