@@ -81,16 +81,9 @@ public class VoteApi {
     public Response submitEventVote(EventVoteDto feedback) {
         if (feedback.getEventName() == null || feedback.getEventName().length() == 0) {
             return Response.status(Response.Status.BAD_REQUEST).entity("Error").build();
-        } else {
-            User currentUser = userStore.getCurrentUser();
-            Event currentEvent = voteStore.getEventByEventName(feedback.getEventName());
-            EventVote eventVote = voteStore.getEventVoteByUserIdEventId(currentUser, currentEvent);
-
-            eventVote.setMood(feedback.getMood());
-            eventVote.setComment(feedback.getComment());
-            em.merge(eventVote);
-            return Response.ok().build();
         }
+        mergeEventVote(feedback);
+        return Response.ok().build();
     }
 
     @GET
@@ -123,5 +116,15 @@ public class VoteApi {
         LocalDate voteDeadlineDate = ev.getEvent().getVoteDeadlineDate();
         return (todayDate.isBefore(voteDeadlineDate) || todayDate.isEqual(voteDeadlineDate))
                 && (todayDate.isAfter(eventDate) || todayDate.isEqual(eventDate));
+    }
+
+    public void mergeEventVote(EventVoteDto feedback) {
+        User currentUser = userStore.getCurrentUser();
+        Event currentEvent = voteStore.getEventByEventName(feedback.getEventName());
+        EventVote eventVote = voteStore.getEventVoteByUserIdEventId(currentUser, currentEvent);
+
+        eventVote.setMood(feedback.getMood());
+        eventVote.setComment(feedback.getComment());
+        em.merge(eventVote);
     }
 }
