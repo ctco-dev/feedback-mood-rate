@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import javax.persistence.EntityManager;
+import javax.ws.rs.core.Response;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -119,7 +120,6 @@ class VoteApiTest {
         }).when(em).persist(any(DailyVote.class));
 
         voteApi.submitDailyVote(dailyVoteDto);
-
         verify(em, times(1)).persist(any(DailyVote.class));
     }
 

@@ -3,6 +3,7 @@ package lv.ctco.javaschool.vote.control;
 import lv.ctco.javaschool.auth.entity.domain.User;
 import lv.ctco.javaschool.vote.entity.DailyVote;
 import lv.ctco.javaschool.vote.entity.Event;
+import lv.ctco.javaschool.vote.entity.MoodStatus;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
