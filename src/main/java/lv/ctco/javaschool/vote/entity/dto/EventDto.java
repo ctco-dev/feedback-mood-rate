@@ -1,21 +1,17 @@
 package lv.ctco.javaschool.vote.entity.dto;
 
-import lv.ctco.javaschool.auth.entity.domain.User;
-
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import java.util.List;
+import java.time.LocalDate;
 
 public class EventDto {
     private String eventName;
-    private String date;
-    private String deadlineDate;
+    private LocalDate date;
+    private LocalDate deadlineDate;
 
-    public String getDeadlineDate() {
+    public LocalDate getDeadlineDate() {
         return deadlineDate;
     }
 
-    public void setDeadlineDate(String deadlineDate) {
+    public void setDeadlineDate(LocalDate deadlineDate) {
         this.deadlineDate = deadlineDate;
     }
 
@@ -27,11 +23,11 @@ public class EventDto {
         this.eventName = eventName;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 }
