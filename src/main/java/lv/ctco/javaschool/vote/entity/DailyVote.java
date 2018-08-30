@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "day_vote")
+@Table(name = "daily_vote")
 public class DailyVote {
     @Id
     @GeneratedValue

@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
-@Table()
+@Table(name = "event_vote")
 public class EventVote {
     @Id
     @GeneratedValue

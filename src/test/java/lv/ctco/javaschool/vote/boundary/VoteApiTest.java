@@ -156,7 +156,7 @@ class VoteApiTest {
 
         when(userStore.getCurrentUser()).thenReturn(user);
         when(voteStore.getCurrentVoteDate(user, LocalDate.now())).thenReturn(Optional.of(day));
-        boolean actual = voteApi.getDay();
+        boolean actual = voteApi.checkDay();
 
         assertThat(actual, equalTo(true));
     }

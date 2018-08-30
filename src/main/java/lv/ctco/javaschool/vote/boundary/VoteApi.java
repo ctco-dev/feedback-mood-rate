@@ -55,13 +55,10 @@ public class VoteApi {
     @GET
     @RolesAllowed({"ADMIN", "USER"})
     @Path("/checkDay")
-    public boolean getDay() {
+    public boolean checkDay() {
         User currentUser = userStore.getCurrentUser();
         Optional<DailyVote> day = voteStore.getCurrentVoteDate(currentUser, LocalDate.now());
-        if(day.isPresent()) {
-            return true;
-        }
-        return false;
+        return day.isPresent();
     }
 
     @POST
