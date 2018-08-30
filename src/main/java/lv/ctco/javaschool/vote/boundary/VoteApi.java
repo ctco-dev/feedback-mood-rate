@@ -4,10 +4,13 @@ import jdk.nashorn.internal.runtime.logging.Logger;
 import lv.ctco.javaschool.auth.control.UserStore;
 import lv.ctco.javaschool.auth.entity.domain.User;
 import lv.ctco.javaschool.vote.control.VoteStore;
-import lv.ctco.javaschool.vote.entity.*;
+import lv.ctco.javaschool.vote.entity.DailyVote;
+import lv.ctco.javaschool.vote.entity.Event;
 import lv.ctco.javaschool.vote.entity.dto.DailyVoteDto;
+import lv.ctco.javaschool.vote.entity.dto.DateDto;
 import lv.ctco.javaschool.vote.entity.dto.EventDto;
 import lv.ctco.javaschool.vote.entity.dto.EventDtoList;
+import lv.ctco.javaschool.vote.entity.dto.StatisticsDto;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -17,8 +20,10 @@ import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import java.util.ArrayList;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.List;
 
 @Path("/vote")
@@ -64,5 +69,40 @@ public class VoteApi {
         dailyVote.setComment(feedback.getComment());
         dailyVote.setDate(today);
         em.persist(dailyVote);
+    }
+
+    @POST
+    @RolesAllowed({"ADMIN"})
+    @Path("/getStatistics")
+    public List<StatisticsDto> getStatistics(DateDto dateDto) {
+
+        //TODO: need to separate day stats and week stats
+        LocalDate selectedDate = dateDto.getDate();
+        String week = dateDto.getWeek().replace("W","");
+
+        System.out.println(week);
+        LocalDate weekFirstDate =
+                LocalDate.parse(week,
+                        new DateTimeFormatterBuilder().appendPattern("YYYY-w")
+                                .parseDefaulting(WeekFields.ISO.dayOfWeek(), 1)
+                                .toFormatter());
+        LocalDate weekLastDate = weekFirstDate.plusDays(6);
+
+
+        //Select Vote Per One Day
+        List<DailyVote> dailyVotesList = voteStore.getDayDailyVote(selectedDate);
+
+        //Select Vote Per One Week
+        //List<DailyVote> dailyVotesList = voteStore.getWeekDailyVote(weekFirstDate,weekLastDate);
+
+        List<StatisticsDto> statsList = new ArrayList<>();
+
+        for (DailyVote item: dailyVotesList) {
+            StatisticsDto currentDailyVote = new StatisticsDto();
+            currentDailyVote.setMood(item.getMood());
+            currentDailyVote.setComment(item.getComment());
+            statsList.add(currentDailyVote);
+        }
+        return statsList;
     }
 }
