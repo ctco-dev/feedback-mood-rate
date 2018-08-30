@@ -101,7 +101,6 @@ public class VoteApi {
     public void submitDailyVote(DailyVoteDto feedback) {
         User currentUser = userStore.getCurrentUser();
         LocalDate today = LocalDate.now();
-
         DailyVote dailyVote = new DailyVote();
         dailyVote.setUser(currentUser);
         dailyVote.setMood(feedback.getMood());
