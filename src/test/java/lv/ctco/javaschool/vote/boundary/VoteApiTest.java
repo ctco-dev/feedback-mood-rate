@@ -4,6 +4,8 @@ import lv.ctco.javaschool.auth.control.UserStore;
 import lv.ctco.javaschool.auth.entity.domain.User;
 import lv.ctco.javaschool.vote.control.VoteStore;
 import lv.ctco.javaschool.vote.entity.DailyVote;
+import lv.ctco.javaschool.vote.entity.Event;
+import lv.ctco.javaschool.vote.entity.EventVote;
 import lv.ctco.javaschool.vote.entity.MoodStatus;
 import lv.ctco.javaschool.vote.entity.dto.DailyVoteDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,12 +14,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.times;
@@ -36,7 +40,6 @@ class VoteApiTest {
     private VoteApi voteApi;
 
     private User user1;
-
     private User user;
 
     @BeforeEach
@@ -157,5 +160,16 @@ class VoteApiTest {
         boolean actual = voteApi.checkDay();
 
         assertThat(actual, equalTo(true));
+    }
+
+    @Test
+    @DisplayName("Check if todayDate after eventDate and before voteDeadlineDate")
+    public void checkTodayDate() {
+        EventVote eventVote = new EventVote();
+        Event event = new Event();
+        event.setDate(LocalDate.of(2018, 8, 30));
+        event.setVoteDeadlineDate(LocalDate.of(2018, 9, 10));
+        eventVote.setEvent(event);
+        assertTrue(voteApi.checkTodayDate(eventVote));
     }
 }
