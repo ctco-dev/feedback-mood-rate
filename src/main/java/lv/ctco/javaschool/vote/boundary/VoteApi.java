@@ -20,8 +20,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,16 +97,27 @@ public class VoteApi {
 
     @POST
     @RolesAllowed({"ADMIN", "USER"})
-    @Path("/submitDailyVote")
+    @Path("/checkSubmit")
+    public Response checkSubmitDailyVote(DailyVoteDto feedback){
+        if(checkDay()){
+            return Response.status(Response.Status.METHOD_NOT_ALLOWED).build();
+        } else if (feedback.getMood() == null){
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        submitDailyVote(feedback);
+        return Response.status(Response.Status.CREATED).build();
+    }
+
     public void submitDailyVote(DailyVoteDto feedback) {
-        User currentUser = userStore.getCurrentUser();
-        LocalDate today = LocalDate.now();
-        DailyVote dailyVote = new DailyVote();
-        dailyVote.setUser(currentUser);
-        dailyVote.setMood(feedback.getMood());
-        dailyVote.setComment(feedback.getComment());
-        dailyVote.setDate(today);
-        em.persist(dailyVote);
+            User currentUser = userStore.getCurrentUser();
+            LocalDate today = LocalDate.now();
+
+            DailyVote dailyVote = new DailyVote();
+            dailyVote.setUser(currentUser);
+            dailyVote.setMood(feedback.getMood());
+            dailyVote.setComment(feedback.getComment());
+            dailyVote.setDate(today);
+            em.persist(dailyVote);
     }
 
     public boolean checkTodayDate(EventVote ev) {

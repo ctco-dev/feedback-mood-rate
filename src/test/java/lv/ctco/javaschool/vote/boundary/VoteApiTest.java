@@ -120,7 +120,6 @@ class VoteApiTest {
         }).when(em).persist(any(DailyVote.class));
 
         voteApi.submitDailyVote(dailyVoteDto);
-
         verify(em, times(1)).persist(any(DailyVote.class));
     }
 
