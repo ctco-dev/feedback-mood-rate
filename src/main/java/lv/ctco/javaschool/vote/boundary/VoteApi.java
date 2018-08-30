@@ -23,6 +23,7 @@ import javax.ws.rs.core.Response;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Path("/vote")
 @Stateless
@@ -90,6 +91,15 @@ public class VoteApi {
             em.merge(eventVote);
             return Response.ok().build();
         }
+    }
+
+    @GET
+    @RolesAllowed({"ADMIN", "USER"})
+    @Path("/checkDay")
+    public boolean checkDay() {
+        User currentUser = userStore.getCurrentUser();
+        Optional<DailyVote> day = voteStore.getCurrentVoteDate(currentUser, LocalDate.now());
+        return day.isPresent();
     }
 
     @POST

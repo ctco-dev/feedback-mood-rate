@@ -1,3 +1,27 @@
+function checkDayStatus() {
+    console.log("Checking day button status");
+    fetch('/api/vote/checkDay', {
+        "method": "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).then(function(response){
+        return response.json();
+    }).then(function (day) {
+        console.log(JSON.stringify(day));
+        if(day){
+            buttonDay.disabled = true;
+            document.getElementById("date").classList.add("w3-hide");
+            document.getElementById("voteDone").classList.remove("w3-hide");
+        } else {
+            buttonDay.disabled = false;
+            document.getElementById("date").classList.remove("w3-hide");
+            document.getElementById("voteDone").classList.add("w3-hide");
+        }
+    });
+}
+
 function handlerEvent(eventType) {
     if (eventType === "DAY") {
         location.href = "../app/dayMood.jsp";
@@ -18,6 +42,7 @@ function goStatistics() {
 }
 
 function onloadHandler() {
+    checkDayStatus();
     document.getElementById("date").innerHTML = getDate(new Date());
     getUserRole();
 }
