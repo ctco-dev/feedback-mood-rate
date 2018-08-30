@@ -5,6 +5,7 @@ import lv.ctco.javaschool.auth.control.UserStore;
 import lv.ctco.javaschool.auth.entity.domain.User;
 import lv.ctco.javaschool.vote.control.VoteStore;
 import lv.ctco.javaschool.vote.entity.DailyVote;
+import lv.ctco.javaschool.vote.entity.Event;
 import lv.ctco.javaschool.vote.entity.EventVote;
 import lv.ctco.javaschool.vote.entity.dto.DailyVoteDto;
 import lv.ctco.javaschool.vote.entity.dto.EventDto;
@@ -18,6 +19,7 @@ import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,10 +55,10 @@ public class VoteApi {
 
     @GET
     @RolesAllowed({"ADMIN", "USER"})
-    @Path("/eventvote")
+    @Path("/eventVote")
     public List<EventVoteDto> getEventVoteList() {
         User currentUser = userStore.getCurrentUser();
-        List<EventVote> eventVoteList = voteStore.getEventVoteByUserId(currentUser);
+        List<EventVote> eventVoteList = voteStore.getAllEventVotes(currentUser);
         List<EventVoteDto> eventVoteDtos = new ArrayList<>();
 
         eventVoteList.forEach(ev -> {
@@ -70,6 +72,24 @@ public class VoteApi {
             }
         });
         return eventVoteDtos;
+    }
+
+    @POST
+    @RolesAllowed({"ADMIN", "USER"})
+    @Path("/submitEventVote")
+    public Response submitEventVote(EventVoteDto feedback) {
+        if (feedback.getEventName() == null || feedback.getEventName().length() == 0) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Error").build();
+        } else {
+            User currentUser = userStore.getCurrentUser();
+            Event currentEvent = voteStore.getEventByEventName(feedback.getEventName());
+            EventVote eventVote = voteStore.getEventVoteByUserIdEventId(currentUser, currentEvent);
+
+            eventVote.setMood(feedback.getMood());
+            eventVote.setComment(feedback.getComment());
+            em.merge(eventVote);
+            return Response.ok().build();
+        }
     }
 
     @POST

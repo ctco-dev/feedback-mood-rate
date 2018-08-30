@@ -1,25 +1,12 @@
-var feedback = {};
 var eventName = [];
 var html = "";
-
-function getDate(date) {
-    var monthNames = [
-        "January", "February", "March",
-        "April", "May", "June", "July",
-        "August", "September", "October",
-        "November", "December"
-    ];
-    var day = date.getDate();
-    var monthIndex = date.getMonth();
-    var year = date.getFullYear();
-    return day + ' ' + monthNames[monthIndex] + ' ' + year;
-}
 
 function displayDate() {
     document.getElementById("date").innerHTML = getDate(new Date());
 }
 
 function submitDailyVote() {
+    var feedback = {};
     console.log("Collecting feedback data");
     var comment = document.getElementById("comment").value;
     if (document.getElementById('radio-button-mood-happy').checked) {
@@ -41,7 +28,44 @@ function submitDailyVote() {
 }
 
 function submitEventVote() {
+    var feedbackEvent = {};
+    console.log("Collecting feedback data");
+    var comment = document.getElementById("comment").value;
+    var event = eventName[document.getElementById("eventList").value];
+    if (document.getElementById('radio-button-mood-happy').checked) {
+        feedbackEvent = {"eventName": event, "mood": "HAPPY", "comment": comment};
+        submitEventData(feedbackEvent);
+    } else if (document.getElementById('radio-button-mood-neutral').checked) {
+        feedbackEvent = {"eventName": event, "mood": "NEUTRAL", "comment": comment};
+        submitEventData(feedbackEvent);
+    } else if (document.getElementById('radio-button-mood-sad').checked) {
+        feedbackEvent = {"eventName": event, "mood": "SAD", "comment": comment};
+        submitEventData(feedbackEvent);
+    } else {
+        console.log("Error - mood not selected!");
+        alert("Please select your mood");
+    }
+}
 
+function submitEventData(feedbackEvent) {
+    console.log("Submitting data");
+    console.log(JSON.stringify(feedbackEvent));
+    fetch('/api/vote/submitEventVote', {
+        "method": "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(feedbackEvent)
+    }).then(function (response) {
+        if (response.status === 400) {
+            alert("No events for vote!");
+        } else {
+            console.log("DONE");
+            alert("Thanks for vote!");
+            back();
+        }
+    });
 }
 
 function submitDailyData(feedback) {
@@ -82,13 +106,13 @@ function getEvents() {
                 eventName[i] = event[Object.keys(event)[i]].eventName;
                 html += "<option value=" + i  + ">" +eventName[i] + "</option>"
             }
-            document.getElementById("data0").classList.add("w3-hide");
-            document.getElementById("datas").classList.remove("w3-hide");
-            document.getElementById("datas").innerHTML = html;
+            document.getElementById("data").classList.add("w3-hide");
+            document.getElementById("eventList").classList.remove("w3-hide");
+            document.getElementById("eventList").innerHTML = html;
         } else {
-            document.getElementById("data0").classList.remove("w3-hide");
-            document.getElementById("datas").classList.add("w3-hide");
-            document.getElementById("data0").innerHTML = "No events for vote";
+            document.getElementById("data").classList.remove("w3-hide");
+            document.getElementById("eventList").classList.add("w3-hide");
+            document.getElementById("data").innerHTML = "No events for vote";
             document.getElementById("submit-btn").disabled = true;
             document.getElementById("submit-btn").classList.add("w3-disabled");
         }
@@ -97,7 +121,7 @@ function getEvents() {
 
 function getEventVotes() {
     console.log("eventVote");
-    fetch('/api/vote/eventvote', {
+    fetch('/api/vote/eventVote', {
         "method": "GET",
         headers: {
             'Accept': 'application/json',

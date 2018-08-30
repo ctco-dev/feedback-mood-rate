@@ -25,10 +25,34 @@ public class VoteStore {
                 .getResultList();
     }
 
-    public Event findEventById(int eventId) {
-        return em.createQuery("select e from Event e where e.id=:id",Event.class)
-                .setParameter("id",eventId)
-                .setMaxResults(1)
+    public List<EventVote> getAllEventVotes(User user) {
+        return em.createQuery(
+                "select ev " +
+                        "from EventVote ev " +
+                        "where ev.user = :user", EventVote.class)
+                .setParameter("user", user)
+                .getResultList();
+    }
+
+    public EventVote getEventVoteByUserIdEventId(User user, Event event) {
+        return em.createQuery(
+                "select ev " +
+                        "from EventVote ev " +
+                        "where ev.user = :user and ev.event = :event and ev.mood = :moodStatus", EventVote.class)
+                .setParameter("user", user)
+                .setParameter("event", event)
+                .setParameter("moodStatus", MoodStatus.EMPTY)
+                .getResultStream()
+                .findFirst()
+                .orElseThrow(IllegalStateException::new);
+    }
+
+    public Event getEventByEventName(String eventName) {
+        return em.createQuery(
+                "select e " +
+                        "from Event e " +
+                        "where e.eventName = :eventName", Event.class)
+                .setParameter("eventName", eventName)
                 .getResultStream()
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);

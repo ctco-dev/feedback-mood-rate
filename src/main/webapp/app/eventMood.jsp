@@ -18,8 +18,8 @@
 <h3>Choose your mood!</h3>
 <form name="mood_form" id="formId" method="post">
     <div>
-        <select name="datas" id="datas" required></select>
-        <h3 id="data0"></h3>
+        <select name="eventList" id="eventList" required></select>
+        <h3 id="data"></h3>
     </div>
     <br/>
     <ul>
