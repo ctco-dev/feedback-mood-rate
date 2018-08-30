@@ -16,10 +16,9 @@
 </head>
 <body onload="displayDate()">
 <h3 id="date"></h3>
+<h3>Choose your mood!</h3>
 <form name="mood_form" id="formId" method="post">
-    <p>There will be event name</p>
     <ul>
-        <li> Choose your mood!</li>
         <li>
             <i class="em em-slightly_smiling_face"></i>
             <input type="radio" id="radio-button-mood-happy" name="first_item" value="happy" title="happy"/>
