@@ -13,7 +13,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../js/mood.js"></script>
     <script src="../js/date.js"></script>
-    <script src="../js/option.js"></script>
 </head>
 <body onload="displayDate()">
 <h3 id="date"></h3>

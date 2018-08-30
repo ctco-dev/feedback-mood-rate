@@ -22,7 +22,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -104,10 +103,9 @@ public class VoteApi {
             return Response.status(Response.Status.METHOD_NOT_ALLOWED).build();
         } else if (feedback.getMood() == null){
             return Response.status(Response.Status.BAD_REQUEST).build();
-        } else {
-            submitDailyVote(feedback);
-            return Response.status(Response.Status.CREATED).build();
         }
+        submitDailyVote(feedback);
+        return Response.status(Response.Status.CREATED).build();
     }
 
     public void submitDailyVote(DailyVoteDto feedback) {
