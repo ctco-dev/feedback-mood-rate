@@ -22,17 +22,16 @@ function changeStatsType() {
 function onLoadHandler() {
     showTextFeedback();
     changeStatsType();
-    // getStats();
 }
 
 function getStats() {
-    console.log("Checking selected statistics type");
-    var statsDto = {};
+    document.getElementById('text-feedback').innerHTML = '';
     var happy = 0;
     var neutral = 0;
     var sad = 0;
     var empty = 0;
     var commentsArr = [];
+    var statsDto = {};
     var dayStats = document.getElementById("day-stats-radio");
     var weekStats = document.getElementById("week-stats-radio");
     if (dayStats.checked) {
@@ -86,7 +85,7 @@ function getStats() {
             feedback.innerHTML = "User mood: " + element.mood + "<br>"
                 + "User comment: " + element.comment + "<br>";
 
-            statistics.appendChild(feedback);
+            document.getElementById('text-feedback').appendChild(feedback);
         });
 
         document.getElementById("happy-vote-count").innerHTML = happy.toString();
