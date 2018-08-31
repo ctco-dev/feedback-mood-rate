@@ -7,31 +7,54 @@ function showTextFeedback() {
     }
 }
 
+function changeStatsType() {
+    var dayStats = document.getElementById("day-stats-radio");
+    var weekStats = document.getElementById("week-stats-radio");
+    if (dayStats.checked) {
+        document.getElementById("day-stats-menu").classList.remove("w3-hide");
+        document.getElementById("week-stats-menu").classList.add("w3-hide");
+    } else if (weekStats.checked) {
+        document.getElementById("week-stats-menu").classList.remove("w3-hide");
+        document.getElementById("day-stats-menu").classList.add("w3-hide");
+    }
+}
+
 function onLoadHandler() {
     showTextFeedback();
+    changeStatsType();
     // getStats();
 }
 
 function getStats() {
-    var date = {
-        "date": document.getElementById("date-select").value,
-        "week": document.getElementById("week-select").value
-    };
-    var week = document.getElementById("week-select").value;
+    console.log("Checking selected statistics type");
+    var statsDto = {};
     var happy = 0;
     var neutral = 0;
     var sad = 0;
     var empty = 0;
-    console.log(date);
-    console.log(week);
-    console.log("Collecting Statistics");
-    fetch('/api/vote/getStatistics', {
+
+    var dayStats = document.getElementById("day-stats-radio");
+    var weekStats = document.getElementById("week-stats-radio");
+    if (dayStats.checked) {
+        console.log("Statistics type - Day");
+        statsDto = {"date": document.getElementById("date-select").value};
+    }
+    else if (weekStats.checked) {
+        console.log("Statistics type - Week");
+        statsDto = {
+            "week": document.getElementById("week-select").value
+        };
+    }
+
+    console.log(statsDto);
+    console.log("Collecting Statistics from Database");
+    fetch('/api/vote/getDailyStatistics', {
         "method": "POST",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(date)
+        body: JSON.stringify(statsDto)
     }).then(function (response) {
         return response.json();
     }).then(function (stats) {
@@ -55,6 +78,7 @@ function getStats() {
         document.getElementById("happy-vote-count").innerHTML = happy.toString();
         document.getElementById("neutral-vote-count").innerHTML = neutral.toString();
         document.getElementById("sad-vote-count").innerHTML = sad.toString();
+        console.log("DONE")
     });
 }
 

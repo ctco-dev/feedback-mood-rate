@@ -13,13 +13,19 @@
     <h2>Feedback Statistics</h2>
     <h3>Statistics menu</h3>
     <p>Chose statistics type</p>
-    <button type="button" onclick="">Day</button>
-    <button type="button" onclick="">Week</button>
-    <button type="button" onclick="">Event</button>
+
+    <form action="select stats">
+        <input id="day-stats-radio" type="radio"
+               name="statistics-type" value="day" checked="checked" onchange="changeStatsType()"> Daily statistics
+        <input id="week-stats-radio" type="radio"
+               name="statistics-type" value="week" onchange="changeStatsType()"> Weekly statistics
+    </form>
     <div>
-        <div>
+        <div id="day-stats-menu">
             <label for="date-select">Pick date: </label>
             <input type="date" id="date-select"/>
+        </div>
+        <div id="week-stats-menu">
             <label for="week-select">Pick week: </label>
             <input type="week" name="camp-week" id="week-select"
                    min="2018-W27" max="2018-W35" required/>
