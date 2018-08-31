@@ -10,9 +10,8 @@ import lv.ctco.javaschool.vote.entity.EventVote;
 import lv.ctco.javaschool.vote.entity.dto.DailyVoteDto;
 import lv.ctco.javaschool.vote.entity.dto.DateDto;
 import lv.ctco.javaschool.vote.entity.dto.EventDto;
-import lv.ctco.javaschool.vote.entity.dto.EventDtoList;
-import lv.ctco.javaschool.vote.entity.dto.StatisticsDto;
 import lv.ctco.javaschool.vote.entity.dto.EventVoteDto;
+import lv.ctco.javaschool.vote.entity.dto.StatisticsDto;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -23,10 +22,10 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -162,10 +161,10 @@ public class VoteApi {
 
 
         //Select Vote Per One Day
-        List<DailyVote> dailyVotesList = voteStore.getDayDailyVote(selectedDate);
+        //List<DailyVote> dailyVotesList = voteStore.getDayDailyVote(selectedDate);
 
         //Select Vote Per One Week
-        //List<DailyVote> dailyVotesList = voteStore.getWeekDailyVote(weekFirstDate,weekLastDate);
+        List<DailyVote> dailyVotesList = voteStore.getWeekDailyVote(weekFirstDate,weekLastDate);
 
         List<StatisticsDto> statsList = new ArrayList<>();
 
