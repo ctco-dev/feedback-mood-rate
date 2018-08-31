@@ -149,7 +149,7 @@ class VoteApiTest {
 
     @Test
     @DisplayName("Check if object is already in DB")
-    public void checkDate() {
+    void checkDate() {
         DailyVote day = new DailyVote();
         day.setUser(user);
         day.setDate(LocalDate.now());
@@ -163,7 +163,7 @@ class VoteApiTest {
 
     @Test
     @DisplayName("Check if todayDate after eventDate and before voteDeadlineDate")
-    public void checkTodayDate() {
+    void checkTodayDate() {
         EventVote eventVote = new EventVote();
         Event event = new Event();
         event.setDate(LocalDate.of(2018, 8, 30));

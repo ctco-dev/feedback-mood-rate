@@ -18,7 +18,9 @@
     <br/><br/><br/><br/><br/>
 </p>
 <p id="button-stat">
-    <button type="button" onclick="goStatistics()">Statistics</button>
+    <button type="button" onclick="goDailyStatistics()">Daily Statistics</button>
+    <br/><br/>
+    <button type="button" onclick="goEventStatistics()">Event Statistics</button>
     <br/><br/>
 </p>
 <button type="button" onclick="logout()">Log out</button>
