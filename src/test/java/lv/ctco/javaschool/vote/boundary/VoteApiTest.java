@@ -8,6 +8,8 @@ import lv.ctco.javaschool.vote.entity.Event;
 import lv.ctco.javaschool.vote.entity.EventVote;
 import lv.ctco.javaschool.vote.entity.MoodStatus;
 import lv.ctco.javaschool.vote.entity.dto.DailyVoteDto;
+import lv.ctco.javaschool.vote.entity.dto.DateDto;
+import lv.ctco.javaschool.vote.entity.dto.StatisticsDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,6 +19,8 @@ import org.mockito.MockitoAnnotations;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -170,5 +174,58 @@ class VoteApiTest {
         event.setVoteDeadlineDate(LocalDate.of(2018, 9, 10));
         eventVote.setEvent(event);
         assertTrue(voteApi.checkTodayDate(eventVote));
+    }
+
+
+    @Test
+    @DisplayName("Check if day statistics is selected then returned StatisticsDto of DailyVote class")
+    void getStatisticsForOneDay() {
+        LocalDate date = LocalDate.of(2018,10,10);
+        DateDto dateDto = new DateDto();
+        dateDto.setDate(date);
+
+        List<DailyVote> dvList = new ArrayList<>();
+        List<StatisticsDto> statsDto;
+
+        for (int i = 0; i < 5; i++) {
+            dvList.add(new DailyVote());
+            dvList.get(i).setId((long) i);
+            dvList.get(i).setComment("Comment: "+i);
+        }
+
+        when(voteStore.getDayDailyVote(dateDto.getDate()))
+                .thenReturn(dvList);
+
+        statsDto = voteApi.getStatistics(dateDto);
+        System.out.println(statsDto.size());
+        for (int i = 0; i < 5; i++) {
+            assertThat(statsDto.get(i).getComment(),equalTo(dvList.get(i).getComment()));
+        }
+    }
+
+    @Test
+    @DisplayName("Check if week statistics is selected then returned StatisticsDto of DailyVote class")
+    void getStatisticsForWeek() {
+        DateDto dateDto = new DateDto();
+        dateDto.setWeek("2018-1");
+
+        List<DailyVote> dvList = new ArrayList<>();
+        List<StatisticsDto> statsDto;
+
+        for (int i = 0; i < 5; i++) {
+            dvList.add(new DailyVote());
+            dvList.get(i).setId((long) i);
+            dvList.get(i).setComment("Comment: "+i);
+        }
+
+        when(voteStore.getWeekDailyVote(LocalDate.of(2018,1,1),
+                LocalDate.of(2018,1,7)))
+                .thenReturn(dvList);
+
+        statsDto = voteApi.getStatistics(dateDto);
+        System.out.println(statsDto.size());
+        for (int i = 0; i < 5; i++) {
+            assertThat(statsDto.get(i).getComment(),equalTo(dvList.get(i).getComment()));
+        }
     }
 }
