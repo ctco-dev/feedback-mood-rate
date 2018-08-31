@@ -176,36 +176,36 @@ public class VoteApi {
 
     @POST
     @RolesAllowed({"ADMIN"})
-    @Path("/getStatistics")
+    @Path("/getDailyStatistics")
     public List<StatisticsDto> getStatistics(DateDto dateDto) {
-
-        //TODO: need to separate day stats and week stats
-        LocalDate selectedDate = dateDto.getDate();
-        String week = dateDto.getWeek().replace("W","");
-
-        System.out.println(week);
-        LocalDate weekFirstDate =
-                LocalDate.parse(week,
-                        new DateTimeFormatterBuilder().appendPattern("YYYY-w")
-                                .parseDefaulting(WeekFields.ISO.dayOfWeek(), 1)
-                                .toFormatter());
-        LocalDate weekLastDate = weekFirstDate.plusDays(6);
-
-
-        //Select Vote Per One Day
-        List<DailyVote> dailyVotesList = voteStore.getDayDailyVote(selectedDate);
-
-        //Select Vote Per One Week
-        //List<DailyVote> dailyVotesList = voteStore.getWeekDailyVote(weekFirstDate,weekLastDate);
-
+        List<DailyVote> dailyVotesList;
         List<StatisticsDto> statsList = new ArrayList<>();
 
-        for (DailyVote item: dailyVotesList) {
+        if ( dateDto.getDate() != null) {
+            LocalDate selectedDate = dateDto.getDate();
+            dailyVotesList = voteStore.getDayDailyVote(selectedDate);
+            fillStatisticsDto(dailyVotesList,statsList);
+        } else if (dateDto.getWeek() != null) {
+            String week = dateDto.getWeek().replace("W","");
+
+            LocalDate weekFirstDate =
+                    LocalDate.parse(week,
+                            new DateTimeFormatterBuilder().appendPattern("YYYY-w")
+                                    .parseDefaulting(WeekFields.ISO.dayOfWeek(), 1)
+                                    .toFormatter());
+            LocalDate weekLastDate = weekFirstDate.plusDays(6);
+            dailyVotesList = voteStore.getWeekDailyVote(weekFirstDate,weekLastDate);
+            fillStatisticsDto(dailyVotesList,statsList);
+        }
+
+        return statsList;
+    }
+    private void fillStatisticsDto(List<DailyVote> dailyVoteList, List<StatisticsDto> statisticsDtoList) {
+        for (DailyVote item: dailyVoteList) {
             StatisticsDto currentDailyVote = new StatisticsDto();
             currentDailyVote.setMood(item.getMood());
             currentDailyVote.setComment(item.getComment());
-            statsList.add(currentDailyVote);
+            statisticsDtoList.add(currentDailyVote);
         }
-        return statsList;
     }
 }
