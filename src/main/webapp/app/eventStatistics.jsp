@@ -14,7 +14,8 @@
     <h3>Statistics menu</h3>
     <p>Chose statistics type</p>
     <div>
-
+        <select name="eventList" id="eventList"></select>
+        <h3 id="data"></h3>
     </div>
     <button type="button" onclick="getStats()">Get Statistics</button>
     <table>
@@ -22,11 +23,13 @@
             <td>Happy</td>
             <td>Neutral</td>
             <td>Sad</td>
+            <td>Empty</td>
         </tr>
         <tr>
             <td id="happy-vote-count"></td>
             <td id="neutral-vote-count"></td>
             <td id="sad-vote-count"></td>
+            <td id="empty-vote-count"></td>
         </tr>
     </table>
 </div>

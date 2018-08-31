@@ -1,3 +1,7 @@
+var eventName = [];
+var html = "";
+var eventVotes = [];
+
 function showTextFeedback() {
     var checkbox = document.getElementById("show-text-feedback");
     if (checkbox.checked) {
@@ -9,35 +13,54 @@ function showTextFeedback() {
 
 function onLoadHandler() {
     showTextFeedback();
-    // getStats();
+    getAllEvents();
+    getAllEventVotes();
+}
+
+function getAllEvents() {
+    fetch('/api/vote/allEvent', {
+        "method": "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).then(function (response) {
+        return response.json();
+    }).then(function (event) {
+        for (i = 0; i < Object.keys(event).length; i++) {
+            eventName[i] = event[Object.keys(event)[i]].eventName;
+            html += "<option value=" + i  + ">" +eventName[i] + "</option>";
+        }
+        document.getElementById("eventList").innerHTML = html;
+    });
+}
+
+function getAllEventVotes() {
+    fetch('/api/vote/allEventVote', {
+        "method": "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).then(function (response) {
+        return response.json();
+    }).then(function (eventVote) {
+        for (i = 0; i < Object.keys(eventVote).length; i++) {
+            eventVotes[i] = eventVote[Object.keys(eventVote)[i]];
+        }
+    });
 }
 
 function getStats() {
-    var date = {
-        "date": document.getElementById("date-select").value,
-        "week": document.getElementById("week-select").value
-    };
-    var week = document.getElementById("week-select").value;
+    var commentsHtml= "";
     var happy = 0;
     var neutral = 0;
     var sad = 0;
     var empty = 0;
-    console.log(date);
-    console.log(week);
-    console.log("Collecting Statistics");
-    fetch('/api/vote/getStatistics', {
-        "method": "POST",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(date)
-    }).then(function (response) {
-        return response.json();
-    }).then(function (stats) {
-        for (var k in stats) {
-            console.log(k, stats[k]);
-            switch (stats[k].mood) {
+    var event = eventName[document.getElementById("eventList").value];
+    for (i = 0; i < eventVotes.length; i++) {
+        if (eventVotes[i].eventName === event) {
+            switch (eventVotes[i].mood) {
                 case "HAPPY":
                     happy++;
                     break;
@@ -47,15 +70,20 @@ function getStats() {
                 case "SAD":
                     sad++;
                     break;
-                default:
+                case "EMPTY":
                     empty++;
                     break;
             }
+            if (eventVotes[i].comment !== undefined && eventVotes[i].comment.length > 0) {
+                commentsHtml += "<p>" + eventVotes[i].comment + "</p>";
+            }
+            document.getElementById("text-feedback").innerHTML = commentsHtml;
         }
-        document.getElementById("happy-vote-count").innerHTML = happy.toString();
-        document.getElementById("neutral-vote-count").innerHTML = neutral.toString();
-        document.getElementById("sad-vote-count").innerHTML = sad.toString();
-    });
+    }
+    document.getElementById("happy-vote-count").innerHTML = happy.toString();
+    document.getElementById("neutral-vote-count").innerHTML = neutral.toString();
+    document.getElementById("sad-vote-count").innerHTML = sad.toString();
+    document.getElementById("empty-vote-count").innerHTML = empty.toString();
 }
 
 function back() {

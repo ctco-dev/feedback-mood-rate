@@ -57,7 +57,7 @@ public class VoteStore {
                 .getResultList();
     }
 
-    public List<EventVote> getAllEventVotes(User user) {
+    public List<EventVote> getAllEventVotesByUser(User user) {
         return em.createQuery(
                 "select ev " +
                         "from EventVote ev " +
@@ -88,5 +88,19 @@ public class VoteStore {
                 .getResultStream()
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
+    }
+
+    public List<Event> getAllEvents() {
+        return em.createQuery(
+                "select e " +
+                        "from Event e ", Event.class)
+                .getResultList();
+    }
+
+    public List<EventVote> getAllEventVotes() {
+        return em.createQuery(
+                "select ev " +
+                        "from EventVote ev ", EventVote.class)
+                .getResultList();
     }
 }
