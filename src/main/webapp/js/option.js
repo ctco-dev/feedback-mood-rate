@@ -38,7 +38,7 @@ function logout() {
 }
 
 function goDailyStatistics() {
-    location.href = "../app/statistics.jsp";
+    location.href = "../app/dayStatistics.jsp";
 }
 
 

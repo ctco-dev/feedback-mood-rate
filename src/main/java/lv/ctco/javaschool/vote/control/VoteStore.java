@@ -38,11 +38,6 @@ public class VoteStore {
                 .getResultList();
     }
 
-    public List<DailyVote> getAllDailyVote() {
-        return em.createQuery("Select d from DailyVote d", DailyVote.class)
-                .getResultList();
-    }
-
     public List<DailyVote> getDayDailyVote(LocalDate day) {
         return em.createQuery("Select d from DailyVote d where d.date=:date",DailyVote.class)
                 .setParameter("date",day)
