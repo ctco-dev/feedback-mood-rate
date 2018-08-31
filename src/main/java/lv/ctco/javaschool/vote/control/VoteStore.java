@@ -5,7 +5,6 @@ import lv.ctco.javaschool.vote.entity.DailyVote;
 import lv.ctco.javaschool.vote.entity.Event;
 import lv.ctco.javaschool.vote.entity.EventVote;
 import lv.ctco.javaschool.vote.entity.MoodStatus;
-import lv.ctco.javaschool.vote.entity.MoodStatus;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

@@ -37,8 +37,13 @@ function logout() {
         });
 }
 
-function goStatistics() {
+function goDailyStatistics() {
     location.href = "../app/statistics.jsp";
+}
+
+
+function goEventStatistics() {
+    location.href = "../app/eventStatistics.jsp";
 }
 
 function onloadHandler() {
