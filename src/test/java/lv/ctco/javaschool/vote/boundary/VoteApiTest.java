@@ -57,6 +57,32 @@ class VoteApiTest {
     }
 
     @Test
+    void getEventsTest() {
+        Event newEvent = new Event();
+        newEvent.setEventName("test");
+        newEvent.setId((long) 0);
+        newEvent.setDate(LocalDate.of(2018, 8, 30));
+        newEvent.setVoteDeadlineDate(LocalDate.now().plusDays(5));
+
+        EventVote eventVote = new EventVote();
+        eventVote.setEvent(newEvent);
+        eventVote.setId((long)1);
+        eventVote.setUser(user1);
+        eventVote.setMood(MoodStatus.EMPTY);
+
+        List<EventVote> eventVoteList = new ArrayList<>();
+        eventVoteList.add(eventVote);
+
+        when(userStore.getCurrentUser())
+                .thenReturn(user1);
+        when(voteStore.getEventVoteByUserId(user1))
+                .thenReturn(eventVoteList);
+
+        List<EventDto> actual = voteApi.getEventsByCurrentUser();
+        assertThat(actual.get(0).getEventName(), equalTo("test"));
+    }
+
+    @Test
     @DisplayName("allEvent: check list of active events")
     void getAllEvents() {
         Event event = new Event();

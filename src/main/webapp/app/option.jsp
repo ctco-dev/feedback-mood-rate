@@ -14,7 +14,8 @@
 <p>
     <button id="buttonDay" onclick="handlerEvent('DAY')">Day</button>
     <span id="voteDone">Come back tomorrow!</span><span id="date"></span><br/><br/>
-    <button type="button" onclick="handlerEvent('EVENT')">Event</button>
+    <button id="event-btn" onclick="handlerEvent('EVENT')">Event</button>
+    <span id="eventVote">There are no events to vote!</span><br/>
     <br/><br/><br/><br/><br/>
 </p>
 <p id="button-stat">
