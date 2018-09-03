@@ -57,7 +57,7 @@ class VoteApiTest {
     }
 
     @Test
-    @DisplayName("allEventVote: check list of event votes")
+    @DisplayName("allEvent: check list of active events")
     void getAllEvents() {
         Event event = new Event();
         event.setEventName("New Year 2018");
