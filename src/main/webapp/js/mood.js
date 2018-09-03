@@ -120,6 +120,9 @@ function getEvents() {
             document.getElementById("eventList").classList.remove("w3-hide");
             document.getElementById("eventList").innerHTML = html;
         } else {
+            document.getElementById("moodEmojis").classList.add("w3-hide");
+            document.getElementById("commentBar").classList.add("w3-hide");
+            document.getElementById("h3").classList.add("w3-hide");
             document.getElementById("data").classList.remove("w3-hide");
             document.getElementById("eventList").classList.add("w3-hide");
             document.getElementById("data").innerHTML = "No events for vote";

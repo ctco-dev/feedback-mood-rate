@@ -15,14 +15,14 @@
     <script src="../js/mood.js"></script>
 </head>
 <body onload="getStatus()">
-<h3>Choose your mood!</h3>
+<h3 id="h3">Choose your mood!</h3>
 <form name="mood_form" id="formId" method="post">
     <div>
         <select name="eventList" id="eventList" required></select>
         <h3 id="data"></h3>
     </div>
     <br/>
-    <ul>
+    <ul id="moodEmojis">
         <li>
             <i class="em em-slightly_smiling_face"></i>
             <input type="radio" id="radio-button-mood-happy" name="first_item" value="happy" title="happy"/>
@@ -36,7 +36,7 @@
             <input type="radio" id="radio-button-mood-sad" name="first_item" value="sad" title="unhappy"/>
         </li>
     </ul>
-    <div class="form-group">
+    <div id="commentBar" class="form-group">
         <label for="comment">Comment:</label>
         <textarea class="form-control" rows="5" id="comment"></textarea>
     </div>
