@@ -181,11 +181,11 @@ public class VoteApi {
         List<DailyVote> dailyVotesList;
         List<StatisticsDto> statsList = new ArrayList<>();
 
-        if ( dateDto.getDate() != null) {
+        if ( dateDto.getDate() != null && dateDto.getWeek() == null) {
             LocalDate selectedDate = dateDto.getDate();
             dailyVotesList = voteStore.getDayDailyVote(selectedDate);
             fillStatisticsDto(dailyVotesList,statsList);
-        } else if (dateDto.getWeek() != null) {
+        } else if (dateDto.getWeek() != null && dateDto.getDate() == null) {
             String week = dateDto.getWeek().replace("W","");
 
             LocalDate weekFirstDate =
