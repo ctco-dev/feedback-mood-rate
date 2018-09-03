@@ -197,7 +197,6 @@ class VoteApiTest {
                 .thenReturn(dvList);
 
         statsDto = voteApi.getStatistics(dateDto);
-        System.out.println(statsDto.size());
         for (int i = 0; i < 5; i++) {
             assertThat(statsDto.get(i).getComment(),equalTo(dvList.get(i).getComment()));
         }
@@ -223,7 +222,70 @@ class VoteApiTest {
                 .thenReturn(dvList);
 
         statsDto = voteApi.getStatistics(dateDto);
-        System.out.println(statsDto.size());
+        for (int i = 0; i < 5; i++) {
+            assertThat(statsDto.get(i).getComment(),equalTo(dvList.get(i).getComment()));
+        }
+    }
+
+    @Test
+    @DisplayName("Check if week and day data come to function in same time then return empty dto")
+    void getStatisticsSelectedBothOptions() {
+        DateDto dateDto = new DateDto();
+        dateDto.setWeek("2018-1");
+        dateDto.setDate(LocalDate.of(2018,1,1));
+
+        List<DailyVote> dvList = new ArrayList<>();
+        List<StatisticsDto> statsDto;
+
+        for (int i = 0; i < 5; i++) {
+            dvList.add(new DailyVote());
+            dvList.get(i).setId((long) i);
+            dvList.get(i).setComment("Comment: "+i);
+        }
+
+        when(voteStore.getWeekDailyVote(LocalDate.of(2018,1,1),
+                LocalDate.of(2018,1,7)))
+                .thenReturn(dvList);
+
+        statsDto = voteApi.getStatistics(dateDto);
+        assertThat(statsDto.size(),equalTo(0));
+    }
+
+    @Test
+    @DisplayName("Check if no data come to function, then return empty dto")
+    void getStatisticsSelectedNoOptions() {
+        DateDto dateDto = new DateDto();
+
+        List<DailyVote> dvList = new ArrayList<>();
+        List<StatisticsDto> statsDto;
+
+        for (int i = 0; i < 5; i++) {
+            dvList.add(new DailyVote());
+            dvList.get(i).setId((long) i);
+            dvList.get(i).setComment("Comment: "+i);
+        }
+
+        when(voteStore.getWeekDailyVote(LocalDate.of(2018,1,1),
+                LocalDate.of(2018,1,7)))
+                .thenReturn(dvList);
+
+        statsDto = voteApi.getStatistics(dateDto);
+        assertThat(statsDto.size(),equalTo(0));
+    }
+
+    @Test
+    @DisplayName("Check if fill function that fills StatisticsDto list from DailyVot list")
+    void fillStatisticsDtoTest() {
+        List<DailyVote> dvList = new ArrayList<>();
+        List<StatisticsDto> statsDto = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+            dvList.add(new DailyVote());
+            dvList.get(i).setId((long) i);
+            dvList.get(i).setComment("Comment: "+i);
+        }
+
+        voteApi.fillStatisticsDto(dvList,statsDto);
         for (int i = 0; i < 5; i++) {
             assertThat(statsDto.get(i).getComment(),equalTo(dvList.get(i).getComment()));
         }

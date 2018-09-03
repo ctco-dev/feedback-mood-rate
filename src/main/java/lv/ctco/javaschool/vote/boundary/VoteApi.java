@@ -200,7 +200,7 @@ public class VoteApi {
 
         return statsList;
     }
-    private void fillStatisticsDto(List<DailyVote> dailyVoteList, List<StatisticsDto> statisticsDtoList) {
+    public void fillStatisticsDto(List<DailyVote> dailyVoteList, List<StatisticsDto> statisticsDtoList) {
         for (DailyVote item: dailyVoteList) {
             StatisticsDto currentDailyVote = new StatisticsDto();
             currentDailyVote.setMood(item.getMood());
