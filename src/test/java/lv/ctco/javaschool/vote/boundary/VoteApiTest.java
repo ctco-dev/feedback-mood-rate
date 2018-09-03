@@ -198,24 +198,24 @@ class VoteApiTest {
     @Test
     @DisplayName("GetAllEventVotesTest")
     void getAllEventVotesTest(){
+        List<EventVote> eventVoteList= new ArrayList<>();
         EventVote ev = new EventVote();
         Event event = new Event();
 
-        event.setDate(LocalDate.of(2018, 8, 30));
-        event.setVoteDeadlineDate(LocalDate.of(2018, 9, 10));
-        event.setId(1L);
         event.setEventName("testEvent");
         ev.setComment("test");
-        ev.setId(1L);
         ev.setMood(MoodStatus.HAPPY);
         ev.setUser(user1);
         ev.setEvent(event);
+        eventVoteList.add(ev);
 
-        List<EventVote> eventVoteList= new ArrayList<>();
         when(voteStore.getAllEventVotes())
                 .thenReturn(eventVoteList);
 
-        List<EventVoteDto> eventVoteDtos = new ArrayList<>();
+        assertThat(voteApi.getAllEventVotes().get(0).getUsername(), equalTo(user1.getUsername()));
+        assertThat(voteApi.getAllEventVotes().get(0).getComment(), equalTo(ev.getComment()));
+        assertThat(voteApi.getAllEventVotes().get(0).getEventName(), equalTo(event.getEventName()));
+        assertThat(voteApi.getAllEventVotes().get(0).getMood(), equalTo(ev.getMood()));
     }
 
 
