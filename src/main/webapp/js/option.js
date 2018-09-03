@@ -6,11 +6,11 @@ function checkDayStatus() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
-    }).then(function(response){
+    }).then(function (response) {
         return response.json();
     }).then(function (day) {
         console.log(JSON.stringify(day));
-        if(day){
+        if (day) {
             buttonDay.disabled = true;
             document.getElementById("date").classList.add("w3-hide");
             document.getElementById("voteDone").classList.remove("w3-hide");

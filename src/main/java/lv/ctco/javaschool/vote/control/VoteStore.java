@@ -18,7 +18,7 @@ public class VoteStore {
     @PersistenceContext
     private EntityManager em;
 
-    public Optional<DailyVote> getCurrentVoteDate(User user, LocalDate date){
+    public Optional<DailyVote> getCurrentVoteDate(User user, LocalDate date) {
         return em.createQuery("select  d " +
                 "from DailyVote d " +
                 "where d.user = :user and d.date = :date", DailyVote.class)
@@ -39,16 +39,16 @@ public class VoteStore {
     }
 
     public List<DailyVote> getDayDailyVote(LocalDate day) {
-        return em.createQuery("Select d from DailyVote d where d.date=:date",DailyVote.class)
-                .setParameter("date",day)
+        return em.createQuery("Select d from DailyVote d where d.date=:date", DailyVote.class)
+                .setParameter("date", day)
                 .getResultList();
     }
 
     public List<DailyVote> getWeekDailyVote(LocalDate firstDay, LocalDate lastDay) {
         return em.createQuery("Select d from DailyVote d " +
-                "where d.date>=:firstDay and d.date<=:lastDay",DailyVote.class)
-                .setParameter("firstDay",firstDay)
-                .setParameter("lastDay",lastDay)
+                "where d.date>=:firstDay and d.date<=:lastDay", DailyVote.class)
+                .setParameter("firstDay", firstDay)
+                .setParameter("lastDay", lastDay)
                 .getResultList();
     }
 
