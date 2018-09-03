@@ -83,6 +83,24 @@ class VoteApiTest {
     }
 
     @Test
+    @DisplayName("allEvent: check list of active events")
+    void getAllEvents() {
+        Event event = new Event();
+        event.setEventName("New Year 2018");
+
+        List<Event> eventList = new ArrayList<>();
+        eventList.add(event);
+
+        List<EventDto> eventDtoList;
+
+        when(voteStore.getAllEvents()).thenReturn(eventList);
+
+        eventDtoList = voteApi.getAllEvents();
+
+        assertThat(eventDtoList.get(0).getEventName(), equalTo(eventList.get(0).getEventName()));
+    }
+
+    @Test
     @DisplayName("submitDailyVoteTest: Check data for user1,MoodStatus.EMPTY,without comments, Date is today")
     void submitDailyVote_EMPTY_without_Comment() {
         when(userStore.getCurrentUser())
