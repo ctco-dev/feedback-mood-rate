@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" type="text/css" href="../styles.css">
     <script src="../js/statistics.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">google.charts.load('current', {'packages':['corechart']});</script>
     <title>Statistics</title>
 </head>
 <body onload="onLoadHandler()">
@@ -44,6 +46,7 @@
             <td id="sad-vote-count"></td>
         </tr>
     </table>
+    <div id="piechart"></div>
 </div>
 <input type="checkbox" id="show-text-feedback" onclick="showTextFeedback()"/>
 <label for="show-text-feedback">Show text feedback</label>

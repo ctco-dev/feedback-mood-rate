@@ -1,3 +1,16 @@
+function drawChart(h, s, n, e) {
+    var data = google.visualization.arrayToDataTable([
+        ['Mood state', 'Count'],
+        ['Happy', h],
+        ['Sad', s],
+        ['Neutral', n],
+        ['Empty', e],
+    ]);
+    var options = {'title':'Mood rate statistics', 'width':550, 'height':400};
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    chart.draw(data, options);
+}
+
 function showTextFeedback() {
     var checkbox = document.getElementById("show-text-feedback");
     if (checkbox.checked) {
@@ -6,7 +19,6 @@ function showTextFeedback() {
         document.getElementById("text-feedback").classList.add("w3-hide");
     }
 }
-
 function changeStatsType() {
     var dayStats = document.getElementById("day-stats-radio");
     var weekStats = document.getElementById("week-stats-radio");
@@ -22,16 +34,16 @@ function changeStatsType() {
 function onLoadHandler() {
     showTextFeedback();
     changeStatsType();
-    // getStats();
 }
 
 function getStats() {
-    console.log("Checking selected statistics type");
-    var statsDto = {};
     var happy = 0;
     var neutral = 0;
     var sad = 0;
     var empty = 0;
+    console.log("Checking selected statistics type");
+    var statsDto = {};
+
 
     var dayStats = document.getElementById("day-stats-radio");
     var weekStats = document.getElementById("week-stats-radio");
@@ -79,9 +91,9 @@ function getStats() {
         document.getElementById("neutral-vote-count").innerHTML = neutral.toString();
         document.getElementById("sad-vote-count").innerHTML = sad.toString();
         console.log("DONE")
+        drawChart(happy, sad, neutral, empty);
     });
 }
-
 function back() {
     location.href = "../app/option.jsp";
 }
