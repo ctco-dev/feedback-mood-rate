@@ -8,6 +8,7 @@ import lv.ctco.javaschool.vote.entity.Event;
 import lv.ctco.javaschool.vote.entity.EventVote;
 import lv.ctco.javaschool.vote.entity.MoodStatus;
 import lv.ctco.javaschool.vote.entity.dto.DailyVoteDto;
+import lv.ctco.javaschool.vote.entity.dto.EventVoteDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,8 @@ import org.mockito.MockitoAnnotations;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -146,6 +149,30 @@ class VoteApiTest {
 
         verify(em, times(1)).persist(any(DailyVote.class));
     }
+
+    @Test
+    @DisplayName("GetAllEventVotesTest")
+    void getAllEventVotesTest(){
+        EventVote ev = new EventVote();
+        Event event = new Event();
+
+        event.setDate(LocalDate.of(2018, 8, 30));
+        event.setVoteDeadlineDate(LocalDate.of(2018, 9, 10));
+        event.setId(1L);
+        event.setEventName("testEvent");
+        ev.setComment("test");
+        ev.setId(1L);
+        ev.setMood(MoodStatus.HAPPY);
+        ev.setUser(user1);
+        ev.setEvent(event);
+
+        List<EventVote> eventVoteList= new ArrayList<>();
+        when(voteStore.getAllEventVotes())
+                .thenReturn(eventVoteList);
+
+        List<EventVoteDto> eventVoteDtos = new ArrayList<>();
+    }
+
 
     @Test
     @DisplayName("Check if object is already in DB")
