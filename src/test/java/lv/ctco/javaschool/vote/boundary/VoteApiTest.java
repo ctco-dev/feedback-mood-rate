@@ -56,7 +56,6 @@ class VoteApiTest {
         user.setUsername("user");
     }
 
-
     @Test
     void getEventsTest() {
         Event newEvent = new Event();
@@ -79,7 +78,7 @@ class VoteApiTest {
         when(voteStore.getEventVoteByUserId(user1))
                 .thenReturn(eventVoteList);
 
-        List<EventDto> actual = voteApi.getEvents();
+        List<EventDto> actual = voteApi.getEventsByCurrentUser();
         assertThat(actual.get(0).getEventName(), equalTo("test"));
     }
 
