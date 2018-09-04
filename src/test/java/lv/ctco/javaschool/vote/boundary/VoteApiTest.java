@@ -8,7 +8,6 @@ import lv.ctco.javaschool.vote.entity.Event;
 import lv.ctco.javaschool.vote.entity.EventVote;
 import lv.ctco.javaschool.vote.entity.MoodStatus;
 import lv.ctco.javaschool.vote.entity.dto.DailyVoteDto;
-import lv.ctco.javaschool.vote.entity.dto.EventVoteDto;
 import lv.ctco.javaschool.vote.entity.dto.EventDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -211,7 +210,6 @@ class VoteApiTest {
 
         when(voteStore.getAllEventVotes())
                 .thenReturn(eventVoteList);
-
         assertThat(voteApi.getAllEventVotes().get(0).getComment(), equalTo(ev.getComment()));
         assertThat(voteApi.getAllEventVotes().get(0).getEventName(), equalTo(event.getEventName()));
         assertThat(voteApi.getAllEventVotes().get(0).getMood(), equalTo(ev.getMood()));
