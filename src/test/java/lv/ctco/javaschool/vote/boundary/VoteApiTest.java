@@ -19,6 +19,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import javax.persistence.EntityManager;
+import javax.ws.rs.core.Response;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,14 @@ class VoteApiTest {
     private UserStore userStore;
     @Mock
     private VoteStore voteStore;
+    @Mock
+    private ResponseWrapper wrapper;
+    @Mock
+    private Response response_METHOD_NOT_ALLOWED;
+    @Mock
+    private Response response_BAD_REQUEST;
+    @Mock
+    private Response response_CREATED;
 
     @InjectMocks
     private VoteApi voteApi;
@@ -369,5 +378,49 @@ class VoteApiTest {
         for (int i = 0; i < 5; i++) {
             assertThat(statsDto.get(i).getComment(), equalTo(dvList.get(i).getComment()));
         }
+    }
+
+    @Test
+    @DisplayName("checkSubmit: check for status METHOD NOT ALLOWED")
+    void checkSubmitDailyVoteTest_METHOD_NOT_ALLOWED() {
+        DailyVote day = new DailyVote();
+        day.setUser(user);
+        day.setDate(LocalDate.now());
+
+        DailyVoteDto dailyVoteDto = new DailyVoteDto();
+        dailyVoteDto.setMood(MoodStatus.HAPPY);
+
+        when(userStore.getCurrentUser()).thenReturn(user);
+        when(voteStore.getCurrentVoteDate(user, LocalDate.now())).thenReturn(Optional.of(day));
+        when(wrapper.getMethodNotAllowedResponse()).thenReturn(response_METHOD_NOT_ALLOWED);
+
+        Response resp = voteApi.checkSubmitDailyVote(dailyVoteDto);
+
+        assertThat(resp, equalTo(response_METHOD_NOT_ALLOWED));
+    }
+
+    @Test
+    @DisplayName("checkSubmit: check for status BAD_REQUEST (check if mood is chosen)")
+    void checkSubmitDailyVoteTest_BAD_REQUEST() {
+        DailyVoteDto dailyVoteDto = new DailyVoteDto();
+
+        when(wrapper.getBadRequestResponse()).thenReturn(response_BAD_REQUEST);
+
+        Response resp = voteApi.checkSubmitDailyVote(dailyVoteDto);
+
+        assertThat(resp, equalTo(response_BAD_REQUEST));
+    }
+
+    @Test
+    @DisplayName("checkSubmit: check for status CREATED")
+    void checkSubmitDailyVoteTest_CREATED() {
+        DailyVoteDto dailyVoteDto = new DailyVoteDto();
+        dailyVoteDto.setMood(MoodStatus.HAPPY);
+
+        when(wrapper.getCreatedResponse()).thenReturn(response_CREATED);
+
+        Response resp = voteApi.checkSubmitDailyVote(dailyVoteDto);
+
+        assertThat(resp, equalTo(response_CREATED));
     }
 }

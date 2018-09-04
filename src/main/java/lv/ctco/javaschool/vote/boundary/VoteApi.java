@@ -35,6 +35,8 @@ public class VoteApi {
     private UserStore userStore;
     @Inject
     private VoteStore voteStore;
+    @Inject
+    private ResponseWrapper wrapper;
 
     @GET
     @RolesAllowed({"ADMIN", "USER"})
@@ -132,12 +134,12 @@ public class VoteApi {
     @Path("/checkSubmit")
     public Response checkSubmitDailyVote(DailyVoteDto feedback) {
         if (checkDay()) {
-            return Response.status(Response.Status.METHOD_NOT_ALLOWED).build();
+            return wrapper.getMethodNotAllowedResponse();
         } else if (feedback.getMood() == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return wrapper.getBadRequestResponse();
         }
         submitDailyVote(feedback);
-        return Response.status(Response.Status.CREATED).build();
+        return wrapper.getCreatedResponse();
     }
 
     public void submitDailyVote(DailyVoteDto feedback) {
