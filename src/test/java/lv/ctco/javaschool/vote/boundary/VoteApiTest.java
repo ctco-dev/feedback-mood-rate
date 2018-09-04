@@ -61,17 +61,26 @@ class VoteApiTest {
     void getEventsByCurrentUserTest() {
         Event newEvent = new Event();
         newEvent.setEventName("test");
-        newEvent.setId((long) 0);
         newEvent.setDate(LocalDate.of(2018, 8, 30));
         newEvent.setVoteDeadlineDate(LocalDate.now().plusDays(5));
 
+        Event finishedEvent = new Event();
+        finishedEvent.setEventName("test finished Event");
+        finishedEvent.setDate(LocalDate.of(2018, 8, 30));
+        finishedEvent.setVoteDeadlineDate(LocalDate.now().minusDays(3));
+
         EventVote eventVote = new EventVote();
         eventVote.setEvent(newEvent);
-        eventVote.setId((long)1);
         eventVote.setUser(user1);
         eventVote.setMood(MoodStatus.EMPTY);
 
+        EventVote secondEventVote = new EventVote();
+        secondEventVote.setEvent(finishedEvent);
+        secondEventVote.setUser(user1);
+        secondEventVote.setMood(MoodStatus.SAD);
+
         List<EventVote> eventVoteList = new ArrayList<>();
+        eventVoteList.add(secondEventVote);
         eventVoteList.add(eventVote);
 
         when(userStore.getCurrentUser())
@@ -91,14 +100,27 @@ class VoteApiTest {
         newEvent.setDate(LocalDate.of(2018, 8, 30));
         newEvent.setVoteDeadlineDate(LocalDate.now().plusDays(5));
 
+        Event finishedEvent = new Event();
+        finishedEvent.setEventName("test finished Event");
+        finishedEvent.setDate(LocalDate.of(2018, 8, 30));
+        finishedEvent.setVoteDeadlineDate(LocalDate.now().minusDays(3));
+
         EventVote eventVote = new EventVote();
         eventVote.setEvent(newEvent);
         eventVote.setUser(user1);
         eventVote.setMood(MoodStatus.HAPPY);
         eventVote.setComment("Comment test");
 
+        EventVote secondEventVote = new EventVote();
+        secondEventVote.setEvent(finishedEvent);
+        secondEventVote.setUser(user1);
+        secondEventVote.setMood(MoodStatus.SAD);
+        secondEventVote.setComment("Comment test");
+
         List<EventVote> eventVoteList = new ArrayList<>();
+        eventVoteList.add(secondEventVote);
         eventVoteList.add(eventVote);
+
 
         when(userStore.getCurrentUser())
                 .thenReturn(user1);

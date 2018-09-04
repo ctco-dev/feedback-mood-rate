@@ -49,9 +49,9 @@ public class VoteApi {
         List<EventDto> events = new ArrayList<>();
 
         eventVoteList.forEach(ev -> {
-            EventDto e = new EventDto();
-            e.setEventName(ev.getEvent().getEventName());
             if (checkTodayDate(ev)) {
+                EventDto e = new EventDto();
+                e.setEventName(ev.getEvent().getEventName());
                 events.add(e);
             }
         });
@@ -99,12 +99,12 @@ public class VoteApi {
         List<EventVoteDto> eventVoteDtos = new ArrayList<>();
 
         eventVoteList.forEach(ev -> {
-            EventVoteDto e = new EventVoteDto();
-            e.setUsername(ev.getUser().getUsername());
-            e.setEventName(ev.getEvent().getEventName());
-            e.setMood(ev.getMood());
-            e.setComment(ev.getComment());
             if (checkTodayDate(ev)) {
+                EventVoteDto e = new EventVoteDto();
+                e.setUsername(ev.getUser().getUsername());
+                e.setEventName(ev.getEvent().getEventName());
+                e.setMood(ev.getMood());
+                e.setComment(ev.getComment());
                 eventVoteDtos.add(e);
             }
         });
