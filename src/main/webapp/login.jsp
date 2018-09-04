@@ -21,17 +21,26 @@
             <p>{{message}}</p>
         </div>
         <p>
-            <input id="username-txt" class="w3-input" type="text" style="width:90%" required>
+            <input id="register-cb" class="w3-check" type="checkbox" onchange="switchRegistration()">
+            <label for="register-cb">Registration</label>
+        </p>
+        <p>
+            <input id="username-txt" class="w3-input input-field" type="text" required>
             <label for="username-txt">Name</label>
         </p>
         <p>
-            <input id="password1-txt" class="w3-input" type="password" style="width:90%" required>
+            <input id="password1-txt" class="w3-input input-field" type="password" required>
             <label for="password1-txt">Password</label>
+        </p>
+        <p id="password2-grp" class="w3-hide">
+            <input id="password2-txt" class="w3-input input-field" type="password" required>
+            <label for="password2-txt">Repeat Password</label>
         </p>
         <p>
             <button id="login-btn" type="button" class="w3-button w3-section w3-teal w3-ripple" onclick="login()">Log
                 in
             </button>
+            <button id="register-btn" type="button" class="w3-button w3-section w3-indigo w3-ripple w3-hide" onclick="collectDto()">Register</button>
         </p>
     </form>
 </div>
