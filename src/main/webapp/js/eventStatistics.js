@@ -1,3 +1,16 @@
+function drawChart(h, s, n, e) {
+    var data = google.visualization.arrayToDataTable([
+        ['Mood state', 'Count'],
+        ['Happy', h],
+        ['Sad', s],
+        ['Neutral', n],
+        ['Empty', e],
+    ]);
+    var options = {'title':'Mood rate event statistics', 'width':550, 'height':400};
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    chart.draw(data, options);
+}
+
 var eventName = [];
 var html = "";
 var eventVotes = [];
@@ -84,6 +97,7 @@ function getStats() {
     document.getElementById("neutral-vote-count").innerHTML = neutral.toString();
     document.getElementById("sad-vote-count").innerHTML = sad.toString();
     document.getElementById("empty-vote-count").innerHTML = empty.toString();
+    drawChart(happy, sad, neutral, empty);
 }
 
 function back() {

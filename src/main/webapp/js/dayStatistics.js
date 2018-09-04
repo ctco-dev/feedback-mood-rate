@@ -6,7 +6,7 @@ function drawChart(h, s, n, e) {
         ['Neutral', n],
         ['Empty', e],
     ]);
-    var options = {'title':'Mood rate statistics', 'width':550, 'height':400};
+    var options = {'title':'Mood rate day statistics', 'width':550, 'height':400};
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
     chart.draw(data, options);
 }
