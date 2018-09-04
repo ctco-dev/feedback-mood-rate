@@ -8,6 +8,7 @@ import lv.ctco.javaschool.vote.entity.Event;
 import lv.ctco.javaschool.vote.entity.EventVote;
 import lv.ctco.javaschool.vote.entity.MoodStatus;
 import lv.ctco.javaschool.vote.entity.dto.DailyVoteDto;
+import lv.ctco.javaschool.vote.entity.dto.EventDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,8 @@ import org.mockito.MockitoAnnotations;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -51,6 +54,32 @@ class VoteApiTest {
 
         user = new User();
         user.setUsername("user");
+    }
+
+    @Test
+    void getEventsTest() {
+        Event newEvent = new Event();
+        newEvent.setEventName("test");
+        newEvent.setId((long) 0);
+        newEvent.setDate(LocalDate.of(2018, 8, 30));
+        newEvent.setVoteDeadlineDate(LocalDate.now().plusDays(5));
+
+        EventVote eventVote = new EventVote();
+        eventVote.setEvent(newEvent);
+        eventVote.setId((long)1);
+        eventVote.setUser(user1);
+        eventVote.setMood(MoodStatus.EMPTY);
+
+        List<EventVote> eventVoteList = new ArrayList<>();
+        eventVoteList.add(eventVote);
+
+        when(userStore.getCurrentUser())
+                .thenReturn(user1);
+        when(voteStore.getEventVoteByUserId(user1))
+                .thenReturn(eventVoteList);
+
+        List<EventDto> actual = voteApi.getEventsByCurrentUser();
+        assertThat(actual.get(0).getEventName(), equalTo("test"));
     }
 
     @Test
@@ -149,7 +178,7 @@ class VoteApiTest {
 
     @Test
     @DisplayName("Check if object is already in DB")
-    public void checkDate() {
+    void checkDate() {
         DailyVote day = new DailyVote();
         day.setUser(user);
         day.setDate(LocalDate.now());
@@ -163,7 +192,7 @@ class VoteApiTest {
 
     @Test
     @DisplayName("Check if todayDate after eventDate and before voteDeadlineDate")
-    public void checkTodayDate() {
+    void checkTodayDate() {
         EventVote eventVote = new EventVote();
         Event event = new Event();
         event.setDate(LocalDate.of(2018, 8, 30));

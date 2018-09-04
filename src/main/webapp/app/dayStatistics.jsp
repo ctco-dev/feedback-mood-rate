@@ -8,6 +8,7 @@
     <script src="../js/statistics.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">google.charts.load('current', {'packages':['corechart']});</script>
+    <script src="../js/dayStatistics.js"></script>
     <title>Statistics</title>
 </head>
 <body onload="onLoadHandler()">
@@ -50,22 +51,7 @@
 </div>
 <input type="checkbox" id="show-text-feedback" onclick="showTextFeedback()"/>
 <label for="show-text-feedback">Show text feedback</label>
-<%--Start--%>
-<%--Here will be show text feedbacks--%>
-<div id="text-feedback">
-    <ul>
-        <li>Mood - sad</li>
-        <ul>
-            <li>I lost my dog</li>
-        </ul>
-
-        <li>Mood - Happy</li>
-        <ul>
-            <li>I have new dog</li>
-        </ul>
-    </ul>
-</div>
-<%--END--%>
+<div id="text-feedback"></div>
 <button type="button" onclick="back()">Go back</button>
 </body>
 </html>

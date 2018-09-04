@@ -5,7 +5,6 @@ import lv.ctco.javaschool.vote.entity.DailyVote;
 import lv.ctco.javaschool.vote.entity.Event;
 import lv.ctco.javaschool.vote.entity.EventVote;
 import lv.ctco.javaschool.vote.entity.MoodStatus;
-import lv.ctco.javaschool.vote.entity.MoodStatus;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -39,11 +38,6 @@ public class VoteStore {
                 .getResultList();
     }
 
-    public List<DailyVote> getAllDailyVote() {
-        return em.createQuery("Select d from DailyVote d", DailyVote.class)
-                .getResultList();
-    }
-
     public List<DailyVote> getDayDailyVote(LocalDate day) {
         return em.createQuery("Select d from DailyVote d where d.date=:date",DailyVote.class)
                 .setParameter("date",day)
@@ -58,7 +52,7 @@ public class VoteStore {
                 .getResultList();
     }
 
-    public List<EventVote> getAllEventVotes(User user) {
+    public List<EventVote> getAllEventVotesByUser(User user) {
         return em.createQuery(
                 "select ev " +
                         "from EventVote ev " +
@@ -89,5 +83,19 @@ public class VoteStore {
                 .getResultStream()
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
+    }
+
+    public List<Event> getAllEvents() {
+        return em.createQuery(
+                "select e " +
+                        "from Event e ", Event.class)
+                .getResultList();
+    }
+
+    public List<EventVote> getAllEventVotes() {
+        return em.createQuery(
+                "select ev " +
+                        "from EventVote ev ", EventVote.class)
+                .getResultList();
     }
 }

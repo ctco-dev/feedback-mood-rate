@@ -43,7 +43,7 @@ public class VoteApi {
     @GET
     @RolesAllowed({"ADMIN", "USER"})
     @Path("/event")
-    public List<EventDto> getEvents() {
+    public List<EventDto> getEventsByCurrentUser() {
         User currentUser = userStore.getCurrentUser();
         List<EventVote> eventVoteList = voteStore.getEventVoteByUserId(currentUser);
         List<EventDto> events = new ArrayList<>();
@@ -60,10 +60,42 @@ public class VoteApi {
 
     @GET
     @RolesAllowed({"ADMIN", "USER"})
+    @Path("/allEvent")
+    public List<EventDto> getAllEvents() {
+        List<Event> eventList = voteStore.getAllEvents();
+        List<EventDto> events = new ArrayList<>();
+
+        eventList.forEach(el -> {
+            EventDto e = new EventDto();
+            e.setEventName(el.getEventName());
+            events.add(e);
+        });
+        return events;
+    }
+
+    @GET
+    @RolesAllowed({"ADMIN", "USER"})
+    @Path("/allEventVote")
+    public List<EventVoteDto> getAllEventVotes() {
+        List<EventVote> eventVoteList = voteStore.getAllEventVotes();
+        List<EventVoteDto> eventVoteDtos = new ArrayList<>();
+
+        eventVoteList.forEach(ev -> {
+            EventVoteDto e = new EventVoteDto();
+            e.setEventName(ev.getEvent().getEventName());
+            e.setMood(ev.getMood());
+            e.setComment(ev.getComment());
+            eventVoteDtos.add(e);
+        });
+        return eventVoteDtos;
+    }
+
+    @GET
+    @RolesAllowed({"ADMIN", "USER"})
     @Path("/eventVote")
     public List<EventVoteDto> getEventVoteList() {
         User currentUser = userStore.getCurrentUser();
-        List<EventVote> eventVoteList = voteStore.getAllEventVotes(currentUser);
+        List<EventVote> eventVoteList = voteStore.getAllEventVotesByUser(currentUser);
         List<EventVoteDto> eventVoteDtos = new ArrayList<>();
 
         eventVoteList.forEach(ev -> {
