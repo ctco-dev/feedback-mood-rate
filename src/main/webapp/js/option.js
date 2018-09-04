@@ -97,10 +97,8 @@ function getUserRole() {
     });
 }
 
-function addNewUser() {
-    
-}
-
-function deletUser() {
-    
+window.onclick = function (event) {
+    if(event.target == model){
+        modal.style.display = "none";
+    }
 }

@@ -22,7 +22,7 @@
 <div id="modal_addUser" class="w3-modal">
     <div class="w3-modal-content">
         <div class="w3-container">
-            <span onclick="document.getElementById('addNewUser-btn').style.display='none'"
+            <span onclick="document.getElementById('deletUser-btn').style.display='none'"
                   class="w3-button w3-display-topright">&times;</span>
             <p>
                 <input id="username-txt" class="w3-input" type="text" style="width:90%" required>
@@ -40,9 +40,7 @@
 <p id="button-stat">
 
 
-    <button id="addNewUser-btn" type="button" onclick="document.getElementById('modal_addUser').style.display='block'">Add new user</button>
-    <br/><br/>
-    <button type="button" onclick="deletUser()">Delete user</button>
+    <button id="deletUser-btn" type="button" onclick="document.getElementById('modal_addUser').style.display='block'">Delete user</button>
     <br/><br/>
     <button type="button" onclick="goDailyStatistics()">Daily Statistics</button>
     <br/><br/>
