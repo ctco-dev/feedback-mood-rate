@@ -211,6 +211,7 @@ class VoteApiTest {
 
         when(voteStore.getAllEventVotes())
                 .thenReturn(eventVoteList);
+
         List<EventVoteDto> test = voteApi.getAllEventVotes();
         assertThat(test.get(0).getComment(), equalTo(ev.getComment()));
         assertThat(test.get(0).getEventName(), equalTo(event.getEventName()));
