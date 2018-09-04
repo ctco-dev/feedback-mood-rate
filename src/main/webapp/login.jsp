@@ -40,7 +40,7 @@
             <button id="login-btn" type="button" class="w3-button w3-section w3-teal w3-ripple" onclick="login()">Log
                 in
             </button>
-            <button id="register-btn" type="button" class="w3-button w3-section w3-indigo w3-ripple w3-hide" onclick="collectDto()">Register</button>
+            <button id="register-btn" type="button" class="w3-button w3-section w3-indigo w3-ripple w3-hide" onclick="collectDataAndRegister()">Register</button>
         </p>
     </form>
 </div>

@@ -25,7 +25,7 @@ function login() {
     })
 }
 
-function collectDto(){
+function collectData(){
     var usernameTxt = document.getElementById("username-txt");
     var password1Txt = document.getElementById("password1-txt");
     var password2Txt = document.getElementById("password2-txt");
@@ -33,14 +33,22 @@ function collectDto(){
     var pwd2 = password2Txt.value;
     if (pwd1 !== pwd2) {
         showError("Passwords doesn't match!");
-        return;
+        return null;
     }
     var dto = {
         "username": usernameTxt.value,
         "password": pwd1
     }
-    register(dto);
+    return dto;
 }
+
+function collectDataAndRegister(){
+    var data = collectData();
+    if (data) {
+        register(data);
+    }
+}
+
 function switchRegistration() {
     hideError();
     var checkbox = document.getElementById("register-cb");
