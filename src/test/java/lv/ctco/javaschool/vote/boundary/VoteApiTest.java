@@ -211,11 +211,12 @@ class VoteApiTest {
                 .thenReturn(Collections.singletonList(ev));
 
         List<EventVoteDto> test = voteApi.getAllEventVotes();
+        assertThat(test.size(),equalTo(1));
         EventVoteDto testResultDto = test.get(0);
         assertThat(testResultDto.getComment(), equalTo(ev.getComment()));
         assertThat(testResultDto.getEventName(), equalTo(event.getEventName()));
         assertThat(testResultDto.getMood(), equalTo(ev.getMood()));
-        assertThat(test.size(),equalTo(1));
+
     }
 
     @Test
