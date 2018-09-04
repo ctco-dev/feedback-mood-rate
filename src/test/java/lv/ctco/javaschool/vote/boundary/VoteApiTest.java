@@ -22,6 +22,7 @@ import javax.persistence.EntityManager;
 import javax.ws.rs.core.Response;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -232,6 +233,29 @@ class VoteApiTest {
         voteApi.submitDailyVote(dailyVoteDto);
 
         verify(em, times(1)).persist(any(DailyVote.class));
+    }
+
+    @Test
+    @DisplayName("GetAllEventVotesTest: Checks if method returns correct dto value")
+    void getAllEventVotesTest(){
+        EventVote ev = new EventVote();
+        Event event = new Event();
+
+        event.setEventName("testEvent");
+        ev.setComment("test");
+        ev.setMood(MoodStatus.HAPPY);
+        ev.setUser(user1);
+        ev.setEvent(event);
+        when(voteStore.getAllEventVotes())
+                .thenReturn(Collections.singletonList(ev));
+
+        List<EventVoteDto> test = voteApi.getAllEventVotes();
+        assertThat(test.size(),equalTo(1));
+        EventVoteDto testResultDto = test.get(0);
+        assertThat(testResultDto.getComment(), equalTo(ev.getComment()));
+        assertThat(testResultDto.getEventName(), equalTo(event.getEventName()));
+        assertThat(testResultDto.getMood(), equalTo(ev.getMood()));
+
     }
 
     @Test
