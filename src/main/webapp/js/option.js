@@ -98,7 +98,7 @@ function getUserRole() {
 }
 
 window.onclick = function (event) {
-    if(event.target == model){
+    if(event.target == modal){
         modal.style.display = "none";
     }
 }
