@@ -9,6 +9,7 @@ import lv.ctco.javaschool.vote.entity.EventVote;
 import lv.ctco.javaschool.vote.entity.MoodStatus;
 import lv.ctco.javaschool.vote.entity.dto.DailyVoteDto;
 import lv.ctco.javaschool.vote.entity.dto.EventDto;
+import lv.ctco.javaschool.vote.entity.dto.EventVoteDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -66,20 +67,29 @@ class VoteApiTest {
     }
 
     @Test
-    void getEventsTest() {
+    void getEventsByCurrentUserTest() {
         Event newEvent = new Event();
         newEvent.setEventName("test");
-        newEvent.setId((long) 0);
         newEvent.setDate(LocalDate.of(2018, 8, 30));
         newEvent.setVoteDeadlineDate(LocalDate.now().plusDays(5));
 
+        Event finishedEvent = new Event();
+        finishedEvent.setEventName("test finished Event");
+        finishedEvent.setDate(LocalDate.of(2018, 8, 30));
+        finishedEvent.setVoteDeadlineDate(LocalDate.now().minusDays(3));
+
         EventVote eventVote = new EventVote();
         eventVote.setEvent(newEvent);
-        eventVote.setId((long)1);
         eventVote.setUser(user1);
         eventVote.setMood(MoodStatus.EMPTY);
 
+        EventVote secondEventVote = new EventVote();
+        secondEventVote.setEvent(finishedEvent);
+        secondEventVote.setUser(user1);
+        secondEventVote.setMood(MoodStatus.SAD);
+
         List<EventVote> eventVoteList = new ArrayList<>();
+        eventVoteList.add(secondEventVote);
         eventVoteList.add(eventVote);
 
         when(userStore.getCurrentUser())
@@ -89,6 +99,48 @@ class VoteApiTest {
 
         List<EventDto> actual = voteApi.getEventsByCurrentUser();
         assertThat(actual.get(0).getEventName(), equalTo("test"));
+    }
+
+    @Test
+    void getEventVoteListTest() {
+
+        Event newEvent = new Event();
+        newEvent.setEventName("test Event Name");
+        newEvent.setDate(LocalDate.of(2018, 8, 30));
+        newEvent.setVoteDeadlineDate(LocalDate.now().plusDays(5));
+
+        Event finishedEvent = new Event();
+        finishedEvent.setEventName("test finished Event");
+        finishedEvent.setDate(LocalDate.of(2018, 8, 30));
+        finishedEvent.setVoteDeadlineDate(LocalDate.now().minusDays(3));
+
+        EventVote eventVote = new EventVote();
+        eventVote.setEvent(newEvent);
+        eventVote.setUser(user1);
+        eventVote.setMood(MoodStatus.HAPPY);
+        eventVote.setComment("Comment test");
+
+        EventVote secondEventVote = new EventVote();
+        secondEventVote.setEvent(finishedEvent);
+        secondEventVote.setUser(user1);
+        secondEventVote.setMood(MoodStatus.SAD);
+        secondEventVote.setComment("Comment test");
+
+        List<EventVote> eventVoteList = new ArrayList<>();
+        eventVoteList.add(secondEventVote);
+        eventVoteList.add(eventVote);
+
+
+        when(userStore.getCurrentUser())
+                .thenReturn(user1);
+        when(voteStore.getAllEventVotesByUser(user1))
+                .thenReturn(eventVoteList);
+
+        List<EventVoteDto> actual = voteApi.getEventVoteList();
+        assertThat(actual.get(0).getUsername(), equalTo("user1"));
+        assertThat(actual.get(0).getEventName(), equalTo("test Event Name"));
+        assertThat(actual.get(0).getMood(), equalTo(MoodStatus.HAPPY));
+        assertThat(actual.get(0).getComment(), equalTo("Comment test"));
     }
 
     @Test
