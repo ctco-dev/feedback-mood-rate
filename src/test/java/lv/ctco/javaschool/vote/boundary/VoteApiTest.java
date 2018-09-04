@@ -17,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import javax.persistence.EntityManager;
+import javax.ws.rs.core.Response;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,14 @@ class VoteApiTest {
     private UserStore userStore;
     @Mock
     private VoteStore voteStore;
+    @Mock
+    private ResponseWrapper wrapper;
+    @Mock
+    private Response response_METHOD_NOT_ALLOWED;
+    @Mock
+    private Response response_BAD_REQUEST;
+    @Mock
+    private Response response_CREATED;
 
     @InjectMocks
     private VoteApi voteApi;
@@ -80,24 +89,6 @@ class VoteApiTest {
 
         List<EventDto> actual = voteApi.getEventsByCurrentUser();
         assertThat(actual.get(0).getEventName(), equalTo("test"));
-    }
-
-    @Test
-    @DisplayName("allEvent: check list of active events")
-    void getAllEvents() {
-        Event event = new Event();
-        event.setEventName("New Year 2018");
-
-        List<Event> eventList = new ArrayList<>();
-        eventList.add(event);
-
-        List<EventDto> eventDtoList;
-
-        when(voteStore.getAllEvents()).thenReturn(eventList);
-
-        eventDtoList = voteApi.getAllEvents();
-
-        assertThat(eventDtoList.get(0).getEventName(), equalTo(eventList.get(0).getEventName()));
     }
 
     @Test
@@ -217,5 +208,49 @@ class VoteApiTest {
         event.setVoteDeadlineDate(LocalDate.of(2018, 9, 10));
         eventVote.setEvent(event);
         assertTrue(voteApi.checkTodayDate(eventVote));
+    }
+
+    @Test
+    @DisplayName("checkSubmit: check for status METHOD NOT ALLOWED")
+    void checkSubmitDailyVoteTest_METHOD_NOT_ALLOWED() {
+        DailyVote day = new DailyVote();
+        day.setUser(user);
+        day.setDate(LocalDate.now());
+
+        DailyVoteDto dailyVoteDto = new DailyVoteDto();
+        dailyVoteDto.setMood(MoodStatus.HAPPY);
+
+        when(userStore.getCurrentUser()).thenReturn(user);
+        when(voteStore.getCurrentVoteDate(user, LocalDate.now())).thenReturn(Optional.of(day));
+        when(wrapper.getMethodNotAllowed()).thenReturn(response_METHOD_NOT_ALLOWED);
+
+        Response resp = voteApi.checkSubmitDailyVote(dailyVoteDto);
+
+        assertThat(resp, equalTo(response_METHOD_NOT_ALLOWED));
+    }
+
+    @Test
+    @DisplayName("checkSubmit: check for status BAD_REQUEST (check if mood is chosen)")
+    void checkSubmitDailyVoteTest_BAD_REQUEST() {
+        DailyVoteDto dailyVoteDto = new DailyVoteDto();
+
+        when(wrapper.getBadRequest()).thenReturn(response_BAD_REQUEST);
+
+        Response resp = voteApi.checkSubmitDailyVote(dailyVoteDto);
+
+        assertThat(resp, equalTo(response_BAD_REQUEST));
+    }
+
+    @Test
+    @DisplayName("checkSubmit: check for status CREATED")
+    void checkSubmitDailyVoteTest_CREATED() {
+        DailyVoteDto dailyVoteDto = new DailyVoteDto();
+        dailyVoteDto.setMood(MoodStatus.HAPPY);
+
+        when(wrapper.getCreated()).thenReturn(response_CREATED);
+
+        Response resp = voteApi.checkSubmitDailyVote(dailyVoteDto);
+
+        assertThat(resp, equalTo(response_CREATED));
     }
 }
