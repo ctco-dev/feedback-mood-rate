@@ -20,6 +20,7 @@ import org.mockito.MockitoAnnotations;
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -198,7 +199,6 @@ class VoteApiTest {
     @Test
     @DisplayName("GetAllEventVotesTest: Checks if method returns correct dto value")
     void getAllEventVotesTest(){
-        List<EventVote> eventVoteList= new ArrayList<>();
         EventVote ev = new EventVote();
         Event event = new Event();
 
@@ -207,17 +207,16 @@ class VoteApiTest {
         ev.setMood(MoodStatus.HAPPY);
         ev.setUser(user1);
         ev.setEvent(event);
-        eventVoteList.add(ev);
-
         when(voteStore.getAllEventVotes())
-                .thenReturn(eventVoteList);
+                .thenReturn(Collections.singletonList(ev));
 
         List<EventVoteDto> test = voteApi.getAllEventVotes();
-        assertThat(test.get(0).getComment(), equalTo(ev.getComment()));
-        assertThat(test.get(0).getEventName(), equalTo(event.getEventName()));
-        assertThat(test.get(0).getMood(), equalTo(ev.getMood()));
+        EventVoteDto testResultDto = test.get(0);
+        assertThat(testResultDto.getComment(), equalTo(ev.getComment()));
+        assertThat(testResultDto.getEventName(), equalTo(event.getEventName()));
+        assertThat(testResultDto.getMood(), equalTo(ev.getMood()));
+        assertThat(test.size(),equalTo(1));
     }
-
 
     @Test
     @DisplayName("Check if object is already in DB")
