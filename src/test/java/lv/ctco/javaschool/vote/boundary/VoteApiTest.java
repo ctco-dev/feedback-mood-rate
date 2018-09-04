@@ -108,7 +108,7 @@ class VoteApiTest {
         List<EventVoteDto> actual = voteApi.getEventVoteList();
         assertThat(actual.get(0).getUsername(), equalTo("user1"));
         assertThat(actual.get(0).getEventName(), equalTo("test Event Name"));
-        assertThat(actual.get(0).getMood(), equalTo("HAPPY"));
+        assertThat(actual.get(0).getMood(), equalTo(MoodStatus.HAPPY));
         assertThat(actual.get(0).getComment(), equalTo("Comment test"));
     }
 
