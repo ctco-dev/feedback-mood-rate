@@ -39,7 +39,7 @@ public class VoteApi {
     @GET
     @RolesAllowed({"ADMIN", "USER"})
     @Path("/event")
-    public List<EventDto> getEvents() {
+    public List<EventDto> getEventsByCurrentUser() {
         User currentUser = userStore.getCurrentUser();
         List<EventVote> eventVoteList = voteStore.getEventVoteByUserId(currentUser);
         List<EventDto> events = new ArrayList<>();

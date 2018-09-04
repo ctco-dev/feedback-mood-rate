@@ -22,6 +22,30 @@ function checkDayStatus() {
     });
 }
 
+function checkEventStatus() {
+    console.log("Check event status");
+    fetch('/api/vote/event', {
+        "method": "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).then(function (response) {
+        return response.json();
+    }).then(function (event) {
+        console.log(JSON.stringify(event));
+        if (Object.keys(event).length > 0) {
+            console.log("checking event staus");
+            document.getElementById("event-btn").disabled = false;
+            document.getElementById("eventVote").classList.add("w3-hide");
+        } else {
+            console.log("Checked status");
+            document.getElementById("event-btn").disabled = true;
+            document.getElementById("eventVote").classList.remove("w3-hide");
+        }
+    });
+}
+
 function handlerEvent(eventType) {
     if (eventType === "DAY") {
         location.href = "../app/dayMood.jsp";
@@ -48,6 +72,7 @@ function goEventStatistics() {
 
 function onloadHandler() {
     checkDayStatus();
+    checkEventStatus();
     document.getElementById("date").innerHTML = getDate(new Date());
     getUserRole();
 }
