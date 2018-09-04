@@ -7,11 +7,7 @@ import lv.ctco.javaschool.vote.control.VoteStore;
 import lv.ctco.javaschool.vote.entity.DailyVote;
 import lv.ctco.javaschool.vote.entity.Event;
 import lv.ctco.javaschool.vote.entity.EventVote;
-import lv.ctco.javaschool.vote.entity.dto.DailyVoteDto;
-import lv.ctco.javaschool.vote.entity.dto.DateDto;
-import lv.ctco.javaschool.vote.entity.dto.EventDto;
-import lv.ctco.javaschool.vote.entity.dto.EventVoteDto;
-import lv.ctco.javaschool.vote.entity.dto.StatisticsDto;
+import lv.ctco.javaschool.vote.entity.dto.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -136,10 +132,10 @@ public class VoteApi {
     @POST
     @RolesAllowed({"ADMIN", "USER"})
     @Path("/checkSubmit")
-    public Response checkSubmitDailyVote(DailyVoteDto feedback){
-        if(checkDay()){
+    public Response checkSubmitDailyVote(DailyVoteDto feedback) {
+        if (checkDay()) {
             return wrapper.getMethodNotAllowedResponse();
-        } else if (feedback.getMood() == null){
+        } else if (feedback.getMood() == null) {
             return wrapper.getBadRequestResponse();
         }
         submitDailyVote(feedback);
@@ -183,12 +179,12 @@ public class VoteApi {
         List<DailyVote> dailyVotesList;
         List<StatisticsDto> statsList = new ArrayList<>();
 
-        if ( dateDto.getDate() != null) {
+        if (dateDto.getDate() != null && dateDto.getWeek() == null) {
             LocalDate selectedDate = dateDto.getDate();
             dailyVotesList = voteStore.getDayDailyVote(selectedDate);
-            fillStatisticsDto(dailyVotesList,statsList);
-        } else if (dateDto.getWeek() != null) {
-            String week = dateDto.getWeek().replace("W","");
+            fillStatisticsDto(dailyVotesList, statsList);
+        } else if (dateDto.getWeek() != null && dateDto.getDate() == null) {
+            String week = dateDto.getWeek().replace("W", "");
 
             LocalDate weekFirstDate =
                     LocalDate.parse(week,
@@ -196,14 +192,15 @@ public class VoteApi {
                                     .parseDefaulting(WeekFields.ISO.dayOfWeek(), 1)
                                     .toFormatter());
             LocalDate weekLastDate = weekFirstDate.plusDays(6);
-            dailyVotesList = voteStore.getWeekDailyVote(weekFirstDate,weekLastDate);
-            fillStatisticsDto(dailyVotesList,statsList);
+            dailyVotesList = voteStore.getWeekDailyVote(weekFirstDate, weekLastDate);
+            fillStatisticsDto(dailyVotesList, statsList);
         }
 
         return statsList;
     }
-    private void fillStatisticsDto(List<DailyVote> dailyVoteList, List<StatisticsDto> statisticsDtoList) {
-        for (DailyVote item: dailyVoteList) {
+
+    public void fillStatisticsDto(List<DailyVote> dailyVoteList, List<StatisticsDto> statisticsDtoList) {
+        for (DailyVote item : dailyVoteList) {
             StatisticsDto currentDailyVote = new StatisticsDto();
             currentDailyVote.setMood(item.getMood());
             currentDailyVote.setComment(item.getComment());

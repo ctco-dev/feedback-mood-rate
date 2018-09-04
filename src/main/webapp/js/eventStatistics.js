@@ -42,7 +42,7 @@ function getAllEvents() {
     }).then(function (event) {
         for (i = 0; i < Object.keys(event).length; i++) {
             eventName[i] = event[Object.keys(event)[i]].eventName;
-            html += "<option value=" + i  + ">" +eventName[i] + "</option>";
+            html += "<option value=" + i + ">" + eventName[i] + "</option>";
         }
         document.getElementById("eventList").innerHTML = html;
     });
@@ -65,7 +65,7 @@ function getAllEventVotes() {
 }
 
 function getStats() {
-    var commentsHtml= "";
+    var commentsHtml = "";
     var happy = 0;
     var neutral = 0;
     var sad = 0;

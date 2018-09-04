@@ -32,5 +32,5 @@ function hideError() {
 function showError(msg) {
     var errorPanel = document.getElementById("error-panel");
     errorPanel.classList.remove("w3-hide");
-    w3DisplayData("error-panel", {"message" : msg});
+    w3DisplayData("error-panel", {"message": msg});
 }

@@ -86,11 +86,11 @@ function getStats() {
             }
             commentsArr.push(stats[k]);
         }
-        if(document.getElementById('user_Feedback')){
+        if (document.getElementById('user_Feedback')) {
             var previousFeedback = document.getElementsByClassName('user_Feedback');
             previousFeedback.parentNode.removeChild(previousFeedback);
         }
-        commentsArr.forEach(function(element) {
+        commentsArr.forEach(function (element) {
             var feedback = document.createElement('p');
             feedback.setAttribute("class", "user_Feedback");
 

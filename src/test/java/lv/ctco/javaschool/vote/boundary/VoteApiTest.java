@@ -8,6 +8,8 @@ import lv.ctco.javaschool.vote.entity.Event;
 import lv.ctco.javaschool.vote.entity.EventVote;
 import lv.ctco.javaschool.vote.entity.MoodStatus;
 import lv.ctco.javaschool.vote.entity.dto.DailyVoteDto;
+import lv.ctco.javaschool.vote.entity.dto.DateDto;
+import lv.ctco.javaschool.vote.entity.dto.StatisticsDto;
 import lv.ctco.javaschool.vote.entity.dto.EventDto;
 import lv.ctco.javaschool.vote.entity.dto.EventVoteDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,22 +18,17 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
 import javax.persistence.EntityManager;
 import javax.ws.rs.core.Response;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class VoteApiTest {
     @Mock
@@ -153,10 +150,10 @@ class VoteApiTest {
         dailyVoteDto.setComment("");
         doAnswer(invocation -> {
             DailyVote dailyVote = invocation.getArgument(0);
-            assertThat(dailyVote.getUser(),equalTo(user1));
-            assertThat(dailyVote.getDate(),equalTo(LocalDate.now()));
-            assertThat(dailyVoteDto.getMood(),equalTo(MoodStatus.EMPTY));
-            assertThat(dailyVoteDto.getComment(),equalTo(""));
+            assertThat(dailyVote.getUser(), equalTo(user1));
+            assertThat(dailyVote.getDate(), equalTo(LocalDate.now()));
+            assertThat(dailyVoteDto.getMood(), equalTo(MoodStatus.EMPTY));
+            assertThat(dailyVoteDto.getComment(), equalTo(""));
 
             return null;
         }).when(em).persist(any(DailyVote.class));
@@ -177,10 +174,10 @@ class VoteApiTest {
         doAnswer(invocation -> {
             DailyVote dailyVote = invocation.getArgument(0);
 
-            assertThat(dailyVote.getUser(),equalTo(user1));
-            assertThat(dailyVote.getDate(),equalTo(LocalDate.now()));
-            assertThat(dailyVoteDto.getMood(),equalTo(MoodStatus.HAPPY));
-            assertThat(dailyVoteDto.getComment(),equalTo(""));
+            assertThat(dailyVote.getUser(), equalTo(user1));
+            assertThat(dailyVote.getDate(), equalTo(LocalDate.now()));
+            assertThat(dailyVoteDto.getMood(), equalTo(MoodStatus.HAPPY));
+            assertThat(dailyVoteDto.getComment(), equalTo(""));
 
             return null;
         }).when(em).persist(any(DailyVote.class));
@@ -201,10 +198,10 @@ class VoteApiTest {
         doAnswer(invocation -> {
             DailyVote dailyVote = invocation.getArgument(0);
 
-            assertThat(dailyVote.getUser(),equalTo(user1));
-            assertThat(dailyVote.getDate(),equalTo(LocalDate.now()));
-            assertThat(dailyVoteDto.getMood(),equalTo(MoodStatus.NEUTRAL));
-            assertThat(dailyVoteDto.getComment(),equalTo("Test Comment"));
+            assertThat(dailyVote.getUser(), equalTo(user1));
+            assertThat(dailyVote.getDate(), equalTo(LocalDate.now()));
+            assertThat(dailyVoteDto.getMood(), equalTo(MoodStatus.NEUTRAL));
+            assertThat(dailyVoteDto.getComment(), equalTo("Test Comment"));
 
             return null;
         }).when(em).persist(any(DailyVote.class));
@@ -224,10 +221,10 @@ class VoteApiTest {
         doAnswer(invocation -> {
             DailyVote dailyVote = invocation.getArgument(0);
 
-            assertThat(dailyVote.getUser(),equalTo(user1));
-            assertThat(dailyVote.getDate(),equalTo(LocalDate.now()));
-            assertThat(dailyVoteDto.getMood(),equalTo(MoodStatus.SAD));
-            assertThat(dailyVoteDto.getComment(),equalTo("Test Comment"));
+            assertThat(dailyVote.getUser(), equalTo(user1));
+            assertThat(dailyVote.getDate(), equalTo(LocalDate.now()));
+            assertThat(dailyVoteDto.getMood(), equalTo(MoodStatus.SAD));
+            assertThat(dailyVoteDto.getComment(), equalTo("Test Comment"));
 
             return null;
         }).when(em).persist(any(DailyVote.class));
@@ -260,6 +257,127 @@ class VoteApiTest {
         event.setVoteDeadlineDate(LocalDate.of(2018, 9, 10));
         eventVote.setEvent(event);
         assertTrue(voteApi.checkTodayDate(eventVote));
+    }
+
+    @Test
+    @DisplayName("Check if day statistics is selected then returned StatisticsDto of DailyVote class")
+    void getStatisticsTestIfDateDtoIsNull() {
+        DateDto dateDto = new DateDto();
+        List<StatisticsDto> statsDto = voteApi.getStatistics(dateDto);
+        assertTrue(statsDto.isEmpty());
+    }
+
+    @Test
+    @DisplayName("Check if day statistics is selected then returned StatisticsDto of DailyVote class")
+    void getStatisticsForOneDay() {
+        DateDto dateDto = new DateDto();
+        dateDto.setDate(LocalDate.of(2018, 10, 10));
+
+        List<DailyVote> dvList = new ArrayList<>();
+        List<StatisticsDto> statsDto;
+
+        for (int i = 0; i < 5; i++) {
+            dvList.add(new DailyVote());
+            dvList.get(i).setId((long) i);
+            dvList.get(i).setComment("Comment: " + i);
+        }
+
+        when(voteStore.getDayDailyVote(dateDto.getDate()))
+                .thenReturn(dvList);
+
+        statsDto = voteApi.getStatistics(dateDto);
+        for (int i = 0; i < 5; i++) {
+            assertThat(statsDto.get(i).getComment(), equalTo(dvList.get(i).getComment()));
+        }
+    }
+
+    @Test
+    @DisplayName("Check if week statistics is selected then returned StatisticsDto of DailyVote class")
+    void getStatisticsForWeek() {
+        DateDto dateDto = new DateDto();
+        dateDto.setWeek("2018-1");
+
+        List<DailyVote> dvList = new ArrayList<>();
+        List<StatisticsDto> statsDto;
+
+        for (int i = 0; i < 5; i++) {
+            dvList.add(new DailyVote());
+            dvList.get(i).setId((long) i);
+            dvList.get(i).setComment("Comment: " + i);
+        }
+
+        when(voteStore.getWeekDailyVote(LocalDate.of(2018, 1, 1),
+                LocalDate.of(2018, 1, 7)))
+                .thenReturn(dvList);
+
+        statsDto = voteApi.getStatistics(dateDto);
+        for (int i = 0; i < 5; i++) {
+            assertThat(statsDto.get(i).getComment(), equalTo(dvList.get(i).getComment()));
+        }
+    }
+
+    @Test
+    @DisplayName("Check if week and day data come to function in same time then return empty dto")
+    void getStatisticsSelectedBothOptions() {
+        DateDto dateDto = new DateDto();
+        dateDto.setWeek("2018-1");
+        dateDto.setDate(LocalDate.of(2018, 1, 1));
+
+        List<DailyVote> dvList = new ArrayList<>();
+        List<StatisticsDto> statsDto;
+
+        for (int i = 0; i < 5; i++) {
+            dvList.add(new DailyVote());
+            dvList.get(i).setId((long) i);
+            dvList.get(i).setComment("Comment: " + i);
+        }
+
+        when(voteStore.getWeekDailyVote(LocalDate.of(2018, 1, 1),
+                LocalDate.of(2018, 1, 7)))
+                .thenReturn(dvList);
+
+        statsDto = voteApi.getStatistics(dateDto);
+        assertThat(statsDto.size(), equalTo(0));
+    }
+
+    @Test
+    @DisplayName("Check if no data come to function, then return empty dto")
+    void getStatisticsSelectedNoOptions() {
+        DateDto dateDto = new DateDto();
+
+        List<DailyVote> dvList = new ArrayList<>();
+        List<StatisticsDto> statsDto;
+
+        for (int i = 0; i < 5; i++) {
+            dvList.add(new DailyVote());
+            dvList.get(i).setId((long) i);
+            dvList.get(i).setComment("Comment: " + i);
+        }
+
+        when(voteStore.getWeekDailyVote(LocalDate.of(2018, 1, 1),
+                LocalDate.of(2018, 1, 7)))
+                .thenReturn(dvList);
+
+        statsDto = voteApi.getStatistics(dateDto);
+        assertThat(statsDto.size(), equalTo(0));
+    }
+
+    @Test
+    @DisplayName("Check if fill function that fills StatisticsDto list from DailyVot list")
+    void fillStatisticsDtoTest() {
+        List<DailyVote> dvList = new ArrayList<>();
+        List<StatisticsDto> statsDto = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+            dvList.add(new DailyVote());
+            dvList.get(i).setId((long) i);
+            dvList.get(i).setComment("Comment: " + i);
+        }
+
+        voteApi.fillStatisticsDto(dvList, statsDto);
+        for (int i = 0; i < 5; i++) {
+            assertThat(statsDto.get(i).getComment(), equalTo(dvList.get(i).getComment()));
+        }
     }
 
     @Test
