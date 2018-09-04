@@ -80,17 +80,17 @@ function submitDailyData(feedback) {
         },
         body: JSON.stringify(feedback)
     }).then(function (response) {
-        if(response.status === 405){
+        if (response.status === 405) {
             console.log("Day vote registration already done!");
             alert("Already voted today!");
             back();
         } else if (response.status == 400) {
             console.log("Cannot get mood status");
             alert("Mood field error!");
-        } else if (response.status == 201){
-        console.log("DONE");
-        alert("Thanks for vote!");
-        back();
+        } else if (response.status == 201) {
+            console.log("DONE");
+            alert("Thanks for vote!");
+            back();
         }
     });
 }
@@ -114,7 +114,7 @@ function getEvents() {
         if (Object.keys(event).length > 0) {
             for (i = 0; i < Object.keys(event).length; i++) {
                 eventName[i] = event[Object.keys(event)[i]].eventName;
-                html += "<option value=" + i  + ">" +eventName[i] + "</option>"
+                html += "<option value=" + i + ">" + eventName[i] + "</option>"
             }
             document.getElementById("data").classList.add("w3-hide");
             document.getElementById("eventList").classList.remove("w3-hide");
@@ -160,11 +160,11 @@ function hideSubmitButtonCheck() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
-    }).then(function(response){
+    }).then(function (response) {
         return response.json();
     }).then(function (day) {
         console.log(JSON.stringify(day));
-        if(day){
+        if (day) {
             buttonSubmit.disabled = true;
         } else {
             buttonSubmit.disabled = false;

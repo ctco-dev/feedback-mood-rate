@@ -44,7 +44,8 @@
         <button type="button" class="w3-btn w3-teal w3-ripple" onclick="back()">Go back!</button>
     </div>
     <div id="Submit">
-        <button type="button" id="submit-btn" class="w3-btn w3-teal w3-ripple" onclick="submitEventVote()">Submit</button>
+        <button type="button" id="submit-btn" class="w3-btn w3-teal w3-ripple" onclick="submitEventVote()">Submit
+        </button>
     </div>
 </form>
 </body>
