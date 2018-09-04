@@ -167,7 +167,6 @@ class VoteApiTest {
         when(voteStore.getAllEventVotes())
                 .thenReturn(eventVoteList);
 
-        assertThat(voteApi.getAllEventVotes().get(0).getUsername(), equalTo(user1.getUsername()));
         assertThat(voteApi.getAllEventVotes().get(0).getComment(), equalTo(ev.getComment()));
         assertThat(voteApi.getAllEventVotes().get(0).getEventName(), equalTo(event.getEventName()));
         assertThat(voteApi.getAllEventVotes().get(0).getMood(), equalTo(ev.getMood()));
