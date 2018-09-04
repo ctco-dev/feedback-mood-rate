@@ -138,12 +138,12 @@ public class VoteApi {
     @Path("/checkSubmit")
     public Response checkSubmitDailyVote(DailyVoteDto feedback){
         if(checkDay()){
-            return wrapper.getMethodNotAllowed();
+            return wrapper.getMethodNotAllowedResponse();
         } else if (feedback.getMood() == null){
-            return wrapper.getBadRequest();
+            return wrapper.getBadRequestResponse();
         }
         submitDailyVote(feedback);
-        return wrapper.getCreated();
+        return wrapper.getCreatedResponse();
     }
 
     public void submitDailyVote(DailyVoteDto feedback) {

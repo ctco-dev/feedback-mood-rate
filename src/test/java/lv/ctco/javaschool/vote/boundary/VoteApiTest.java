@@ -274,7 +274,7 @@ class VoteApiTest {
 
         when(userStore.getCurrentUser()).thenReturn(user);
         when(voteStore.getCurrentVoteDate(user, LocalDate.now())).thenReturn(Optional.of(day));
-        when(wrapper.getMethodNotAllowed()).thenReturn(response_METHOD_NOT_ALLOWED);
+        when(wrapper.getMethodNotAllowedResponse()).thenReturn(response_METHOD_NOT_ALLOWED);
 
         Response resp = voteApi.checkSubmitDailyVote(dailyVoteDto);
 
@@ -286,7 +286,7 @@ class VoteApiTest {
     void checkSubmitDailyVoteTest_BAD_REQUEST() {
         DailyVoteDto dailyVoteDto = new DailyVoteDto();
 
-        when(wrapper.getBadRequest()).thenReturn(response_BAD_REQUEST);
+        when(wrapper.getBadRequestResponse()).thenReturn(response_BAD_REQUEST);
 
         Response resp = voteApi.checkSubmitDailyVote(dailyVoteDto);
 
@@ -299,7 +299,7 @@ class VoteApiTest {
         DailyVoteDto dailyVoteDto = new DailyVoteDto();
         dailyVoteDto.setMood(MoodStatus.HAPPY);
 
-        when(wrapper.getCreated()).thenReturn(response_CREATED);
+        when(wrapper.getCreatedResponse()).thenReturn(response_CREATED);
 
         Response resp = voteApi.checkSubmitDailyVote(dailyVoteDto);
 

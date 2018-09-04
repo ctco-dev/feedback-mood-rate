@@ -4,15 +4,15 @@ import javax.ws.rs.core.Response;
 
 public class ResponseWrapper {
 
-    public Response getMethodNotAllowed() {
+    public Response getMethodNotAllowedResponse() {
         return Response.status(Response.Status.METHOD_NOT_ALLOWED).build();
     }
 
-    public Response getBadRequest() {
+    public Response getBadRequestResponse() {
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
-    public Response getCreated() {
+    public Response getCreatedResponse() {
         return Response.status(Response.Status.CREATED).build();
     }
 }
