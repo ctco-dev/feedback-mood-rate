@@ -18,7 +18,32 @@
     <span id="eventVote">There are no events to vote!</span><br/>
     <br/><br/><br/><br/><br/>
 </p>
+
+<div id="modal_addUser" class="w3-modal">
+    <div class="w3-modal-content">
+        <div class="w3-container">
+            <span onclick="document.getElementById('addNewUser-btn').style.display='none'"
+                  class="w3-button w3-display-topright">&times;</span>
+            <p>
+                <input id="username-txt" class="w3-input" type="text" style="width:90%" required>
+                <label for="username-txt">Name</label>
+            </p>
+            <p>
+                <input id="password1-txt" class="w3-input" type="password" style="width:90%" required>
+                <label for="password1-txt">Password</label>
+            </p>
+        </div>
+
+    </div>
+</div>
+
 <p id="button-stat">
+
+
+    <button id="addNewUser-btn" type="button" onclick="document.getElementById('modal_addUser').style.display='block'">Add new user</button>
+    <br/><br/>
+    <button type="button" onclick="deletUser()">Delete user</button>
+    <br/><br/>
     <button type="button" onclick="goDailyStatistics()">Daily Statistics</button>
     <br/><br/>
     <button type="button" onclick="goEventStatistics()">Event Statistics</button>

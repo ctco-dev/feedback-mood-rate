@@ -96,3 +96,11 @@ function getUserRole() {
         }
     });
 }
+
+function addNewUser() {
+    
+}
+
+function deletUser() {
+    
+}
