@@ -1,12 +1,12 @@
-function drawChart(h, s, n, e) {
+function drawChart(happyCount, sadCount, neutralCount, emptyCount) {
     var data = google.visualization.arrayToDataTable([
         ['Mood state', 'Count'],
-        ['Happy', h],
-        ['Sad', s],
-        ['Neutral', n],
-        ['Empty', e],
+        ['Happy', happyCount],
+        ['Sad', sadCount],
+        ['Neutral', neutralCount],
+        ['Empty', emptyCount],
     ]);
-    var options = {'title':'Mood rate event statistics', 'width':550, 'height':400};
+    var options = {'title':'Mood rate day statistics', 'width':550, 'height':400};
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
     chart.draw(data, options);
 }
