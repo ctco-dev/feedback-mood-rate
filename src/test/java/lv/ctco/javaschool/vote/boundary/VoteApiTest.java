@@ -9,6 +9,7 @@ import lv.ctco.javaschool.vote.entity.EventVote;
 import lv.ctco.javaschool.vote.entity.MoodStatus;
 import lv.ctco.javaschool.vote.entity.dto.DailyVoteDto;
 import lv.ctco.javaschool.vote.entity.dto.EventDto;
+import lv.ctco.javaschool.vote.entity.dto.EventVoteDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -195,7 +196,7 @@ class VoteApiTest {
     }
 
     @Test
-    @DisplayName("GetAllEventVotesTest")
+    @DisplayName("GetAllEventVotesTest: Checks if method returns correct dto value")
     void getAllEventVotesTest(){
         List<EventVote> eventVoteList= new ArrayList<>();
         EventVote ev = new EventVote();
@@ -210,9 +211,10 @@ class VoteApiTest {
 
         when(voteStore.getAllEventVotes())
                 .thenReturn(eventVoteList);
-        assertThat(voteApi.getAllEventVotes().get(0).getComment(), equalTo(ev.getComment()));
-        assertThat(voteApi.getAllEventVotes().get(0).getEventName(), equalTo(event.getEventName()));
-        assertThat(voteApi.getAllEventVotes().get(0).getMood(), equalTo(ev.getMood()));
+        List<EventVoteDto> test = voteApi.getAllEventVotes();
+        assertThat(test.get(0).getComment(), equalTo(ev.getComment()));
+        assertThat(test.get(0).getEventName(), equalTo(event.getEventName()));
+        assertThat(test.get(0).getMood(), equalTo(ev.getMood()));
     }
 
 
