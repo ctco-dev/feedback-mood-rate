@@ -99,12 +99,12 @@ public class VoteStore {
                 .getResultList();
     }
 
-    public List<Event> getLatestEvent(){
+    public Event getLatestEvent(){
         return em.createQuery(
                 "select e " +
                         "from Event e " +
                         "order by e.id desc", Event.class)
                 .setMaxResults(1)
-                .getResultList();
+                .getSingleResult();
     }
 }

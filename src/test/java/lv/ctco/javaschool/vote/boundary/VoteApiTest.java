@@ -466,25 +466,22 @@ class VoteApiTest {
 
     @Test
     void createEventVoteTest() {
-        Event event = new Event();
-        event.setDate(LocalDate.of(2018,9,3));
-        event.setVoteDeadlineDate(LocalDate.now().plusDays(5));
-        event.setEventName("Test");
-
-        List<Event> lastEvent = new ArrayList<>();
-        lastEvent.add(event);
+        Event lastEvent = new Event();
+        lastEvent.setDate(LocalDate.of(2018,9,3));
+        lastEvent.setVoteDeadlineDate(LocalDate.now().plusDays(5));
+        lastEvent.setEventName("Test");
 
         List<User> userList = new ArrayList<>();
         userList.add(user1);
         userList.add(user);
 
         EventVote user1EventVote = new EventVote();
-        user1EventVote.setEvent(event);
+        user1EventVote.setEvent(lastEvent);
         user1EventVote.setUser(user1);
         user1EventVote.setMood(MoodStatus.EMPTY);
 
         EventVote userEventVote = new EventVote();
-        userEventVote.setEvent(event);
+        userEventVote.setEvent(lastEvent);
         userEventVote.setUser(user);
         userEventVote.setMood(MoodStatus.EMPTY);
 

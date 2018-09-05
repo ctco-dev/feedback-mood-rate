@@ -220,11 +220,11 @@ public class VoteApi {
         createEventVote();
     }
     public void createEventVote(){
-        List<Event> lastEvent = voteStore.getLatestEvent();
+        Event lastEvent = voteStore.getLatestEvent();
         List<User> userList = userStore.getAllUsers();
         for (User user:userList) {
             EventVote newEventVote = new EventVote();
-            newEventVote.setEvent(lastEvent.get(0));
+            newEventVote.setEvent(lastEvent);
             newEventVote.setUser(user);
             newEventVote.setMood(MoodStatus.EMPTY);
             em.persist(newEventVote);
