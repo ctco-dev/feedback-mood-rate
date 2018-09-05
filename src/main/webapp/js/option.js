@@ -94,7 +94,7 @@ function getUserRole() {
             document.getElementById("button-stat-event").classList.add("w3-hide");
         } else if (status.role === "ADMIN") {
             document.getElementById("button-stat-day").classList.remove("w3-hide");
-            document.getElementById("button-stat-event ").classList.remove("w3-hide");
+            document.getElementById("button-stat-event").classList.remove("w3-hide");
         }
     });
 }
