@@ -28,7 +28,7 @@
         <h3 class="w3-center"><b>C.T.CO FEEDBACK MOOD RATE</b></h3>
     </div>
 </div>
-<div class="w3-display-bottommiddle w3-padding w3-hide-small w3-text-pink">
+<div class="w3-display-bottommiddle w3-padding w3-hide-small w3-text-red">
     <h1><b>
             <a href="<c:url value='/login.jsp'/>">Log in</a>
     </b></h1>
