@@ -32,8 +32,6 @@ import java.util.Optional;
 @Logger
 public class VoteApi {
     @PersistenceContext
-    private EntityManager em;
-    @Inject
     private UserStore userStore;
     @Inject
     private VoteStore voteStore;
@@ -147,15 +145,7 @@ public class VoteApi {
     }
 
     public void submitDailyVote(DailyVoteDto feedback) {
-        User currentUser = userStore.getCurrentUser();
-        LocalDate today = LocalDate.now();
-
-        DailyVote dailyVote = new DailyVote();
-        dailyVote.setUser(currentUser);
-        dailyVote.setMood(feedback.getMood());
-        dailyVote.setComment(feedback.getComment());
-        dailyVote.setDate(today);
-        em.persist(dailyVote);
+        voteStore.submitDailyVote(userStore.getCurrentUser(),LocalDate.now(),feedback);
     }
 
     public boolean checkTodayDate(EventVote ev) {
@@ -170,10 +160,7 @@ public class VoteApi {
         User currentUser = userStore.getCurrentUser();
         Event currentEvent = voteStore.getEventByEventName(feedback.getEventName());
         EventVote eventVote = voteStore.getEventVoteByUserIdEventId(currentUser, currentEvent);
-
-        eventVote.setMood(feedback.getMood());
-        eventVote.setComment(feedback.getComment());
-        em.merge(eventVote);
+        voteStore.mergeEventVote(feedback,eventVote);
     }
 
     @POST
