@@ -10,7 +10,7 @@
     <script src="../js/date.js"></script>
 </head>
 <body onload="onloadHandler()">
-<h1 class="h1-center">C.T.Co Feedback Mood Rate</h1>
+<h1 class="h1-center">Feedback Mood Rate Menu</h1>
 <div class="inline-buttons">
     <p>
         <button class="buttons ph-button ph-btn-blue">Create New Event</button>
@@ -18,7 +18,7 @@
         <button id="event-btn" onclick="handlerEvent('EVENT')" class="buttons ph-button ph-btn-blue">Event Mood</button>
         <button id="button-stat-day" type="button" onclick="goDailyStatistics()" class="buttons ph-button ph-btn-blue">Day statistics</button>
         <button id="button-stat-event" type="button" onclick="goEventStatistics()" class="buttons ph-button ph-btn-blue">Event statistics</button>
-        <button type="button" onclick="logout()" class="buttons ph-button ph-btn-blue">Log Out</button>
+        <button type="button" onclick="logout()" class="buttons ph-button ph-btn-red">Log Out</button>
     </p>
 </div>
 <h3 class = "span-center" id="voteDone">You have submitted your mood for today!</h3>

@@ -79,6 +79,10 @@ i {
     border-color: #326E99;
     background-color: #3F8ABF;
 }
+.ph-btn-red {
+    border-color: #4d0000;
+    background-color: 	#800000;
+}
 .ph-btn-blue:hover, .ph-btn-blue:focus, .ph-btn-blue:active {
     background-color: #397CAC;
     border-color: #326E99;
