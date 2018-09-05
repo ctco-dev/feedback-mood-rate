@@ -10,20 +10,19 @@
     <script src="../js/date.js"></script>
 </head>
 <body onload="onloadHandler()">
-<h2>You mood in:</h2>
-<p>
-    <button id="buttonDay" onclick="handlerEvent('DAY')">Day</button>
-    <span id="voteDone">Come back tomorrow!</span><span id="date"></span><br/><br/>
-    <button id="event-btn" onclick="handlerEvent('EVENT')">Event</button>
-    <span id="eventVote">There are no events to vote!</span><br/>
-    <br/><br/><br/><br/><br/>
-</p>
-<p id="button-stat">
-    <button type="button" onclick="goDailyStatistics()">Daily Statistics</button>
-    <br/><br/>
-    <button type="button" onclick="goEventStatistics()">Event Statistics</button>
-    <br/><br/>
-</p>
-<button type="button" onclick="logout()">Log out</button>
+<h1 class="h1-center">C.T.Co Feedback Mood Rate</h1>
+<div class="inline-buttons">
+    <p>
+        <button class="buttons ph-button ph-btn-blue">Create New Event</button>
+        <button id="buttonDay" onclick="handlerEvent('DAY')" class="buttons ph-button ph-btn-blue">Today's Mood</button>
+        <button id="event-btn" onclick="handlerEvent('EVENT')" class="buttons ph-button ph-btn-blue">Event Mood</button>
+        <button id="button-stat-day" type="button" onclick="goDailyStatistics()" class="buttons ph-button ph-btn-blue">Day statistics</button>
+        <button id="button-stat-event" type="button" onclick="goEventStatistics()" class="buttons ph-button ph-btn-blue">Event statistics</button>
+        <button type="button" onclick="logout()" class="buttons ph-button ph-btn-blue">Log Out</button>
+    </p>
+</div>
+<h3 class = "span-center" id="voteDone">You have submitted your mood for today!</h3>
+<h3 class = "span-center" id="date"></h3>
+<h3 class = "span-center" id="eventVote">There are no events to vote!</h3>
 </body>
 </html>

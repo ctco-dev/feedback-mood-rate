@@ -13,7 +13,7 @@
 </head>
 <body onload="onLoadHandler()">
 <div id="feedback-statistics">
-    <h2>Feedback Statistics</h2>
+    <h1 class="h1-center">Feedback Statistics</h1>
     <h3>Statistics menu</h3>
     <p>Chose statistics type</p>
 
