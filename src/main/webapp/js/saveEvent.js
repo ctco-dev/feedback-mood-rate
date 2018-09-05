@@ -8,7 +8,6 @@ function createEventData() {
 }
 function saveEvent() {
     var event = createEventData();
-    console.log(event);
     fetch('/api/vote/createEvent', {
         "method": "POST",
         headers: {
