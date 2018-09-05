@@ -31,7 +31,7 @@ import java.util.Optional;
 @Stateless
 @Logger
 public class VoteApi {
-    @PersistenceContext
+    @Inject
     private UserStore userStore;
     @Inject
     private VoteStore voteStore;
