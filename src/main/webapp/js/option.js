@@ -65,7 +65,7 @@ function goDailyStatistics() {
     location.href = "../app/dayStatistics.jsp";
 }
 
-function addEvent() {
+function goToAddEvent() {
     location.href = "../app/eventCreate.jsp";
 }
 

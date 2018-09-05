@@ -1,6 +1,6 @@
 function createEventData() {
     var event = {};
-    event["eventName"] = document.getElementById('eventName').value;;
+    event["eventName"] = document.getElementById('eventName').value;
     event["date"] = document.getElementById('date').value;
     event["deadlineDate"] = document.getElementById('deadlineDate').value;
     console.log(event);

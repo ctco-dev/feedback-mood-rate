@@ -3,6 +3,7 @@ package lv.ctco.javaschool.vote.boundary;
 import jdk.nashorn.internal.runtime.logging.Logger;
 import lv.ctco.javaschool.auth.control.UserStore;
 import lv.ctco.javaschool.auth.entity.domain.User;
+import lv.ctco.javaschool.vote.control.EventStore;
 import lv.ctco.javaschool.vote.control.VoteStore;
 import lv.ctco.javaschool.vote.entity.DailyVote;
 import lv.ctco.javaschool.vote.entity.Event;
@@ -38,6 +39,8 @@ public class VoteApi {
     private VoteStore voteStore;
     @Inject
     private ResponseWrapper wrapper;
+    @Inject
+    private EventStore eventStore;
 
     @GET
     @RolesAllowed({"ADMIN", "USER"})
@@ -212,22 +215,13 @@ public class VoteApi {
     @RolesAllowed({"ADMIN", "USER"})
     @Path("/createEvent")
     public void saveEvent(EventDto eventDto){
-        Event newEvent = new Event();
-        newEvent.setEventName(eventDto.getEventName());
-        newEvent.setDate(eventDto.getDate());
-        newEvent.setVoteDeadlineDate(eventDto.getDeadlineDate());
-        em.persist(newEvent);
+        eventStore.saveNewEvent(eventDto);
         createEventVote();
     }
     public void createEventVote(){
-        Event lastEvent = voteStore.getLatestEvent();
         List<User> userList = userStore.getAllUsers();
         for (User user:userList) {
-            EventVote newEventVote = new EventVote();
-            newEventVote.setEvent(lastEvent);
-            newEventVote.setUser(user);
-            newEventVote.setMood(MoodStatus.EMPTY);
-            em.persist(newEventVote);
+            eventStore.createNewEventVote(voteStore.getLatestEvent(),user);
         }
     }
 }
