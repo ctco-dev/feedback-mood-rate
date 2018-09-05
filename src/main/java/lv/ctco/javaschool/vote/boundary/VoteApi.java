@@ -7,6 +7,7 @@ import lv.ctco.javaschool.vote.control.VoteStore;
 import lv.ctco.javaschool.vote.entity.DailyVote;
 import lv.ctco.javaschool.vote.entity.Event;
 import lv.ctco.javaschool.vote.entity.EventVote;
+import lv.ctco.javaschool.vote.entity.MoodStatus;
 import lv.ctco.javaschool.vote.entity.dto.*;
 
 import javax.annotation.security.RolesAllowed;
@@ -205,6 +206,28 @@ public class VoteApi {
             currentDailyVote.setMood(item.getMood());
             currentDailyVote.setComment(item.getComment());
             statisticsDtoList.add(currentDailyVote);
+        }
+    }
+    @POST
+    @RolesAllowed({"ADMIN", "USER"})
+    @Path("/createEvent")
+    public void saveEvent(EventDto eventDto){
+        Event newEvent = new Event();
+        newEvent.setEventName(eventDto.getEventName());
+        newEvent.setDate(eventDto.getDate());
+        newEvent.setVoteDeadlineDate(eventDto.getDeadlineDate());
+        em.persist(newEvent);
+        createEventVote();
+    }
+    public void createEventVote(){
+        List<Event> lastEvent = voteStore.getLatestEvent();
+        List<User> userList = userStore.getAllUsers();
+        for (User user:userList) {
+            EventVote newEventVote = new EventVote();
+            newEventVote.setEvent(lastEvent.get(0));
+            newEventVote.setUser(user);
+            newEventVote.setMood(MoodStatus.EMPTY);
+            em.persist(newEventVote);
         }
     }
 }

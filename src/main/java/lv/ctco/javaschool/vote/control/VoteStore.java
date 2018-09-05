@@ -98,4 +98,13 @@ public class VoteStore {
                         "from EventVote ev ", EventVote.class)
                 .getResultList();
     }
+
+    public List<Event> getLatestEvent(){
+        return em.createQuery(
+                "select e " +
+                        "from Event e " +
+                        "order by e.id desc", Event.class)
+                .setMaxResults(1)
+                .getResultList();
+    }
 }
