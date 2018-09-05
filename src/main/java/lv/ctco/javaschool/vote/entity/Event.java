@@ -48,4 +48,26 @@ public class Event {
     public void setVoteDeadlineDate(LocalDate voteDeadlineDate) {
         this.voteDeadlineDate = voteDeadlineDate;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Event event = (Event) o;
+
+        if (id != null ? !id.equals(event.id) : event.id != null) return false;
+        if (eventName != null ? !eventName.equals(event.eventName) : event.eventName != null) return false;
+        if (date != null ? !date.equals(event.date) : event.date != null) return false;
+        return voteDeadlineDate != null ? voteDeadlineDate.equals(event.voteDeadlineDate) : event.voteDeadlineDate == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (eventName != null ? eventName.hashCode() : 0);
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (voteDeadlineDate != null ? voteDeadlineDate.hashCode() : 0);
+        return result;
+    }
 }

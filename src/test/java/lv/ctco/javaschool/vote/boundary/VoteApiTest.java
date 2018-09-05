@@ -128,7 +128,6 @@ class VoteApiTest {
         eventVoteList.add(secondEventVote);
         eventVoteList.add(eventVote);
 
-
         when(userStore.getCurrentUser())
                 .thenReturn(user1);
         when(voteStore.getAllEventVotesByUser(user1))
@@ -446,5 +445,56 @@ class VoteApiTest {
         Response resp = voteApi.checkSubmitDailyVote(dailyVoteDto);
 
         assertThat(resp, equalTo(response_CREATED));
+    }
+
+    @Test
+    void saveEventTest() {
+        EventDto eventDto = new EventDto();
+        eventDto.setDate(LocalDate.of(2018,9,3));
+        eventDto.setDeadlineDate(LocalDate.now().plusDays(5));
+        eventDto.setEventName("Test");
+
+        Event newEvent = new Event();
+        newEvent.setDate(eventDto.getDate());
+        newEvent.setVoteDeadlineDate(eventDto.getDeadlineDate());
+        newEvent.setEventName(eventDto.getEventName());
+
+        voteApi.saveEvent(eventDto);
+
+        verify(em, times(1)).persist(newEvent);
+    }
+
+    @Test
+    void createEventVoteTest() {
+        Event event = new Event();
+        event.setDate(LocalDate.of(2018,9,3));
+        event.setVoteDeadlineDate(LocalDate.now().plusDays(5));
+        event.setEventName("Test");
+
+        List<Event> lastEvent = new ArrayList<>();
+        lastEvent.add(event);
+
+        List<User> userList = new ArrayList<>();
+        userList.add(user1);
+        userList.add(user);
+
+        EventVote user1EventVote = new EventVote();
+        user1EventVote.setEvent(event);
+        user1EventVote.setUser(user1);
+        user1EventVote.setMood(MoodStatus.EMPTY);
+
+        EventVote userEventVote = new EventVote();
+        userEventVote.setEvent(event);
+        userEventVote.setUser(user);
+        userEventVote.setMood(MoodStatus.EMPTY);
+
+        when(voteStore.getLatestEvent())
+                .thenReturn(lastEvent);
+        when(userStore.getAllUsers())
+                .thenReturn(userList);
+
+        voteApi.createEventVote();
+        verify(em, times(1)).persist(user1EventVote);
+        verify(em, times(1)).persist(userEventVote);
     }
 }
