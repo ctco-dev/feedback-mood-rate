@@ -13,14 +13,10 @@ import lv.ctco.javaschool.vote.entity.dto.DateDto;
 import lv.ctco.javaschool.vote.entity.dto.EventDto;
 import lv.ctco.javaschool.vote.entity.dto.EventVoteDto;
 import lv.ctco.javaschool.vote.entity.dto.StatisticsDto;
-import lv.ctco.javaschool.vote.entity.MoodStatus;
-import lv.ctco.javaschool.vote.entity.dto.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
