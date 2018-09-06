@@ -7,6 +7,7 @@ import lv.ctco.javaschool.auth.control.exceptions.UsernameAlreadyExistsException
 import lv.ctco.javaschool.auth.entity.domain.Role;
 import lv.ctco.javaschool.auth.entity.domain.User;
 import lv.ctco.javaschool.auth.entity.dto.ErrorDto;
+import lv.ctco.javaschool.auth.entity.dto.UserDeleteDto;
 import lv.ctco.javaschool.auth.entity.dto.UserLoginDto;
 
 import javax.inject.Inject;
@@ -22,6 +23,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -95,4 +97,26 @@ public class AuthenticationApi {
         }
     }
 
+    @POST
+    @Path("/deleteUser")
+    public Response deleteUserByID(UserDeleteDto deleteUser){
+        Response.Status status;
+        String errorCode = "UNKNOWN";
+        try{
+            String username = deleteUser.getUsername();
+            Optional<User> user = userStore.findUserByUsername(username);
+            long id = user.get().getId();
+            userStore.deleteUser(id);
+            status = Response.Status.OK;
+        }catch (Exception e){
+            errorCode = "BAD_REQUEST";
+            status = Response.Status.BAD_REQUEST;
+        }
+        ErrorDto errorDto = new ErrorDto();
+        errorDto.setErrorCode(errorCode);
+        return Response
+                .status(status)
+                .entity(errorDto)
+                .build();
+    }
 }

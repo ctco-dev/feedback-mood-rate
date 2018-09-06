@@ -7,7 +7,11 @@ import lv.ctco.javaschool.vote.control.VoteStore;
 import lv.ctco.javaschool.vote.entity.DailyVote;
 import lv.ctco.javaschool.vote.entity.Event;
 import lv.ctco.javaschool.vote.entity.EventVote;
-import lv.ctco.javaschool.vote.entity.dto.*;
+import lv.ctco.javaschool.vote.entity.dto.DailyVoteDto;
+import lv.ctco.javaschool.vote.entity.dto.DateDto;
+import lv.ctco.javaschool.vote.entity.dto.EventDto;
+import lv.ctco.javaschool.vote.entity.dto.EventVoteDto;
+import lv.ctco.javaschool.vote.entity.dto.StatisticsDto;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;

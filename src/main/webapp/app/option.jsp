@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" type="text/css" href="../styles.css">
+    <script src="http://www.w3schools.com/lib/w3data.js"></script>
     <script src="../js/option.js"></script>
     <script src="../js/date.js"></script>
+    <script src="../js/login.js"></script>
 </head>
 <body onload="onloadHandler()">
 <h2>You mood in:</h2>
@@ -23,9 +25,14 @@
     <div class="w3-modal-content">
         <div class="w3-container">
             <header>
+                <div id="error-panel" class="error-panel w3-panel w3-red w3-hide">
+                    <h3>Error!</h3>
+                    <p>{{message}}</p>
+                </div>
                 <span onclick="document.getElementById('modal_addUser').style.display='none'"
                       class="w3-button w3-display-topright">&times;</span>
-                <h3>NEW USER REGISTRATION</h3>
+                <h5>NEW USER REGISTRATION</h5>
+                <h3 id="userRegisteredMessage_h3" class="w3-hide">USER SUCCESSFULLY REGISTERED</h3>
             </header>
             <div>
                 <p>
@@ -43,7 +50,7 @@
             </div>
             <footer>
                 <p>
-                    <button id="register-btn" type="button" class="w3-button w3-section w3-indigo w3-ripple" onclick="collectDto()">Register</button>
+                    <button id="register-btn" type="button" class="w3-button w3-section w3-indigo w3-ripple" onclick="collectDataAndRegister()">Register</button>
                 </p>
             </footer>
         </div>
@@ -51,10 +58,35 @@
     </div>
 </div>
 
+<div id="modal_deleteUser" class="w3-modal">
+    <div class="w3-modal-content">
+        <div class="w3-container">
+            <header>
+                <span onclick="document.getElementById('modal_deleteUser').style.display='none'"
+                      class="w3-button w3-display-topright">&times;</span>
+                <h3>DELETE USER</h3>
+            </header>
+            <div>
+                    <select name="deleteUsers" id="deleteUsers" required></select>
+            </div>
+            <footer>
+                <p>
+                    <button id="delete-btn" type="button" class="w3-button w3-section w3-indigo w3-ripple" onclick="deleteUser()">DELETE</button>
+                </p>
+            </footer>
+        </div>
+
+    </div>
+</div>
+
+
+
 <p id="button-stat">
 
 
     <button id="registerNewUser-btn" type="button" onclick="document.getElementById('modal_addUser').style.display='block'">Create new user</button>
+    <br/><br/>
+    <button id="deleteUser-btn" type="button" onclick="delete_btn()">Delete user</button>
     <br/><br/>
     <button type="button" onclick="goDailyStatistics()">Daily Statistics</button>
     <br/><br/>

@@ -1,3 +1,4 @@
+var listOfUsers = [];
 function checkDayStatus() {
     console.log("Checking day button status");
     fetch('/api/vote/checkDay', {
@@ -73,6 +74,7 @@ function goEventStatistics() {
 function onloadHandler() {
     checkDayStatus();
     checkEventStatus();
+    //userList();
     document.getElementById("date").innerHTML = getDate(new Date());
     getUserRole();
 }
@@ -97,8 +99,73 @@ function getUserRole() {
     });
 }
 
-window.onclick = function (event) {
-    if(event.target == modal){
-        modal.style.display = "none";
+function userRegiseredMessage() {
+    var succes_reg = document.getElementById("userRegisteredMessage_h3");
+    succes_reg.classList.remove("w3-hide");
+    setTimeout(function () {
+        succes_reg.classList.add("w3-hide");
+    }, 1500);
+}
+
+function init() {
+    document.getElementById("username-txt").value = " ";
+    document.getElementById("password1-txt").value = "";
+    if( document.getElementById("password2-txt")){
+        document.getElementById("password2-txt").value = "";
     }
+}
+window.onload = init;
+
+function userList() {
+    html = "";
+    console.log("Getting list of users");
+    fetch('/api/user/list', {
+        "method": "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).then(function (response) {
+        return response.json();
+    }).then(function (userList) {
+        if(Object.keys(userList).length > 0) {
+            for (i = 0; i < Object.keys(userList).length; i++) {
+                listOfUsers[i] = userList[Object.keys(userList)[i]].username;
+                html += "<option value=" + i + ">" + listOfUsers[i] + "</option>"
+            }
+            document.getElementById("deleteUsers").classList.remove("w3-hide");
+            document.getElementById("deleteUsers").innerHTML = html;
+        }
+    });
+}
+
+function deleteUser() {
+    var userToDelete = listOfUsers[document.getElementById("deleteUsers").value];
+    console.log("DELETING USER " + userToDelete);
+    var deleteUser = {
+        "username": userToDelete
+    };
+    fetch('/api/auth/deleteUser', {
+        "method": "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(deleteUser)
+    }).then(function (response){
+        if(response.status === 400){
+            console.log("No such user in data base");
+            window.alert(userToDelete + " IS NOT IN DATABASE");
+        } else if (response.status === 200) {
+            window.alert(userToDelete + " SUCCESSFULLY DELETED");
+            userList();
+        } else {
+            console.log("some other error occured");
+        }
+    });
+}
+
+function delete_btn() {
+    document.getElementById('modal_deleteUser').style.display='block';
+    userList();
 }
