@@ -18,10 +18,10 @@
         <button type="button" onclick="logout()" class="buttons ph-button ph-btn-red">Log Out</button>
     </p>
 </div>
-<h3 class = "span-center" id="voteDone">You have submitted your mood for today!</h3>
+<h3 class = "span-center w3-hide" id="voteDone">You have submitted your mood for today!</h3>
 <h3 class = "span-center" id="date"></h3>
-<h3 class = "span-center" id="eventVote">There are no events to vote!</h3>
-<div id="admin-panel" class="footer-adm">
+<h3 class = "span-center w3-hide" id="eventVote">There are no events to vote!</h3>
+<div id="admin-panel" class="footer-adm w3-hide" >
     <h4 class = "span-center">Admin Panel:</h4>
     <div class="inline-buttons">
         <p>
