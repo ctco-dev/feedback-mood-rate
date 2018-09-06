@@ -11,7 +11,7 @@
     <script src="./js/login.js"></script>
 </head>
 <body>
-<header class="w3-container w3-teal">
+<header class="w3-container w3-light-blue">
     <h1>Login</h1>
 </header>
 <div class="w3-container w3-half w3-margin-top">
@@ -29,8 +29,8 @@
             <label for="password1-txt">Password</label>
         </p>
         <p>
-            <button id="login-btn" type="button" class="w3-button w3-section w3-teal w3-ripple" onclick="login()">Log
-                in
+            <button id="login-btn" type="button" class="w3-button w3-section w3-light-blue w3-ripple" onclick="login()">
+                Log in
             </button>
         </p>
     </form>
