@@ -39,7 +39,6 @@
 <input type="checkbox" id="show-text-feedback" onclick="showTextFeedback()"/>
 <label for="show-text-feedback">Show text feedback</label>
 <div id="text-feedback">
-
 </div>
 <div>
     <button type="button" onclick="back()">Go back</button>

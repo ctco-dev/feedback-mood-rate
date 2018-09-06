@@ -42,27 +42,11 @@ function collectData() {
     return dto;
 }
 
-function collectDataAndRegister() {
+function collectDataAndRegister(){
+    hideError();
     var data = collectData();
     if (data) {
         register(data);
-    }
-}
-
-function switchRegistration() {
-    hideError();
-    var checkbox = document.getElementById("register-cb");
-    var pwd2 = document.getElementById("password2-grp");
-    var loginBtn = document.getElementById("login-btn");
-    var registerBtn = document.getElementById("register-btn");
-    if (checkbox.checked) {
-        pwd2.classList.remove("w3-hide");
-        loginBtn.classList.add("w3-hide");
-        registerBtn.classList.remove("w3-hide");
-    } else {
-        pwd2.classList.add("w3-hide");
-        loginBtn.classList.remove("w3-hide");
-        registerBtn.classList.add("w3-hide");
     }
 }
 
@@ -79,7 +63,8 @@ function register(data) {
     }).then(function (response) {
         if (response.status === 200) {
             console.log("registration success");
-            location.href = "../app/option.jsp";
+            userRegiseredMessage();
+            init();
         } else if (response.status === 401) {
             showError("Something is wrong!");
         } else {
