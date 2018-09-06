@@ -3,7 +3,7 @@ var html = "";
 
 function displayDate() {
     hideSubmitButtonCheck();
-    document.getElementById("date").innerHTML = getDate(new Date());
+    document.getElementById("date").innerHTML = "Today's date: " + getDate(new Date());
 }
 
 function submitDailyVote() {

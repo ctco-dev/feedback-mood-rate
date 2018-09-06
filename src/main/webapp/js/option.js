@@ -86,9 +86,9 @@ function getUserRole() {
         return response.json();
     }).then(function (status) {
         if (status.role === "USER") {
-            document.getElementById("button-stat").classList.add("w3-hide");
+            document.getElementById("admin-panel").classList.add("w3-hide");
         } else if (status.role === "ADMIN") {
-            document.getElementById("button-stat").classList.remove("w3-hide");
+            document.getElementById("admin-panel").classList.remove("w3-hide");
         }
     });
 }

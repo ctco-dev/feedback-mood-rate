@@ -4,15 +4,15 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" type="text/css" href="../styles.css">
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">google.charts.load('current', {'packages':['corechart']});</script>
+    <script type="text/javascript">google.charts.load('current', {'packages': ['corechart']});</script>
     <script src="../js/dayStatistics.js"></script>
     <title>Statistics</title>
 </head>
 <body onload="onLoadHandler()">
 <div id="feedback-statistics">
-    <h2>Feedback Statistics</h2>
+    <h1 class="h1-center">Feedback Statistics</h1>
     <h3>Statistics menu</h3>
     <p>Chose statistics type</p>
     <form action="select stats">

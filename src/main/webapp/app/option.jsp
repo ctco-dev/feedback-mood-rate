@@ -5,21 +5,40 @@
     <title>Option</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" type="text/css" href="../styles.css">
+    <link rel="stylesheet" type="text/css" href="../css/option.css">
     <script src="http://www.w3schools.com/lib/w3data.js"></script>
     <script src="../js/option.js"></script>
     <script src="../js/date.js"></script>
     <script src="../js/login.js"></script>
 </head>
-<body onload="onloadHandler()">
-<h2>You mood in:</h2>
-<p>
-    <button id="buttonDay" onclick="handlerEvent('DAY')">Day</button>
-    <span id="voteDone">Come back tomorrow!</span><span id="date"></span><br/><br/>
-    <button id="event-btn" onclick="handlerEvent('EVENT')">Event</button>
-    <span id="eventVote">There are no events to vote!</span><br/>
-    <br/><br/><br/><br/><br/>
-</p>
+<body class="bgimg" onload="onloadHandler()">
+<h1 class="h1-center">Feedback Mood Rate Menu</h1>
+<div class="inline-buttons">
+    <p>
+        <button id="buttonDay" onclick="handlerEvent('DAY')" class="buttons ph-button ph-btn-blue">Today's Mood</button>
+        <button id="event-btn" onclick="handlerEvent('EVENT')" class="buttons ph-button ph-btn-blue">Event Mood</button>
+        <button type="button" onclick="logout()" class="buttons ph-button ph-btn-red">Log Out</button>
+    </p>
+</div>
+<h3 class = "span-center w3-hide" id="voteDone">You have submitted your mood for today!</h3>
+<h3 class = "span-center" id="date"></h3>
+<h3 class = "span-center w3-hide" id="eventVote">There are no events to vote!</h3>
+<div id="admin-panel" class="footer-adm w3-hide" >
+    <h4 class = "span-center">Admin Panel:</h4>
+    <div class="inline-buttons">
+        <p>
+            <button id="button-create-ev" type="button" class="buttons ph-button ph-btn-blue" onclick="goToAddEvent()">
+                Create New Event
+            </button>
+            <button type="button" onclick="goDailyStatistics()" class="buttons ph-button ph-btn-blue">Day statistics
+            </button>
+            <button type="button" onclick="goEventStatistics()" class="buttons ph-button ph-btn-blue">Event statistics
+            </button>
+            <button class="buttons ph-button ph-btn-blue" id="registerNewUser-btn" type="button" onclick="document.getElementById('modal_addUser').style.display='block'">Create new user</button>
+            <button class="buttons ph-button ph-btn-blue" id="deleteUser-btn" type="button" onclick="delete_btn()">Delete user</button>
+        </p>
+    </div>
+</div>
 <div id="modal_addUser" class="w3-modal">
     <div class="w3-modal-content">
         <div class="w3-container">
@@ -64,7 +83,7 @@
                 <h3>DELETE USER</h3>
             </header>
             <div>
-                    <select name="deleteUsers" id="deleteUsers" required></select>
+                <select name="deleteUsers" id="deleteUsers" required></select>
             </div>
             <footer>
                 <p>
@@ -74,17 +93,5 @@
         </div>
     </div>
 </div>
-<p id="button-stat">
-    <button id="registerNewUser-btn" type="button" onclick="document.getElementById('modal_addUser').style.display='block'">Create new user</button>
-    <br/><br/>
-    <button id="deleteUser-btn" type="button" onclick="delete_btn()">Delete user</button>
-    <br/><br/>
-    <button type="button" onclick="goDailyStatistics()">Daily Statistics</button>
-    <br/><br/>
-    <button type="button" onclick="goEventStatistics()">Event Statistics</button>
-    <br/><br/>
-</p>
-<button type="button" onclick="goToAddEvent()">Add event</button>
-<button type="button" onclick="logout()">Log out</button>
 </body>
 </html>

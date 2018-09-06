@@ -6,7 +6,7 @@ function drawChart(happyCount, sadCount, neutralCount, emptyCount) {
         ['Neutral', neutralCount],
         ['Empty', emptyCount],
     ]);
-    var options = {'title':'Mood rate day statistics', 'width':550, 'height':400};
+    var options = {'title': 'Mood rate day statistics', 'width': 550, 'height': 400};
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
     chart.draw(data, options);
 }
@@ -47,18 +47,13 @@ function getStats() {
     var dayStats = document.getElementById("day-stats-radio");
     var weekStats = document.getElementById("week-stats-radio");
     if (dayStats.checked) {
-        console.log("Statistics type - Day");
         statsDto = {"date": document.getElementById("date-select").value};
     }
     else if (weekStats.checked) {
-        console.log("Statistics type - Week");
         statsDto = {
             "week": document.getElementById("week-select").value
         };
     }
-
-    console.log(statsDto);
-    console.log("Collecting Statistics from Database");
     fetch('/api/vote/getDailyStatistics', {
         "method": "POST",
         headers: {

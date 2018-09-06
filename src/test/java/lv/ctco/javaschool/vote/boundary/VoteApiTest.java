@@ -143,7 +143,7 @@ class VoteApiTest {
 
     @Test
     @DisplayName("GetAllEventVotesTest: Checks if method returns correct dto value")
-    void getAllEventVotesTest(){
+    void getAllEventVotesTest() {
         EventVote ev = new EventVote();
         Event event = new Event();
 
@@ -156,7 +156,7 @@ class VoteApiTest {
                 .thenReturn(Collections.singletonList(ev));
 
         List<EventVoteDto> test = voteApi.getAllEventVotes();
-        assertThat(test.size(),equalTo(1));
+        assertThat(test.size(), equalTo(1));
         EventVoteDto testResultDto = test.get(0);
         assertThat(testResultDto.getComment(), equalTo(ev.getComment()));
         assertThat(testResultDto.getEventName(), equalTo(event.getEventName()));
