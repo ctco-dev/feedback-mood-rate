@@ -146,7 +146,7 @@ public class VoteApi {
     }
 
     public void submitDailyVote(DailyVoteDto feedback) {
-        voteStore.submitDailyVote(userStore.getCurrentUser(),LocalDate.now(),feedback);
+        voteStore.submitDailyVote(userStore.getCurrentUser(), LocalDate.now(), feedback);
     }
 
     public boolean checkTodayDate(EventVote ev) {
@@ -161,7 +161,7 @@ public class VoteApi {
         User currentUser = userStore.getCurrentUser();
         Event currentEvent = voteStore.getEventByEventName(feedback.getEventName());
         EventVote eventVote = voteStore.getEventVoteByUserIdEventId(currentUser, currentEvent);
-        voteStore.mergeEventVote(feedback,eventVote);
+        voteStore.mergeEventVote(feedback, eventVote);
     }
 
     @POST
@@ -199,17 +199,19 @@ public class VoteApi {
             statisticsDtoList.add(currentDailyVote);
         }
     }
+
     @POST
     @RolesAllowed({"ADMIN", "USER"})
     @Path("/createEvent")
-    public void saveEvent(EventDto eventDto){
+    public void saveEvent(EventDto eventDto) {
         eventStore.saveNewEvent(eventDto);
         createEventVote();
     }
-    public void createEventVote(){
+
+    public void createEventVote() {
         List<User> userList = userStore.getAllUsers();
-        for (User user:userList) {
-            eventStore.createNewEventVote(voteStore.getLatestEvent(),user);
+        for (User user : userList) {
+            eventStore.createNewEventVote(voteStore.getLatestEvent(), user);
         }
     }
 }

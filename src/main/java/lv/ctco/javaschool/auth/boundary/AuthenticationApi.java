@@ -99,16 +99,16 @@ public class AuthenticationApi {
 
     @POST
     @Path("/deleteUser")
-    public Response deleteUserByID(UserDeleteDto deleteUser){
+    public Response deleteUserByID(UserDeleteDto deleteUser) {
         Response.Status status;
         String errorCode = "UNKNOWN";
-        try{
+        try {
             String username = deleteUser.getUsername();
             Optional<User> user = userStore.findUserByUsername(username);
             long id = user.get().getId();
             userStore.deleteUser(id);
             status = Response.Status.OK;
-        }catch (Exception e){
+        } catch (Exception e) {
             errorCode = "BAD_REQUEST";
             status = Response.Status.BAD_REQUEST;
         }

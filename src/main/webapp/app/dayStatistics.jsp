@@ -15,7 +15,6 @@
     <h2>Feedback Statistics</h2>
     <h3>Statistics menu</h3>
     <p>Chose statistics type</p>
-
     <form action="select stats">
         <input id="day-stats-radio" type="radio"
                name="statistics-type" value="day" checked="checked" onchange="changeStatsType()"> Daily statistics

@@ -85,7 +85,7 @@ public class UserStore {
                 .findFirst();
     }
 
-    public void deleteUser(Long userID){
+    public void deleteUser(Long userID) {
         Query query = em.createQuery("DELETE FROM User u WHERE u.id = :usernameID", Long.class);
         query.setParameter("usernameID", userID);
         query.executeUpdate();

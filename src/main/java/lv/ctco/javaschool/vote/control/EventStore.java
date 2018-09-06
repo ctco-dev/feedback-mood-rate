@@ -16,7 +16,7 @@ public class EventStore {
     @PersistenceContext
     private EntityManager em;
 
-    public void saveNewEvent(EventDto eventDto){
+    public void saveNewEvent(EventDto eventDto) {
         Event newEvent = new Event();
         newEvent.setEventName(eventDto.getEventName());
         newEvent.setDate(eventDto.getDate());
@@ -24,7 +24,7 @@ public class EventStore {
         em.persist(newEvent);
     }
 
-    public void createNewEventVote (Event lastEvent, User user){
+    public void createNewEventVote(Event lastEvent, User user) {
         EventVote newEventVote = new EventVote();
         newEventVote.setEvent(lastEvent);
         newEventVote.setUser(user);

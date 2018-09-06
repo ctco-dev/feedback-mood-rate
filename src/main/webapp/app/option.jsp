@@ -20,7 +20,6 @@
     <span id="eventVote">There are no events to vote!</span><br/>
     <br/><br/><br/><br/><br/>
 </p>
-
 <div id="modal_addUser" class="w3-modal">
     <div class="w3-modal-content">
         <div class="w3-container">
@@ -54,10 +53,8 @@
                 </p>
             </footer>
         </div>
-
     </div>
 </div>
-
 <div id="modal_deleteUser" class="w3-modal">
     <div class="w3-modal-content">
         <div class="w3-container">
@@ -75,15 +72,9 @@
                 </p>
             </footer>
         </div>
-
     </div>
 </div>
-
-
-
 <p id="button-stat">
-
-
     <button id="registerNewUser-btn" type="button" onclick="document.getElementById('modal_addUser').style.display='block'">Create new user</button>
     <br/><br/>
     <button id="deleteUser-btn" type="button" onclick="delete_btn()">Delete user</button>

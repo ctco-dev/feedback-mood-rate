@@ -101,7 +101,7 @@ public class VoteStore {
                 .getResultList();
     }
 
-    public Event getLatestEvent(){
+    public Event getLatestEvent() {
         return em.createQuery(
                 "select e " +
                         "from Event e " +
@@ -110,7 +110,7 @@ public class VoteStore {
                 .getSingleResult();
     }
 
-    public void submitDailyVote (User currentUser, LocalDate today,DailyVoteDto feedback){
+    public void submitDailyVote(User currentUser, LocalDate today, DailyVoteDto feedback) {
         DailyVote dailyVote = new DailyVote();
         dailyVote.setUser(currentUser);
         dailyVote.setMood(feedback.getMood());
@@ -119,7 +119,7 @@ public class VoteStore {
         em.persist(dailyVote);
     }
 
-    public void mergeEventVote(EventVoteDto feedback,EventVote eventVote){
+    public void mergeEventVote(EventVoteDto feedback, EventVote eventVote) {
         eventVote.setMood(feedback.getMood());
         eventVote.setComment(feedback.getComment());
         em.merge(eventVote);
