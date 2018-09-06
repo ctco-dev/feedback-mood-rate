@@ -21,14 +21,14 @@
     </div>
     <div class="w3-display-middle w3-text-dark-grey">
         <br>
-        <h1 class="w3-xxxlarge w3-center w3-text-black"><b>What is your mood today?</b></h1>
+        <h1 class="w3-jumbo w3-center w3-text-black"><b>What is your mood today?</b></h1>
         <br>
         <hr class="w3-border-black" style="margin:auto;width:40%">
         <br>
-        <h3 class="w3-center"><b>C.T.CO FEEDBACK MOOD RATE</b></h3>
+        <h2 class="w3-center">C.T.CO FEEDBACK MOOD RATE</h2>
     </div>
 </div>
-<div class="w3-display-bottommiddle w3-padding w3-hide-small w3-text-red">
+<div class="w3-display-bottommiddle w3-padding w3-hide-small w3-text-indigo">
     <h1><b>
             <a href="<c:url value='/login.jsp'/>">Log in</a>
     </b></h1>
