@@ -1,0 +1,13 @@
+body, h1 {
+    font-family: "Raleway", sans-serif
+}
+.home-page {
+    height: 100%;
+}
+
+.bgimg {
+    background: url("../images/sea.jpg") center;
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+}

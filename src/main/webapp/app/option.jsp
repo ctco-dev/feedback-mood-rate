@@ -5,7 +5,7 @@
     <title>Option</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" type="text/css" href="../styles.css">
+    <link rel="stylesheet" type="text/css" href="../css/option.css">
     <script src="../js/option.js"></script>
     <script src="../js/date.js"></script>
 </head>
