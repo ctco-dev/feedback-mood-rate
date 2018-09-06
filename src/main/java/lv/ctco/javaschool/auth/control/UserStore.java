@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.security.enterprise.SecurityContext;
 import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
 import java.util.List;
@@ -82,5 +83,11 @@ public class UserStore {
                 .setParameter("username", username)
                 .getResultStream()
                 .findFirst();
+    }
+
+    public void deleteUser(Long userID) {
+        Query query = em.createQuery("DELETE FROM User u WHERE u.id = :usernameID", Long.class);
+        query.setParameter("usernameID", userID);
+        query.executeUpdate();
     }
 }

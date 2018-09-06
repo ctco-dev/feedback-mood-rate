@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" type="text/css" href="../styles.css">
-    <script src="../js/statistics.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">google.charts.load('current', {'packages':['corechart']});</script>
     <script src="../js/dayStatistics.js"></script>
@@ -16,7 +15,6 @@
     <h2>Feedback Statistics</h2>
     <h3>Statistics menu</h3>
     <p>Chose statistics type</p>
-
     <form action="select stats">
         <input id="day-stats-radio" type="radio"
                name="statistics-type" value="day" checked="checked" onchange="changeStatsType()"> Daily statistics

@@ -9,15 +9,16 @@ import lv.ctco.javaschool.vote.entity.EventVote;
 import lv.ctco.javaschool.vote.entity.MoodStatus;
 import lv.ctco.javaschool.vote.entity.dto.DailyVoteDto;
 import lv.ctco.javaschool.vote.entity.dto.DateDto;
-import lv.ctco.javaschool.vote.entity.dto.StatisticsDto;
 import lv.ctco.javaschool.vote.entity.dto.EventDto;
 import lv.ctco.javaschool.vote.entity.dto.EventVoteDto;
+import lv.ctco.javaschool.vote.entity.dto.StatisticsDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
 import javax.persistence.EntityManager;
 import javax.ws.rs.core.Response;
 import java.time.LocalDate;
@@ -25,11 +26,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 class VoteApiTest {
     @Mock

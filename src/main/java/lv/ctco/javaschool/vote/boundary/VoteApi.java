@@ -8,14 +8,15 @@ import lv.ctco.javaschool.vote.control.VoteStore;
 import lv.ctco.javaschool.vote.entity.DailyVote;
 import lv.ctco.javaschool.vote.entity.Event;
 import lv.ctco.javaschool.vote.entity.EventVote;
-import lv.ctco.javaschool.vote.entity.MoodStatus;
-import lv.ctco.javaschool.vote.entity.dto.*;
+import lv.ctco.javaschool.vote.entity.dto.DailyVoteDto;
+import lv.ctco.javaschool.vote.entity.dto.DateDto;
+import lv.ctco.javaschool.vote.entity.dto.EventDto;
+import lv.ctco.javaschool.vote.entity.dto.EventVoteDto;
+import lv.ctco.javaschool.vote.entity.dto.StatisticsDto;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -145,7 +146,7 @@ public class VoteApi {
     }
 
     public void submitDailyVote(DailyVoteDto feedback) {
-        voteStore.submitDailyVote(userStore.getCurrentUser(),LocalDate.now(),feedback);
+        voteStore.submitDailyVote(userStore.getCurrentUser(), LocalDate.now(), feedback);
     }
 
     public boolean checkTodayDate(EventVote ev) {
@@ -160,7 +161,7 @@ public class VoteApi {
         User currentUser = userStore.getCurrentUser();
         Event currentEvent = voteStore.getEventByEventName(feedback.getEventName());
         EventVote eventVote = voteStore.getEventVoteByUserIdEventId(currentUser, currentEvent);
-        voteStore.mergeEventVote(feedback,eventVote);
+        voteStore.mergeEventVote(feedback, eventVote);
     }
 
     @POST
@@ -198,17 +199,19 @@ public class VoteApi {
             statisticsDtoList.add(currentDailyVote);
         }
     }
+
     @POST
     @RolesAllowed({"ADMIN", "USER"})
     @Path("/createEvent")
-    public void saveEvent(EventDto eventDto){
+    public void saveEvent(EventDto eventDto) {
         eventStore.saveNewEvent(eventDto);
         createEventVote();
     }
-    public void createEventVote(){
+
+    public void createEventVote() {
         List<User> userList = userStore.getAllUsers();
-        for (User user:userList) {
-            eventStore.createNewEventVote(voteStore.getLatestEvent(),user);
+        for (User user : userList) {
+            eventStore.createNewEventVote(voteStore.getLatestEvent(), user);
         }
     }
 }
