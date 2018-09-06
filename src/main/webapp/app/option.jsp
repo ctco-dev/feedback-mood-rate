@@ -34,8 +34,8 @@
             </button>
             <button type="button" onclick="goEventStatistics()" class="buttons ph-button ph-btn-blue">Event statistics
             </button>
-            <button id="registerNewUser-btn" type="button" onclick="document.getElementById('modal_addUser').style.display='block'">Create new user</button>
-            <button id="deleteUser-btn" type="button" onclick="delete_btn()">Delete user</button>
+            <button class="buttons ph-button ph-btn-blue" id="registerNewUser-btn" type="button" onclick="document.getElementById('modal_addUser').style.display='block'">Create new user</button>
+            <button class="buttons ph-button ph-btn-blue" id="deleteUser-btn" type="button" onclick="delete_btn()">Delete user</button>
         </p>
     </div>
 </div>
