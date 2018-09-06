@@ -1,6 +1,5 @@
 var listOfUsers = [];
 function checkDayStatus() {
-    console.log("Checking day button status");
     fetch('/api/vote/checkDay', {
         "method": "GET",
         headers: {
@@ -10,7 +9,6 @@ function checkDayStatus() {
     }).then(function (response) {
         return response.json();
     }).then(function (day) {
-        console.log(JSON.stringify(day));
         if (day) {
             buttonDay.disabled = true;
             document.getElementById("date").classList.add("w3-hide");
@@ -24,7 +22,6 @@ function checkDayStatus() {
 }
 
 function checkEventStatus() {
-    console.log("Check event status");
     fetch('/api/vote/event', {
         "method": "GET",
         headers: {
@@ -34,13 +31,10 @@ function checkEventStatus() {
     }).then(function (response) {
         return response.json();
     }).then(function (event) {
-        console.log(JSON.stringify(event));
         if (Object.keys(event).length > 0) {
-            console.log("checking event staus");
             document.getElementById("event-btn").disabled = false;
             document.getElementById("eventVote").classList.add("w3-hide");
         } else {
-            console.log("Checked status");
             document.getElementById("event-btn").disabled = true;
             document.getElementById("eventVote").classList.remove("w3-hide");
         }
@@ -77,13 +71,11 @@ function goEventStatistics() {
 function onloadHandler() {
     checkDayStatus();
     checkEventStatus();
-    //userList();
     document.getElementById("date").innerHTML = getDate(new Date());
     getUserRole();
 }
 
 function getUserRole() {
-    console.log("role");
     fetch('/api/user/role', {
         "method": "GET",
         headers: {
@@ -93,7 +85,6 @@ function getUserRole() {
     }).then(function (response) {
         return response.json();
     }).then(function (status) {
-        console.log(JSON.stringify(status));
         if (status.role === "USER") {
             document.getElementById("button-stat").classList.add("w3-hide");
         } else if (status.role === "ADMIN") {
@@ -121,7 +112,6 @@ window.onload = init;
 
 function userList() {
     html = "";
-    console.log("Getting list of users");
     fetch('/api/user/list', {
         "method": "GET",
         headers: {
@@ -144,7 +134,6 @@ function userList() {
 
 function deleteUser() {
     var userToDelete = listOfUsers[document.getElementById("deleteUsers").value];
-    console.log("DELETING USER " + userToDelete);
     var deleteUser = {
         "username": userToDelete
     };
@@ -157,13 +146,12 @@ function deleteUser() {
         body: JSON.stringify(deleteUser)
     }).then(function (response){
         if(response.status === 400){
-            console.log("No such user in data base");
             window.alert(userToDelete + " IS NOT IN DATABASE");
         } else if (response.status === 200) {
             window.alert(userToDelete + " SUCCESSFULLY DELETED");
             userList();
         } else {
-            console.log("some other error occured");
+            window.alert("ERROR");
         }
     });
 }
