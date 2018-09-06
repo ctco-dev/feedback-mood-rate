@@ -93,6 +93,7 @@
     <button type="button" onclick="goEventStatistics()">Event Statistics</button>
     <br/><br/>
 </p>
+<button type="button" onclick="goToAddEvent()">Add event</button>
 <button type="button" onclick="logout()">Log out</button>
 </body>
 </html>

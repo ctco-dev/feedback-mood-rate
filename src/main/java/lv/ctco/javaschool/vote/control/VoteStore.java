@@ -5,6 +5,8 @@ import lv.ctco.javaschool.vote.entity.DailyVote;
 import lv.ctco.javaschool.vote.entity.Event;
 import lv.ctco.javaschool.vote.entity.EventVote;
 import lv.ctco.javaschool.vote.entity.MoodStatus;
+import lv.ctco.javaschool.vote.entity.dto.DailyVoteDto;
+import lv.ctco.javaschool.vote.entity.dto.EventVoteDto;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -97,5 +99,29 @@ public class VoteStore {
                 "select ev " +
                         "from EventVote ev ", EventVote.class)
                 .getResultList();
+    }
+
+    public Event getLatestEvent(){
+        return em.createQuery(
+                "select e " +
+                        "from Event e " +
+                        "order by e.id desc", Event.class)
+                .setMaxResults(1)
+                .getSingleResult();
+    }
+
+    public void submitDailyVote (User currentUser, LocalDate today,DailyVoteDto feedback){
+        DailyVote dailyVote = new DailyVote();
+        dailyVote.setUser(currentUser);
+        dailyVote.setMood(feedback.getMood());
+        dailyVote.setComment(feedback.getComment());
+        dailyVote.setDate(today);
+        em.persist(dailyVote);
+    }
+
+    public void mergeEventVote(EventVoteDto feedback,EventVote eventVote){
+        eventVote.setMood(feedback.getMood());
+        eventVote.setComment(feedback.getComment());
+        em.merge(eventVote);
     }
 }

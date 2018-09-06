@@ -3,6 +3,7 @@ package lv.ctco.javaschool.vote.boundary;
 import jdk.nashorn.internal.runtime.logging.Logger;
 import lv.ctco.javaschool.auth.control.UserStore;
 import lv.ctco.javaschool.auth.entity.domain.User;
+import lv.ctco.javaschool.vote.control.EventStore;
 import lv.ctco.javaschool.vote.control.VoteStore;
 import lv.ctco.javaschool.vote.entity.DailyVote;
 import lv.ctco.javaschool.vote.entity.Event;
@@ -12,6 +13,8 @@ import lv.ctco.javaschool.vote.entity.dto.DateDto;
 import lv.ctco.javaschool.vote.entity.dto.EventDto;
 import lv.ctco.javaschool.vote.entity.dto.EventVoteDto;
 import lv.ctco.javaschool.vote.entity.dto.StatisticsDto;
+import lv.ctco.javaschool.vote.entity.MoodStatus;
+import lv.ctco.javaschool.vote.entity.dto.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -33,14 +36,14 @@ import java.util.Optional;
 @Stateless
 @Logger
 public class VoteApi {
-    @PersistenceContext
-    private EntityManager em;
     @Inject
     private UserStore userStore;
     @Inject
     private VoteStore voteStore;
     @Inject
     private ResponseWrapper wrapper;
+    @Inject
+    private EventStore eventStore;
 
     @GET
     @RolesAllowed({"ADMIN", "USER"})
@@ -147,15 +150,7 @@ public class VoteApi {
     }
 
     public void submitDailyVote(DailyVoteDto feedback) {
-        User currentUser = userStore.getCurrentUser();
-        LocalDate today = LocalDate.now();
-
-        DailyVote dailyVote = new DailyVote();
-        dailyVote.setUser(currentUser);
-        dailyVote.setMood(feedback.getMood());
-        dailyVote.setComment(feedback.getComment());
-        dailyVote.setDate(today);
-        em.persist(dailyVote);
+        voteStore.submitDailyVote(userStore.getCurrentUser(),LocalDate.now(),feedback);
     }
 
     public boolean checkTodayDate(EventVote ev) {
@@ -170,10 +165,7 @@ public class VoteApi {
         User currentUser = userStore.getCurrentUser();
         Event currentEvent = voteStore.getEventByEventName(feedback.getEventName());
         EventVote eventVote = voteStore.getEventVoteByUserIdEventId(currentUser, currentEvent);
-
-        eventVote.setMood(feedback.getMood());
-        eventVote.setComment(feedback.getComment());
-        em.merge(eventVote);
+        voteStore.mergeEventVote(feedback,eventVote);
     }
 
     @POST
@@ -209,6 +201,19 @@ public class VoteApi {
             currentDailyVote.setMood(item.getMood());
             currentDailyVote.setComment(item.getComment());
             statisticsDtoList.add(currentDailyVote);
+        }
+    }
+    @POST
+    @RolesAllowed({"ADMIN", "USER"})
+    @Path("/createEvent")
+    public void saveEvent(EventDto eventDto){
+        eventStore.saveNewEvent(eventDto);
+        createEventVote();
+    }
+    public void createEventVote(){
+        List<User> userList = userStore.getAllUsers();
+        for (User user:userList) {
+            eventStore.createNewEventVote(voteStore.getLatestEvent(),user);
         }
     }
 }
