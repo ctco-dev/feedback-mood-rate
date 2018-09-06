@@ -93,11 +93,9 @@ function getUserRole() {
     }).then(function (status) {
         console.log(JSON.stringify(status));
         if (status.role === "USER") {
-            document.getElementById("button-stat-day").classList.add("w3-hide");
-            document.getElementById("button-stat-event").classList.add("w3-hide");
+            document.getElementById("admin-panel").classList.add("w3-hide");
         } else if (status.role === "ADMIN") {
-            document.getElementById("button-stat-day").classList.remove("w3-hide");
-            document.getElementById("button-stat-event").classList.remove("w3-hide");
+            document.getElementById("admin-panel").classList.remove("w3-hide");
         }
     });
 }
