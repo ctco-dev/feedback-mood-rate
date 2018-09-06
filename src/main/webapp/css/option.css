@@ -14,8 +14,8 @@ body, h1 {
 }
 .h1-center{
     text-align: center;
-    color: #326E99;
-    font-size: 50px;
+    color: #0879b2;
+    font-size: 40px;
     font-weight: 800;
     line-height: 72px;
     margin: 50px 0 24px;
@@ -56,21 +56,25 @@ body, h1 {
     font-size: 18px;
 }
 .ph-btn-blue {
-    border-color: #326E99;
-    background-color: #3F8ABF;
+    border-color: #0d81bc;
+    background-color: #0e8ccc;
 }
 .ph-btn-red {
-    border-color: #4d0000;
-    background-color: 	#800000;
+    border-color: #890808;
+    background-color: #c61313;
+}
+.ph-btn-red:hover, .ph-btn-red:focus, .ph-btn-red:active {
+    background-color: #ea7900;
+    border-color: #ba6912;
 }
 .ph-btn-blue:hover, .ph-btn-blue:focus, .ph-btn-blue:active {
-    background-color: #397CAC;
-    border-color: #326E99;
+    background-color: #00c4b0;
+    border-color: #2696a0;
 }
 .ph-btn-blue:disabled{
-    background-color: lightgrey;
-    border-color: #326E99;
-    color: #3F8ABF;
+    background-color: #a9d1e8;
+    border-color: #5e7684;
+    color: #000000;
 }
 .ph-container {
     margin: 0 auto;
