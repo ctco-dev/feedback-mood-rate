@@ -56,8 +56,8 @@ body, h1 {
     font-size: 18px;
 }
 .ph-btn-blue {
-    border-color: #0d81bc;
-    background-color: #0e8ccc;
+    border-color: #003e75;
+    background-color: #0164af;
 }
 .ph-btn-red {
     border-color: #890808;
@@ -68,11 +68,11 @@ body, h1 {
     border-color: #ba6912;
 }
 .ph-btn-blue:hover, .ph-btn-blue:focus, .ph-btn-blue:active {
-    background-color: #00c4b0;
-    border-color: #2696a0;
+    background-color: #00bc64;
+    border-color: #005b30;
 }
 .ph-btn-blue:disabled{
-    background-color: #a9d1e8;
+    background-color: #a4c2d8;
     border-color: #5e7684;
     color: #000000;
 
@@ -90,4 +90,10 @@ body, h1 {
 }
 .ph-clear {
     clear: both;
+}
+.bgimg {
+    background: url("../images/option.jpg") center;
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
 }

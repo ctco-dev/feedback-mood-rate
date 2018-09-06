@@ -9,7 +9,7 @@
     <script src="../js/option.js"></script>
     <script src="../js/date.js"></script>
 </head>
-<body onload="onloadHandler()">
+<body class="bgimg" onload="onloadHandler()">
 <h1 class="h1-center">Feedback Mood Rate Menu</h1>
 <div class="inline-buttons">
     <p>
