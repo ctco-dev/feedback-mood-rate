@@ -15,11 +15,10 @@ body, h1 {
 .h1-center{
     text-align: center;
     color: #326E99;
-    font-size: 40px;
+    font-size: 50px;
     font-weight: 800;
     line-height: 72px;
     margin: 50px 0 24px;
-    text-transform: uppercase;
 }
 .inline-buttons .button {
     margin-left: 15px;
