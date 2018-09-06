@@ -25,9 +25,13 @@
     <h4 class = "span-center">Admin Panel:</h4>
     <div class="inline-buttons">
         <p>
-            <button id="button-create-ev" type="button" class="buttons ph-button ph-btn-blue" onclick="goToAddEvent()">Create New Event</button>
-            <button type="button" onclick="goDailyStatistics()" class="buttons ph-button ph-btn-blue">Day statistics</button>
-            <button type="button" onclick="goEventStatistics()" class="buttons ph-button ph-btn-blue">Event statistics</button>
+            <button id="button-create-ev" type="button" class="buttons ph-button ph-btn-blue" onclick="goToAddEvent()">
+                Create New Event
+            </button>
+            <button type="button" onclick="goDailyStatistics()" class="buttons ph-button ph-btn-blue">Day statistics
+            </button>
+            <button type="button" onclick="goEventStatistics()" class="buttons ph-button ph-btn-blue">Event statistics
+            </button>
         </p>
     </div>
 </div>

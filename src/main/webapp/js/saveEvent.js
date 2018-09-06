@@ -8,7 +8,7 @@ function createEventData() {
 }
 function saveEvent() {
     var event = createEventData();
-    if(event.eventName===""||event.date===""||event.deadlineDate===""){
+    if (event.eventName === "" || event.date === "" || event.deadlineDate === "") {
         alert("You must fill out all fields to create an event!")
         return;
     }
@@ -19,7 +19,7 @@ function saveEvent() {
             'Content-Type': 'application/json'
         }, body: JSON.stringify(event)
     }).then(function (response) {
-        if (response.status === 400 ) {
+        if (response.status === 400) {
             alert("Can't create this event");
         }
         else {

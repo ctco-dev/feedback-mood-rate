@@ -30,7 +30,7 @@
         <input type="radio" id="radio-button-mood-sad" name="first_item" value="sad" title="unhappy"/>
     </p>
     <p>
-        <input id="comment"  class="text-input" placeholder="Input comment about your mood...">
+        <input id="comment" class="text-input" placeholder="Input comment about your mood...">
     </p>
     <button class="back-button" type="button" onclick="back()">Go back!</button>
     <button class="sub-button" id="submit-btn" type="button" onclick="submitEventVote()">Submit</button>

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" type="text/css" href="../css/index.css">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">google.charts.load('current', {'packages':['corechart']});</script>
+    <script type="text/javascript">google.charts.load('current', {'packages': ['corechart']});</script>
     <script src="../js/dayStatistics.js"></script>
     <title>Statistics</title>
 </head>

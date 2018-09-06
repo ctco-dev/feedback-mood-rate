@@ -1,18 +1,22 @@
 body, h1 {
     font-family: "Raleway", sans-serif
 }
+
 .home-page {
     height: 100%;
 }
-.span-center{
+
+.span-center {
     text-align: center;
 }
-.footer-adm{
+
+.footer-adm {
     position: fixed;
     bottom: 0;
     width: 100%;
 }
-.h1-center{
+
+.h1-center {
     text-align: center;
     color: #0879b2;
     font-size: 40px;
@@ -20,21 +24,25 @@ body, h1 {
     line-height: 72px;
     margin: 50px 0 24px;
 }
+
 .inline-buttons .button {
     margin-left: 15px;
     margin-right: 15px;
 }
+
 .inline-buttons {
     display: table;
     margin: 100px auto;
 }
+
 @media only screen and (max-width: 960px) {
-    .inline-buttons .button{
+    .inline-buttons .button {
         width: 100%;
         margin: 20px;
         text-align: center;
     }
 }
+
 .ph-button {
     border-style: solid;
     border-width: 0px 0px 3px;
@@ -50,37 +58,44 @@ body, h1 {
     text-overflow: ellipsis;
     transition: all 200ms ease-in-out 0s;
     white-space: nowrap;
-    font-family: "Gotham Rounded A","Gotham Rounded B",Helvetica,Arial,sans-serif;
+    font-family: "Gotham Rounded A", "Gotham Rounded B", Helvetica, Arial, sans-serif;
     font-weight: 700;
     padding: 19px 39px 18px;
     font-size: 18px;
 }
+
 .ph-btn-blue {
     border-color: #003e75;
     background-color: #0164af;
 }
+
 .ph-btn-red {
     border-color: #890808;
     background-color: #c61313;
 }
+
 .ph-btn-red:hover, .ph-btn-red:focus, .ph-btn-red:active {
     background-color: #ea7900;
     border-color: #ba6912;
 }
+
 .ph-btn-blue:hover, .ph-btn-blue:focus, .ph-btn-blue:active {
     background-color: #00bc64;
     border-color: #005b30;
 }
-.ph-btn-blue:disabled{
+
+.ph-btn-blue:disabled {
     background-color: #a4c2d8;
     border-color: #5e7684;
     color: #000000;
 
 }
+
 .ph-container {
     margin: 0 auto;
     display: inline;
 }
+
 .ph-float {
     float: left;
     width: 22%;
@@ -88,9 +103,11 @@ body, h1 {
     padding-top: 50px;
     text-align: center;
 }
+
 .ph-clear {
     clear: both;
 }
+
 .bgimg {
     background: url("../images/option.jpg") center;
     min-height: 100%;

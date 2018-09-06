@@ -25,7 +25,7 @@ function login() {
     })
 }
 
-function collectData(){
+function collectData() {
     var usernameTxt = document.getElementById("username-txt");
     var password1Txt = document.getElementById("password1-txt");
     var password2Txt = document.getElementById("password2-txt");
@@ -42,7 +42,7 @@ function collectData(){
     return dto;
 }
 
-function collectDataAndRegister(){
+function collectDataAndRegister() {
     var data = collectData();
     if (data) {
         register(data);
@@ -83,8 +83,8 @@ function register(data) {
         } else if (response.status === 401) {
             showError("Something is wrong!");
         } else {
-            response.json().then(function(json) {
-                switch(json.errorCode) {
+            response.json().then(function (json) {
+                switch (json.errorCode) {
                     case "CONFLICT":
                         showError("A user with the same username already exists!");
                         break;

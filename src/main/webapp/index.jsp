@@ -13,7 +13,8 @@
 <body class="home-page">
 <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
     <div class="w3-display-topleft w3-padding-large w3-xlarge">
-        <img id="myImg" src="https://intranet.ctco.lv/app/uploads/2018/01/Logo.png" alt="The Pulpit Rock" width="220" height="54">
+        <img id="myImg" src="https://intranet.ctco.lv/app/uploads/2018/01/Logo.png" alt="The Pulpit Rock" width="220"
+             height="54">
     </div>
     <div class="w3-display-middle w3-text-dark-grey">
         <br>
@@ -26,7 +27,7 @@
 </div>
 <div class="w3-display-bottommiddle w3-padding w3-hide-small w3-text-indigo">
     <h1><b>
-            <a href="<c:url value='/login.jsp'/>">Log in</a>
+        <a href="<c:url value='/login.jsp'/>">Log in</a>
     </b></h1>
 </div>
 </body>
