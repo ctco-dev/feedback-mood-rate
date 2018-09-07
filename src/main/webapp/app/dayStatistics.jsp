@@ -13,9 +13,9 @@
     <title>Statistics</title>
 </head>
 <body onload="onLoadHandler()">
-<h1 class="h1-center">Feedback Statistics</h1>
 <div id="feedback-statistics" class="split left">
-<div class="centered">
+    <h1 class="h1-center">Feedback Statistics</h1>
+    <div class="centered">
     <form class="form">
         <h3>Statistics menu</h3>
         <p>Chose statistics type</p>
@@ -48,7 +48,9 @@
 </div>
 <div class="split right">
 <div class="splitdiv bottom">
+    <h2 class="h2-center">Feedback comments</h2>
     <div id="text-feedback" class="centered"></div>
+
 </div>
 <div class="splitdiv top">
     <div id="piechart" class="centered"></div>

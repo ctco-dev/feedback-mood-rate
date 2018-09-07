@@ -1,4 +1,10 @@
-
+.h1-center{
+    text-align: center;
+    color: #0879b2;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 72px;
+}
 .split {
     height: 100%;
     width: 50%;
@@ -9,6 +15,13 @@
     padding-top: 20px;
     border:double;
 
+}
+.h2-center {
+    text-align: center;
+    color: #0879b2;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 72px;
 }
 .splitdiv{
     height: 50%;
@@ -52,6 +65,9 @@
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
     position: relative
+}
+.form2{
+    height: 300px;
 }
 h3 {
     border-bottom: double;
