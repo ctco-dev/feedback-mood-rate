@@ -7,6 +7,8 @@
     top: 0;
     overflow-x: hidden;
     padding-top: 20px;
+    border:double;
+
 }
 .splitdiv{
     height: 50%;
@@ -16,21 +18,20 @@
     right: 0;
     overflow-x: hidden;
     padding-top: 20px;
+    border:double;
 }
 .left {
     left: 0;
-    background-color: yellow;
 }
 .right {
     right: 0;
 }
 .top{
     top: 0;
-    background-color: green;
 }
 .bottom{
     bottom: 0;
-    background-color: lightcoral;
+    overflow:auto;
 }
 .centered {
     position: absolute;

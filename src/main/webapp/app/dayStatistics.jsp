@@ -16,9 +16,6 @@
 <h1 class="h1-center">Feedback Statistics</h1>
 <div id="feedback-statistics" class="split left">
 <div class="centered">
-
-    <br>
-
     <form class="form">
         <h3>Statistics menu</h3>
         <p>Chose statistics type</p>
@@ -47,24 +44,16 @@
         <button class="back-button" type="button" onclick="back()">Go back</button>
         </p>
     </form>
-
-
-
-
 </div>
 </div>
 <div class="split right">
 <div class="splitdiv bottom">
-    <div id="text-feedback"></div>
+    <div id="text-feedback" class="centered"></div>
 </div>
 <div class="splitdiv top">
-    <div id="piechart"></div>
+    <div id="piechart" class="centered"></div>
 </div>
 
 </div>
-
-
-
-
 </body>
 </html>
