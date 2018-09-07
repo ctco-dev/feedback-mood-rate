@@ -109,10 +109,8 @@ body, h1 {
 }
 
 .bgimg {
-    background: url("../images/option.jpg") center;
-    min-height: 100%;
-    background-position: center;
-    background-size: cover;
+    background: url("../images/option.jpg");
+    background-size: 100%;
 }
 
 .w3-modal-content {
