@@ -93,10 +93,6 @@ function getStats() {
             document.getElementById("text-feedback").innerHTML = commentsHtml;
         }
     }
-    document.getElementById("happy-vote-count").innerHTML = happy.toString();
-    document.getElementById("neutral-vote-count").innerHTML = neutral.toString();
-    document.getElementById("sad-vote-count").innerHTML = sad.toString();
-    document.getElementById("empty-vote-count").innerHTML = empty.toString();
     drawChart(happy, sad, neutral, empty);
 }
 
