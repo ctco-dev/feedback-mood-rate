@@ -41,16 +41,16 @@
 </div>
 <div id="modal_addUser" class="w3-modal">
     <div class="w3-modal-content">
-        <div class="w3-container">
+        <div id="modal_reg" class="w3-container">
             <header>
+                <span id="span_reg" onclick="document.getElementById('modal_addUser').style.display='none'"
+                      class="w3-button w3-display-topright w3-blue w3-hover-red w3-round-large">&times;</span>
+                <h5 class="w3-center">NEW USER REGISTRATION</h5>
                 <div id="error-panel" class="error-panel w3-panel w3-red w3-hide">
                     <h3>Error!</h3>
                     <p>{{message}}</p>
                 </div>
-                <span onclick="document.getElementById('modal_addUser').style.display='none'"
-                      class="w3-button w3-display-topright">&times;</span>
-                <h5>NEW USER REGISTRATION</h5>
-                <h3 id="userRegisteredMessage_h3" class="w3-hide">USER SUCCESSFULLY REGISTERED</h3>
+                <h3 id="userRegisteredMessage_h3" class="w3-center w3-green w3-hide">USER SUCCESSFULLY REGISTERED</h3>
             </header>
             <div>
                 <p>
@@ -68,28 +68,23 @@
             </div>
             <footer>
                 <p>
-                    <button id="register-btn" type="button" class="w3-button w3-section w3-indigo w3-ripple" onclick="collectDataAndRegister()">Register</button>
+                    <button id="register-btn" class="w3-button w3-section w3-ripple w3-teal w3-hover-green w3-round-large w3-right" onclick="collectDataAndRegister()">Register</button>
                 </p>
             </footer>
         </div>
     </div>
 </div>
 <div id="modal_deleteUser" class="w3-modal">
-    <div class="w3-modal-content">
+    <div id="modal_content" class="w3-modal-content">
         <div class="w3-container">
             <header>
                 <span onclick="document.getElementById('modal_deleteUser').style.display='none'"
-                      class="w3-button w3-display-topright">&times;</span>
-                <h3>DELETE USER</h3>
+                      class="w3-button w3-display-topright w3-blue w3-hover-red w3-round-large">&times;</span><br><br>
             </header>
-            <div>
+            <div class="deleteUsersMenu w3-left">
                 <select name="deleteUsers" id="deleteUsers" required></select>
+                <button id="delete-btn" class="w3-button w3-section w3-ripple w3-teal w3-hover-green w3-round-large" onclick="deleteUser()">DELETE</button>
             </div>
-            <footer>
-                <p>
-                    <button id="delete-btn" type="button" class="w3-button w3-section w3-indigo w3-ripple" onclick="deleteUser()">DELETE</button>
-                </p>
-            </footer>
         </div>
     </div>
 </div>
