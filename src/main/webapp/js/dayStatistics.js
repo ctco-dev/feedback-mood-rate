@@ -88,11 +88,13 @@ function getStats() {
         commentsArr.forEach(function (element) {
             var feedback = document.createElement('p');
             feedback.setAttribute("class", "user_Feedback");
+            console.log(element.comment);
+            if(element.comment != "") {
+                feedback.innerHTML = "User mood: " + element.mood + "<br>"
+                    + "User comment: " + element.comment + "<br>";
 
-            feedback.innerHTML = "User mood: " + element.mood + "<br>"
-                + "User comment: " + element.comment + "<br>";
-
-            document.getElementById('text-feedback').appendChild(feedback);
+                document.getElementById('text-feedback').appendChild(feedback);
+            }
         });
         drawChart(happy, sad, neutral, empty);
     });

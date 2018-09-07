@@ -112,3 +112,52 @@ body, h1 {
     background: url("../images/option.jpg");
     background-size: 100%;
 }
+
+.w3-modal-content {
+    border-radius: 10px;
+    border: 2px solid white;
+}
+
+#register-btn {
+    box-shadow: 2px 3px #BDBDBD;
+}
+
+#userRegisteredMessage_h3 {
+    color: #000;
+    animation-name: message;
+    animation-duration: 1.5s;
+}
+
+@keyframes message {
+    0% {background-color: white;}
+    90% {background-color: green;}
+    100% {background-color: white;}
+}
+
+#modal_content {
+    width: 250px;
+    height: 150px;
+}
+
+#deleteUsers {
+    display: inline-block;
+    margin-right: 20px;
+    width: 90px;
+    height: 38px;
+}
+
+#delete-btn {
+    display: inline-block;
+}
+
+.deleteUsersMenu {
+    font-family: Arial;
+}
+
+.deleteUsersMenu select {
+    position: relative;
+    background-color: #A9F5F2;
+    text-align: center;
+    border-color: #088A68;
+    border-radius: 3px;
+}
