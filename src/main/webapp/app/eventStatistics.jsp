@@ -19,7 +19,7 @@
             <h3>Statistics menu</h3>
             <p>Chose statistics type</p>
             <div>
-                <select name="eventList" id="eventList"></select>
+                <select class="text-input" name="eventList" id="eventList"></select>
                 <h3 id="data"></h3>
             </div>
             <p>
